@@ -1,1 +1,1 @@
-git add . && git commit -m "Add the missing dependency [Gunicorn]" && git push
+git add . && git commit -m "Add the missing dependency [Whitenoise]" && git push
