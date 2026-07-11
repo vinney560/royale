@@ -374,7 +374,6 @@
             flash.classList.remove('hide');
             flash.classList.add('show');
 
-            // Auto-hide after 1.5 seconds (enough for scroll)
             flashTimeout = setTimeout(function() {
                 flash.classList.remove('show');
                 flash.classList.add('hide');
@@ -409,7 +408,7 @@
         // AUTO-DETECT NAVIGATION EVENTS
         // ============================================================
 
-        // 1. Link clicks - detect same-page vs external
+        // 1. Link clicks - works on desktop AND mobile
         document.addEventListener('click', function(e) {
             var target = e.target.closest('a');
             if (!target) return;
@@ -420,61 +419,51 @@
             if (target.target === '_blank') return;
             if (e.ctrlKey || e.metaKey || e.shiftKey) return;
 
-            // Check if it's a same-page anchor link
+            // Same-page anchor link (starts with # only)
             if (href.startsWith('#')) {
-                // Same page navigation - show flash indicator
                 e.preventDefault();
                 var targetId = href.substring(1);
                 var targetElement = document.getElementById(targetId);
                 if (targetElement) {
                     showFlash();
                     targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                } else {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
                 return;
             }
 
-            // External navigation - show full loader
-            showLoader();
-        }, true);
-
-        // 2. Touch events for mobile
-        document.addEventListener('touchstart', function(e) {
-            var target = e.target.closest('a');
-            if (!target) return;
-
-            var href = target.getAttribute('href');
-            if (!href) return;
-            if (href.startsWith('#')) {
-                // Same page - let click handler handle it
+            // Full URL with hash (e.g., /products/#section)
+            if (href.includes('#')) {
+                showLoader();
                 return;
             }
-            if (href.startsWith('javascript:')) return;
-            if (target.target === '_blank') return;
 
+            // Regular navigation (no hash)
             showLoader();
         }, true);
 
-        // 3. Form submissions
+        // 2. Form submissions
         document.addEventListener('submit', function(e) {
             showLoader();
         }, true);
 
-        // 4. Page refresh / reload / close
+        // 3. Page refresh / reload / close
         window.addEventListener('beforeunload', function() {
             showLoader();
         });
 
-        // 5. Page unload
+        // 4. Page unload
         window.addEventListener('pagehide', function() {
             showLoader();
         });
 
-        // 6. Back/Forward navigation
+        // 5. Back/Forward navigation
         window.addEventListener('popstate', function() {
             showLoader();
         });
 
-        // 7. Hide loader when page is ready
+        // 6. Hide loader when page is ready
         function hideOnReady() {
             setTimeout(hideLoader, 400);
         }
@@ -485,12 +474,12 @@
             hideOnReady();
         }
 
-        // 8. Full page load
+        // 7. Full page load
         window.addEventListener('load', function() {
             setTimeout(hideLoader, 500);
         });
 
-        // 9. Fallback: force hide after 10 seconds max
+        // 8. Fallback: force hide after 10 seconds max
         var fallbackTimer = setTimeout(function() {
             if (isShowing) {
                 console.warn('[PageLoader] Force hiding after 10s timeout');
