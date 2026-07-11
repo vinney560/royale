@@ -1,5 +1,4 @@
 Django==4.0.8
-
 # =================
 # Run our server, easy to used
 gunicorn==20.1.0 
