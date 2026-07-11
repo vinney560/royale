@@ -1,1 +1,1 @@
-git add . && git commit -m "Add the missing dependency [Whitenoise]" && git push
+git add . && git commit -m "Added vercel.json for deployement and added line [app = application ] in wsgi.py aalso" && git push
