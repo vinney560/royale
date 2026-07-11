@@ -1,4 +1,5 @@
-Django
-gunicorn
-python-decouple
+Django==4.0.8
+gunicorn==20.1.0
+python-decouple==3.6
+whitenoise==6.6.0
 setuptools>=65.5.0
