@@ -1,1 +1,1 @@
-git add . && git commit -m "Added loading.js" && git push
+git add . && git commit -m "Update Loading.js with new features and fix the # nav bugs" && git push
