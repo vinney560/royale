@@ -5,7 +5,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
 ]
 
-
 # ================= U_VIEW ===================
 from app_royale.u_views import (
     main, contact, products
