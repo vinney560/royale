@@ -1,0 +1,594 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE · Contact Us</title>
+    <meta name="description"
+        content="Get in touch with ROYALE. We build custom scripts, video downloaders, uptime pingers, and software tools. Let's discuss your project." />
+    <meta name="keywords"
+        content="ROYALE, contact, custom scripts, software development, YouTube downloader, Facebook downloader, uptime pinger" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.com/contact/" />
+
+    <meta property="og:title" content="ROYALE · Contact Us" />
+    <meta property="og:description"
+        content="Get in touch with ROYALE. We build custom scripts, video downloaders, uptime pingers, and software tools." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.com/contact/" />
+    <meta property="og:image" content="https://royale.com/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    <style>
+        .contact-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .contact-info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            transition: all 0.3s ease;
+        }
+
+        .contact-info-item:hover {
+            border-color: rgba(95, 208, 186, 0.25);
+            background: rgba(12, 28, 32, 0.8);
+            transform: translateX(4px);
+        }
+
+        .contact-info-item .info-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.75rem;
+            background: rgba(95, 208, 186, 0.08);
+            border: 1px solid rgba(95, 208, 186, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #5fd0ba;
+            flex-shrink: 0;
+        }
+
+        .contact-info-item .info-text {
+            flex: 1;
+        }
+
+        .contact-info-item .info-text .label {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #5a7a85;
+            font-weight: 600;
+        }
+
+        .contact-info-item .info-text .value {
+            color: #e4edf2;
+            font-weight: 500;
+            font-size: clamp(0.9rem, 1vw, 1rem);
+        }
+
+        .contact-info-item .info-text .value a {
+            color: #e4edf2;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .contact-info-item .info-text .value a:hover {
+            color: #5fd0ba;
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #bcd0d8;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.02em;
+        }
+
+        .contact-form input,
+        .contact-form textarea,
+        .contact-form select {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(8, 16, 20, 0.8);
+            border: 1px solid rgba(60, 130, 120, 0.15);
+            border-radius: 0.75rem;
+            color: #e4edf2;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus,
+        .contact-form select:focus {
+            border-color: rgba(95, 208, 186, 0.4);
+            box-shadow: 0 0 0 3px rgba(95, 208, 186, 0.06);
+            background: rgba(12, 28, 32, 0.9);
+        }
+
+        .contact-form input::placeholder,
+        .contact-form textarea::placeholder {
+            color: #5a7a85;
+        }
+
+        .contact-form textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .contact-form select {
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a7a85' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            cursor: pointer;
+        }
+
+        .contact-form select option {
+            background: #0f171c;
+            color: #e4edf2;
+        }
+
+        .contact-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        @media (max-width: 480px) {
+            .contact-form .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 2.5rem;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            color: #070a0c;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+            font-family: inherit;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #68d4c0, #2d8f7a);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .btn-submit:hover::before {
+            opacity: 1;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(95, 208, 186, 0.25);
+        }
+
+        .btn-submit span,
+        .btn-submit i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-submit:active {
+            transform: scale(0.96);
+        }
+
+        /* ===== SOCIAL LINKS ===== */
+        .social-links {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(8, 16, 20, 0.8);
+            border: 1px solid rgba(60, 130, 120, 0.1);
+            color: #9bb0bb;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: rgba(95, 208, 186, 0.1);
+            border-color: rgba(95, 208, 186, 0.3);
+            color: #5fd0ba;
+            transform: translateY(-3px);
+        }
+
+        @media (max-width: 768px) {
+            .contact-wrapper {
+                padding: 1rem;
+            }
+
+            .glass-card {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/"
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="/contact/" class="nav-link anim-fade-up delay-5 text-emerald-400"
+                        style="color:#5fd0ba;">Contact</a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== POPUP MENU ===== -->
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i
+                        class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/contact/" class="menu-link-nav active" data-menu-item>Contact</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">Rising</span>
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
+                        Uptime Pinger
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-code text-teal-400"></i></span>
+                        Custom Scripts
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="#" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-headset text-cyan-400"></i></span>
+                        Support
+                    </a>
+                    <a href="#" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Request
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="contact-wrapper">
+
+            <!-- ===== HERO ===== -->
+            <section
+                class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div
+                    class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1">
+                </div>
+                <div
+                    class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2">
+                </div>
+                <div class="relative z-10 text-center max-w-3xl mx-auto">
+                    <span
+                        class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-4 anim-fade-up delay-1">
+                        <i class="fas fa-envelope mr-1 sm:mr-2"></i>Get in Touch
+                    </span>
+                    <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                        <span class="royale-brand-wrapper">
+                            <span class="brand-letter">R</span>
+                            <span class="brand-letter">O</span>
+                            <span class="brand-letter">Y</span>
+                            <span class="brand-letter">A</span>
+                            <span class="brand-letter">L</span>
+                            <span class="brand-letter">E</span>
+                        </span><br />
+                        <span class="text-gradient-shimmer">Let's build something.</span>
+                    </h1>
+                    <p
+                        class="text-responsive-body text-gray-300 mt-4 max-w-2xl mx-auto leading-relaxed anim-fade-up delay-3">
+                        Have a project in mind? Need a custom script, a video downloader, or an uptime monitor?
+                        We're here to help. Reach out and let's make it happen.
+                    </p>
+                </div>
+            </section>
+
+            <div class="contact-grid">
+
+                <!-- ===== LEFT: CONTACT INFO ===== -->
+                <div class="reveal-left delay-1">
+
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white/90 mb-2">Get in <span
+                            class="text-gradient">touch</span></h2>
+                    <p class="text-gray-400 text-sm sm:text-base mb-6">
+                        We respond within 24 hours. Let's talk about your project.
+                    </p>
+
+                    <div class="contact-info-grid">
+
+                        <div class="contact-info-item">
+                            <div class="info-icon"><i class="fas fa-envelope"></i></div>
+                            <div class="info-text">
+                                <div class="label">Email</div>
+                                <div class="value"><a href="mailto:hello@royale.com">hello@royale.com</a></div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div class="info-text">
+                                <div class="label">Location</div>
+                                <div class="value">Nairobi, Kenya</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="info-icon"><i class="fas fa-clock"></i></div>
+                            <div class="info-text">
+                                <div class="label">Working Hours</div>
+                                <div class="value">Mon – Sat · 8:00 AM – 6:00 PM EAT</div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="info-icon"><i class="fas fa-code"></i></div>
+                            <div class="info-text">
+                                <div class="label">What We Build</div>
+                                <div class="value">Custom Scripts · Downloaders · Uptime Tools</div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="social-links">
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+
+                </div>
+
+                <!-- ===== RIGHT: CONTACT FORM ===== -->
+                <div class="glass-card featured reveal-right delay-2">
+
+                    <h3 class="text-xl font-bold text-white/90 mb-1">Send a <span class="text-gradient">message</span>
+                    </h3>
+                    <p class="text-gray-400 text-sm mb-5">Fill in the form and we'll get back to you shortly.</p>
+
+                    <form class="contact-form" method="POST" action="#">
+                        {% csrf_token %}
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Your Name</label>
+                                <input type="text" id="name" name="name" placeholder="John Doe" required />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <select id="subject" name="subject">
+                                <option value="">Select a subject...</option>
+                                <option value="custom-script">Custom Script Request</option>
+                                <option value="downloader">Downloader Tool</option>
+                                <option value="uptime">Uptime Monitor</option>
+                                <option value="collaboration">Collaboration / Partnership</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" placeholder="Tell us about your project..."
+                                required></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-paper-plane"></i>
+                            <span>Send Message</span>
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div
+            class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>2026</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i
+                        class="fas fa-download mr-1"></i>Downloaders</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function () {
+
+            // ===== CURSOR GLOW =====
+            const cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', () => { cursorGlow.style.opacity = '1'; });
+            document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
+
+            // ===== SCROLL REVEAL =====
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(el => observer.observe(el));
+
+            setTimeout(() => {
+                reveals.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            // ===== HEADER SCROLL =====
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ===== CURSOR GLOW ACTIVE =====
+            document.querySelectorAll('a, button, .menu-container, .glass-card, .contact-info-item, .social-links a, .btn-submit, input, textarea, select').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
+                el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

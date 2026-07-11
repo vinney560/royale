@@ -1,0 +1,1383 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE · Products — Custom Scripts &amp; Tools</title>
+    <meta name="description"
+        content="Explore ROYALE's custom scripts, video downloaders, uptime pingers, and software tools. Built to make your workflow effortless." />
+    <meta name="keywords"
+        content="ROYALE, custom scripts, YouTube downloader, Facebook video downloader, uptime pinger, website monitor, automation tools" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.com/products/" />
+
+    <meta property="og:title" content="ROYALE · Products — Custom Scripts &amp; Tools" />
+    <meta property="og:description"
+        content="Explore ROYALE's custom scripts, video downloaders, uptime pingers, and software tools." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.com/products/" />
+    <meta property="og:image" content="https://royale.com/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    <style>
+        .products-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .products-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .products-header .subtitle {
+            display: inline-block;
+            background: rgba(95, 208, 186, 0.08);
+            color: #5fd0ba;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(95, 208, 186, 0.1);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .products-header h2 {
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            font-weight: 800;
+            color: #eef2f5;
+        }
+
+        .products-header h2 span {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .products-header p {
+            color: #9bb0bb;
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
+            max-width: 600px;
+            margin: 0.5rem auto 0;
+        }
+
+        .search-section {
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            position: relative;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            background: rgba(8, 16, 20, 0.8);
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            border-radius: 2rem;
+            padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 5;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: rgba(95, 208, 186, 0.35);
+            box-shadow: 0 0 0 3px rgba(95, 208, 186, 0.06);
+        }
+
+        .search-wrapper .search-icon {
+            color: #5a7a85;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.7rem 0.8rem;
+            color: #e4edf2;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            min-width: 0;
+        }
+
+        .search-wrapper input::placeholder {
+            color: #5a7a85;
+        }
+
+        .search-wrapper .search-clear {
+            display: none;
+            background: rgba(255, 255, 255, 0.06);
+            border: none;
+            color: #9bb0bb;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .search-wrapper .search-clear.visible {
+            display: flex;
+        }
+
+        .search-wrapper .search-clear:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #e4edf2;
+        }
+
+        .search-wrapper .search-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            color: #070a0c;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            flex-shrink: 0;
+        }
+
+        .search-wrapper .search-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 20px rgba(95, 208, 186, 0.25);
+        }
+
+        .search-wrapper .search-btn:active {
+            transform: scale(0.96);
+        }
+
+        .search-wrapper .search-btn i {
+            font-size: 0.7rem;
+        }
+
+        .autocomplete-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 0.5rem);
+            left: 0;
+            right: 0;
+            background: rgba(12, 22, 28, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            border-radius: 1.2rem;
+            padding: 0.5rem;
+            max-height: 300px;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+        }
+
+        .autocomplete-dropdown.active {
+            display: block;
+        }
+
+        .autocomplete-dropdown::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .autocomplete-dropdown::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .autocomplete-dropdown::-webkit-scrollbar-thumb {
+            background: rgba(95, 208, 186, 0.3);
+            border-radius: 20px;
+        }
+
+        .autocomplete-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.6rem 1rem;
+            border-radius: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #b0c8d2;
+        }
+
+        .autocomplete-item:hover {
+            background: rgba(95, 208, 186, 0.08);
+            color: #e4edf2;
+        }
+
+        .autocomplete-item .suggestion-icon {
+            font-size: 1rem;
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .autocomplete-item .suggestion-name {
+            font-weight: 500;
+            flex: 1;
+        }
+
+        .autocomplete-item .suggestion-name strong {
+            color: #5fd0ba;
+        }
+
+        .autocomplete-item .suggestion-tag {
+            font-size: 0.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.1rem 0.5rem;
+            border-radius: 100px;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.06);
+            color: rgba(95, 208, 186, 0.6);
+            flex-shrink: 0;
+        }
+
+        .autocomplete-item .suggestion-tag.popular {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+        }
+
+        .autocomplete-empty {
+            padding: 1.5rem;
+            text-align: center;
+            color: #5a7a85;
+            font-size: 0.9rem;
+        }
+
+        .autocomplete-empty i {
+            display: block;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #2d8f7a;
+        }
+
+        .autocomplete-loading {
+            padding: 1rem;
+            text-align: center;
+            color: #5a7a85;
+        }
+
+        .autocomplete-loading i {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .search-results-info {
+            text-align: center;
+            color: #5a7a85;
+            font-size: 0.85rem;
+            margin-top: 0.5rem;
+            display: none;
+        }
+
+        .search-results-info.visible {
+            display: block;
+        }
+
+        .search-results-info strong {
+            color: #e4edf2;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            padding: 3rem 1rem;
+            color: #5a7a85;
+        }
+
+        .no-results.visible {
+            display: block;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            color: #2d8f7a;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .no-results h3 {
+            color: #e4edf2;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .no-results p {
+            font-size: 0.95rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .product-card {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.8rem;
+            padding: 2rem 1.8rem 1.8rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.8rem;
+            padding: 1.5px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.12), transparent 50%, rgba(95, 208, 186, 0.04));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .product-card::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 70% 30%, rgba(95, 208, 186, 0.03), transparent 60%);
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .product-card:hover {
+            border-color: rgba(95, 208, 186, 0.25);
+            transform: translateY(-10px) scale(1.01);
+            background: rgba(12, 28, 32, 0.92);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(95, 208, 186, 0.06);
+        }
+
+        .product-card .card-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .product-card:hover .card-glow {
+            opacity: 0.12;
+        }
+
+        .product-card .card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .product-card .product-icon-wrap {
+            width: 60px;
+            height: 60px;
+            border-radius: 1.2rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .product-card:hover .product-icon-wrap {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: scale(1.05) rotate(-6deg);
+        }
+
+        .product-card .product-icon-wrap .icon-bg {
+            position: absolute;
+            inset: -2px;
+            border-radius: 1.2rem;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .product-card:hover .product-icon-wrap .icon-bg {
+            opacity: 1;
+        }
+
+        .product-card .product-icon-wrap i {
+            position: relative;
+            z-index: 1;
+        }
+
+        .product-card .featured-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            font-weight: 600;
+        }
+
+        .product-card .featured-badge i {
+            font-size: 0.4rem;
+        }
+
+        .product-card .product-name {
+            font-size: clamp(1.2rem, 1.6vw, 1.4rem);
+            font-weight: 700;
+            color: #eef2f5;
+            margin-bottom: 0.4rem;
+            line-height: 1.3;
+        }
+
+        .product-card .product-name .highlight {
+            color: #5fd0ba;
+        }
+
+        .product-card .product-desc {
+            color: #9bb0bb;
+            font-size: clamp(0.85rem, 1vw, 0.95rem);
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .product-card .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-top: 1.2rem;
+        }
+
+        .product-card .product-tags span {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            background: rgba(95, 208, 186, 0.05);
+            border: 1px solid rgba(95, 208, 186, 0.06);
+            color: rgba(95, 208, 186, 0.7);
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .product-tags span {
+            background: rgba(95, 208, 186, 0.08);
+            border-color: rgba(95, 208, 186, 0.12);
+            color: #5fd0ba;
+        }
+
+        .product-card .product-tags .tag-popular {
+            background: rgba(245, 158, 11, 0.08);
+            border-color: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+        }
+
+        .product-card:hover .product-tags .tag-popular {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .product-card .product-tags .tag-new {
+            background: rgba(52, 211, 153, 0.08);
+            border-color: rgba(52, 211, 153, 0.1);
+            color: #34d399;
+        }
+
+        .product-card:hover .product-tags .tag-new {
+            background: rgba(52, 211, 153, 0.12);
+            border-color: rgba(52, 211, 153, 0.2);
+        }
+
+        .product-card .product-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(95, 208, 186, 0.08), transparent);
+            margin: 1.2rem 0 1rem;
+        }
+
+        .product-card .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: auto;
+        }
+
+        .product-card .product-stats {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.7rem;
+            color: #5a7a85;
+        }
+
+        .product-card .product-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .product-card .product-stats i {
+            font-size: 0.6rem;
+            color: #5fd0ba;
+        }
+
+        .product-card .product-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #5fd0ba;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+        }
+
+        .product-card .product-link:hover {
+            gap: 0.8rem;
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: translateX(2px);
+        }
+
+        .product-card .product-link i {
+            transition: transform 0.3s ease;
+            font-size: 0.7rem;
+        }
+
+        .product-card .product-link:hover i {
+            transform: translateX(4px);
+        }
+
+        .product-card.featured {
+            border-color: rgba(95, 208, 186, 0.15);
+            background: rgba(8, 26, 30, 0.9);
+        }
+
+        .product-card.featured::before {
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.2), transparent 50%, rgba(95, 208, 186, 0.06));
+        }
+
+        .product-card.featured .product-icon-wrap {
+            background: rgba(95, 208, 186, 0.1);
+            border-color: rgba(95, 208, 186, 0.15);
+        }
+
+        .loading-spinner {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #5a7a85;
+        }
+
+        .loading-spinner.active {
+            display: block;
+        }
+
+        .loading-spinner i {
+            font-size: 2rem;
+            animation: spin 1s linear infinite;
+        }
+
+        .end-message {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #5a7a85;
+            font-size: 0.9rem;
+        }
+
+        .end-message.active {
+            display: block;
+        }
+
+        .end-message i {
+            color: #5fd0ba;
+            margin-right: 0.5rem;
+        }
+
+        .products-count {
+            color: #5a7a85;
+            font-size: 0.85rem;
+            text-align: center;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+
+            .products-wrapper {
+                padding: 1rem;
+            }
+
+            .product-card {
+                padding: 1.5rem;
+                border-radius: 1.4rem;
+            }
+
+            .product-card .card-top {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .product-card .product-footer {
+                flex-direction: column;
+                gap: 0.8rem;
+                align-items: stretch;
+            }
+
+            .product-card .product-link {
+                justify-content: center;
+            }
+
+            .product-card .product-stats {
+                justify-content: center;
+            }
+
+            .search-wrapper {
+                padding: 0.3rem 0.3rem 0.3rem 0.8rem;
+                flex-wrap: wrap;
+            }
+
+            .search-wrapper input {
+                padding: 0.5rem 0.5rem;
+                font-size: 0.85rem;
+                min-width: 120px;
+            }
+
+            .search-wrapper .search-btn {
+                padding: 0.5rem 1rem;
+                font-size: 0.75rem;
+            }
+
+            .search-wrapper .search-btn span {
+                display: none;
+            }
+
+            .search-wrapper .search-btn i {
+                font-size: 0.9rem;
+            }
+
+            .autocomplete-dropdown {
+                max-height: 200px;
+            }
+
+            .autocomplete-item {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/"
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="/products/" class="nav-link active anim-fade-up delay-5">Products</a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i
+                        class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/products/" class="menu-link-nav active" data-menu-item>Products</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
+                        Uptime Pinger
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-code text-teal-400"></i></span>
+                        Products
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="#" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-headset text-cyan-400"></i></span>
+                        Support
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="products-wrapper">
+
+            <section
+                class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 bg-[#0b1216]/50 backdrop-blur-sm mb-8">
+                <div
+                    class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1">
+                </div>
+                <div
+                    class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2">
+                </div>
+                <div class="relative z-10 text-center max-w-3xl mx-auto">
+                    <span
+                        class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-4 anim-fade-up delay-1">
+                        <i class="fas fa-cubes mr-1 sm:mr-2"></i>Our Products
+                    </span>
+                    <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                        <span class="royale-brand-wrapper">
+                            <span class="brand-letter">R</span>
+                            <span class="brand-letter">O</span>
+                            <span class="brand-letter">Y</span>
+                            <span class="brand-letter">A</span>
+                            <span class="brand-letter">L</span>
+                            <span class="brand-letter">E</span>
+                        </span><br />
+                        <span class="text-gradient-shimmer">Tools that work.</span>
+                    </h1>
+                    <p
+                        class="text-responsive-body text-gray-300 mt-4 max-w-2xl mx-auto leading-relaxed anim-fade-up delay-3">
+                        Explore our collection of custom scripts, video downloaders, uptime tools, and more.
+                        Built for developers, creators, and businesses.
+                    </p>
+                </div>
+            </section>
+
+            <div class="products-header">
+                <div class="subtitle"><i class="fas fa-cube mr-1"></i>Featured Tools</div>
+                <h2>Built for <span>real work</span></h2>
+                <p>Every tool we create solves a real problem. No fluff. Just code that works.</p>
+            </div>
+
+            <!-- ===== SEARCH SECTION ===== -->
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search products..." autocomplete="off" />
+                    <button id="clearSearch" class="search-clear" aria-label="Clear search">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button id="searchBtn" class="search-btn">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>Search</span>
+                    </button>
+                </div>
+
+                <!-- ===== AUTOCOMPLETE DROPDOWN ===== -->
+                <div class="autocomplete-dropdown" id="autocompleteDropdown">
+                    <!-- Items will be rendered here -->
+                </div>
+
+                <div class="search-results-info" id="searchResultsInfo">
+                    Found <strong id="resultCount">0</strong> products for "<strong id="searchTerm">""</strong>"
+                </div>
+            </div>
+
+            <div class="products-count" id="productsCount">Loading products...</div>
+
+            <!-- ===== NO RESULTS ===== -->
+            <div class="no-results" id="noResults">
+                <i class="fas fa-search"></i>
+                <h3>No products found</h3>
+                <p>Try adjusting your search terms or browse our full collection below.</p>
+            </div>
+
+            <div class="products-grid" id="productsGrid"></div>
+
+            <div class="loading-spinner" id="loadingSpinner">
+                <i class="fas fa-spinner"></i>
+                <p style="margin-top:0.5rem;font-size:0.85rem;">Loading more products...</p>
+            </div>
+
+            <div class="end-message" id="endMessage">
+                <i class="fas fa-check-circle"></i> You've reached the end of our products
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div
+            class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>2026</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i
+                        class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function () {
+
+            const productsGrid = document.getElementById('productsGrid');
+            const loadingSpinner = document.getElementById('loadingSpinner');
+            const endMessage = document.getElementById('endMessage');
+            const productsCount = document.getElementById('productsCount');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const clearSearch = document.getElementById('clearSearch');
+            const searchResultsInfo = document.getElementById('searchResultsInfo');
+            const resultCount = document.getElementById('resultCount');
+            const searchTerm = document.getElementById('searchTerm');
+            const noResults = document.getElementById('noResults');
+            const autocompleteDropdown = document.getElementById('autocompleteDropdown');
+
+            let currentPage = 1;
+            let isLoading = false;
+            let hasMore = true;
+            let totalProducts = 0;
+            let loadedCount = 0;
+            let currentSearch = '';
+            let isSearching = false;
+            let allProductNames = [];
+            let autocompleteTimeout = null;
+            let selectedIndex = -1;
+
+            function fetchAllProductNames() {
+                fetch('/api/products?page=1&limit=10')
+                    .then(function (response) { return response.json(); })
+                    .then(function (data) {
+                        var products = data.products || [];
+                        allProductNames = products.map(function (p) {
+                            return {
+                                name: p.name,
+                                icon: p.icon,
+                                iconColor: p.iconColor,
+                                tags: p.tags || []
+                            };
+                        });
+                    })
+                    .catch(function (error) {
+                        console.error('Error fetching product names:', error);
+                    });
+            }
+
+            function renderSuggestions(query) {
+                if (!query || query.trim().length < 1) {
+                    autocompleteDropdown.classList.remove('active');
+                    selectedIndex = -1;
+                    return;
+                }
+
+                var lowerQuery = query.toLowerCase().trim();
+                var matches = allProductNames.filter(function (p) {
+                    return p.name.toLowerCase().includes(lowerQuery);
+                });
+
+                if (matches.length === 0) {
+                    autocompleteDropdown.innerHTML = `
+                        <div class="autocomplete-empty">
+                            <i class="fas fa-search"></i>
+                            No matching products found
+                        </div>
+                    `;
+                    autocompleteDropdown.classList.add('active');
+                    selectedIndex = -1;
+                    return;
+                }
+
+                var html = '';
+                matches.slice(0, 8).forEach(function (p, index) {
+                    var nameHtml = p.name.replace(new RegExp('(' + lowerQuery + ')', 'gi'), '<strong>$1</strong>');
+
+                    var tagHtml = '';
+                    if (p.tags && p.tags.includes('Popular')) {
+                        tagHtml = '<span class="suggestion-tag popular">Popular</span>';
+                    } else if (p.tags && p.tags.includes('New')) {
+                        tagHtml = '<span class="suggestion-tag">New</span>';
+                    }
+
+                    html += `
+                        <div class="autocomplete-item" data-index="${index}" data-name="${p.name}">
+                            <span class="suggestion-icon"><i class="${p.icon} ${p.iconColor}"></i></span>
+                            <span class="suggestion-name">${nameHtml}</span>
+                            ${tagHtml}
+                        </div>
+                    `;
+                });
+
+                autocompleteDropdown.innerHTML = html;
+                autocompleteDropdown.classList.add('active');
+                selectedIndex = -1;
+
+                var items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+                items.forEach(function (item) {
+                    item.addEventListener('click', function () {
+                        var name = this.dataset.name;
+                        searchInput.value = name;
+                        autocompleteDropdown.classList.remove('active');
+                        performSearch();
+                    });
+
+                    item.addEventListener('mouseenter', function () {
+                        items.forEach(function (el) { el.style.background = ''; });
+                        this.style.background = 'rgba(95, 208, 186, 0.08)';
+                        selectedIndex = parseInt(this.dataset.index);
+                    });
+
+                    item.addEventListener('mouseleave', function () {
+                        this.style.background = '';
+                    });
+                });
+            }
+
+            searchInput.addEventListener('keydown', function (e) {
+                var items = autocompleteDropdown.querySelectorAll('.autocomplete-item');
+
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    if (items.length === 0) return;
+                    selectedIndex = Math.min(selectedIndex + 1, items.length - 1);
+                    highlightItem(items);
+                } else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    if (items.length === 0) return;
+                    selectedIndex = Math.max(selectedIndex - 1, 0);
+                    highlightItem(items);
+                } else if (e.key === 'Enter') {
+                    if (selectedIndex >= 0 && items.length > 0) {
+                        e.preventDefault();
+                        var selectedItem = items[selectedIndex];
+                        var name = selectedItem.dataset.name;
+                        searchInput.value = name;
+                        autocompleteDropdown.classList.remove('active');
+                        performSearch();
+                    }
+                } else if (e.key === 'Escape') {
+                    autocompleteDropdown.classList.remove('active');
+                    selectedIndex = -1;
+                }
+            });
+
+            function highlightItem(items) {
+                items.forEach(function (el, index) {
+                    if (index === selectedIndex) {
+                        el.style.background = 'rgba(95, 208, 186, 0.08)';
+                        el.scrollIntoView({ block: 'nearest' });
+                    } else {
+                        el.style.background = '';
+                    }
+                });
+            }
+
+            searchInput.addEventListener('input', function () {
+                var query = this.value;
+
+                if (query.trim() === '') {
+                    clearSearch.classList.remove('visible');
+                    if (isSearching || currentSearch !== '') {
+                        isSearching = false;
+                        currentSearch = '';
+                        resetProducts();
+                        loadMoreProducts('');
+                        searchResultsInfo.classList.remove('visible');
+                    }
+                    autocompleteDropdown.classList.remove('active');
+                    return;
+                } else {
+                    clearSearch.classList.add('visible');
+                }
+
+                autocompleteDropdown.classList.add('active');
+
+                clearTimeout(autocompleteTimeout);
+                autocompleteTimeout = setTimeout(function () {
+                    renderSuggestions(query);
+                }, 200);
+            });
+
+            document.addEventListener('click', function (e) {
+                var searchSection = document.querySelector('.search-section');
+                if (searchSection && !searchSection.contains(e.target)) {
+                    autocompleteDropdown.classList.remove('active');
+                }
+            });
+
+            function performSearch() {
+                var query = searchInput.value.trim();
+
+                if (query === currentSearch && isSearching) return;
+
+                if (query === '') {
+                    isSearching = false;
+                    currentSearch = '';
+                    resetProducts();
+                    loadMoreProducts('');
+                    clearSearch.classList.remove('visible');
+                    searchResultsInfo.classList.remove('visible');
+                    autocompleteDropdown.classList.remove('active');
+                    return;
+                }
+
+                isSearching = true;
+                currentSearch = query;
+                resetProducts();
+                searchResultsInfo.classList.add('visible');
+                resultCount.textContent = '...';
+                searchTerm.textContent = query;
+                autocompleteDropdown.classList.remove('active');
+
+                loadMoreProducts(query);
+            }
+
+            function resetProducts() {
+                productsGrid.innerHTML = '';
+                loadedCount = 0;
+                currentPage = 1;
+                hasMore = true;
+                endMessage.classList.remove('active');
+                noResults.classList.remove('visible');
+            }
+
+            function createProductCard(product) {
+                var card = document.createElement('div');
+                card.className = 'product-card reveal' + (product.featured ? ' featured' : '');
+
+                var tagsHtml = product.tags.map(function (tag) {
+                    var tagClass = '';
+                    if (tag === 'Popular') tagClass = 'tag-popular';
+                    if (tag === 'New') tagClass = 'tag-new';
+                    return '<span class="' + tagClass + '">' + tag + '</span>';
+                }).join('');
+
+                var statsHtml = '';
+                if (product.stats) {
+                    var statKeys = Object.keys(product.stats);
+                    statsHtml = statKeys.map(function (key) {
+                        return '<span><i class="fas fa-circle"></i>' + product.stats[key] + '</span>';
+                    }).join('');
+                }
+
+                var featuredBadge = '';
+                if (product.featured) {
+                    featuredBadge = '<span class="featured-badge"><i class="fas fa-star"></i>Featured</span>';
+                }
+
+                card.innerHTML = `
+                    <div class="card-glow" style="top:-40px;right:-40px;background:rgba(95,208,186,0.1);"></div>
+                    <div class="card-top">
+                        <div class="product-icon-wrap">
+                            <div class="icon-bg"></div>
+                            <i class="${product.icon} ${product.iconColor}"></i>
+                        </div>
+                        ${featuredBadge}
+                    </div>
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-desc">${product.description}</div>
+                    <div class="product-tags">${tagsHtml}</div>
+                    <div class="product-divider"></div>
+                    <div class="product-footer">
+                        <div class="product-stats">
+                            ${statsHtml}
+                        </div>
+                        <a href="${product.link}" class="product-link">
+                            Learn More <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                `;
+
+                return card;
+            }
+
+            function loadMoreProducts(search) {
+                if (isLoading || (!hasMore && !isSearching)) return;
+
+                isLoading = true;
+                loadingSpinner.classList.add('active');
+
+                var url = '/api/products?page=' + currentPage;
+                if (search) {
+                    url += '&search=' + encodeURIComponent(search);
+                }
+
+                fetch(url)
+                    .then(function (response) {
+                        return response.json();
+                    })
+                    .then(function (data) {
+                        var products = data.products || [];
+                        hasMore = data.has_more || false;
+                        totalProducts = data.total || 0;
+
+                        if (products.length === 0 && currentPage === 1) {
+                            loadingSpinner.classList.remove('active');
+                            noResults.classList.add('visible');
+                            productsCount.textContent = '0 products found';
+                            isLoading = false;
+                            return;
+                        }
+
+                        if (products.length === 0) {
+                            loadingSpinner.classList.remove('active');
+                            endMessage.classList.add('active');
+                            isLoading = false;
+                            return;
+                        }
+
+                        products.forEach(function (product) {
+                            var card = createProductCard(product);
+                            productsGrid.appendChild(card);
+
+                            setTimeout(function () {
+                                card.classList.add('visible');
+                            }, 50);
+                        });
+
+                        loadedCount += products.length;
+                        currentPage++;
+
+                        if (isSearching) {
+                            productsCount.textContent = 'Showing ' + loadedCount + ' of ' + totalProducts +
+                                ' results';
+                            resultCount.textContent = totalProducts;
+                        } else {
+                            productsCount.textContent = 'Showing ' + loadedCount + ' of ' + totalProducts +
+                                ' products';
+                        }
+
+                        loadingSpinner.classList.remove('active');
+
+                        if (!hasMore) {
+                            endMessage.classList.add('active');
+                        }
+
+                        isLoading = false;
+                    })
+                    .catch(function (error) {
+                        console.error('Error loading products:', error);
+                        loadingSpinner.classList.remove('active');
+                        isLoading = false;
+                    });
+            }
+
+            // ===== SEARCH EVENTS =====
+            searchBtn.addEventListener('click', function (e) {
+                e.preventDefault();
+                performSearch();
+            });
+
+            searchInput.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !autocompleteDropdown.classList.contains('active')) {
+                    e.preventDefault();
+                    performSearch();
+                }
+            });
+
+            clearSearch.addEventListener('click', function () {
+                searchInput.value = '';
+                clearSearch.classList.remove('visible');
+                isSearching = false;
+                currentSearch = '';
+                resetProducts();
+                loadMoreProducts('');
+                searchResultsInfo.classList.remove('visible');
+                autocompleteDropdown.classList.remove('active');
+                searchInput.focus();
+            });
+
+            function handleScroll() {
+                if (isLoading || !hasMore) return;
+
+                var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+                var windowHeight = window.innerHeight;
+                var documentHeight = document.documentElement.scrollHeight;
+
+                if (scrollTop + windowHeight >= documentHeight - 200) {
+                    if (isSearching) {
+                        loadMoreProducts(currentSearch);
+                    } else {
+                        loadMoreProducts('');
+                    }
+                }
+            }
+
+            fetchAllProductNames();
+            loadMoreProducts('');
+
+            window.addEventListener('scroll', handleScroll);
+
+            // ===== CURSOR GLOW =====
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function (e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function () {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function () {
+                cursorGlow.style.opacity = '0';
+            });
+
+            // ===== SCROLL REVEAL =====
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function (el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function () {
+                reveals.forEach(function (el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            // ===== HEADER SCROLL =====
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function () {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ===== CURSOR GLOW ACTIVE =====
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .product-card, .menu-link-nav, .menu-link-product, .menu-link-connect, .autocomplete-item');
+            interactiveElements.forEach(function (el) {
+                el.addEventListener('mouseenter', function () {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function () {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

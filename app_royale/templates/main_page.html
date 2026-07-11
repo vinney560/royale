@@ -1,0 +1,1212 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE</title>
+    <meta name="description"
+        content="ROYALE builds custom scripts, YouTube &amp; Facebook video downloaders, uptime pingers, and software tools that make your workflow effortless. Trusted by 5K+ users." />
+    <meta name="keywords"
+        content="ROYALE, custom scripts, YouTube downloader, Facebook video downloader, uptime pinger, website monitor, automation tools, software development, custom software" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.com/" />
+
+    <meta property="og:title" content="ROYALE" />
+    <meta property="og:description"
+        content="ROYALE builds custom scripts, YouTube &amp; Facebook video downloaders, uptime pingers, and software tools that make your workflow effortless." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.com/" />
+    <meta property="og:image" content="https://royale.com/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap"
+        rel="stylesheet" />
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #070a0c;
+            color: #e4edf2;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #0f171c;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #2d8f7a;
+            border-radius: 20px;
+        }
+
+        @keyframes fadeUp {
+            0% {
+                opacity: 0;
+                transform: translateY(40px) scale(0.96);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeLeft {
+            0% {
+                opacity: 0;
+                transform: translateX(-40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeRight {
+            0% {
+                opacity: 0;
+                transform: translateX(40px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes floatSlow {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            50% {
+                transform: translateY(-18px) rotate(1deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(0deg);
+            }
+        }
+
+        @keyframes pulseGlow {
+            0% {
+                opacity: 0.4;
+                filter: blur(20px);
+            }
+
+            50% {
+                opacity: 0.9;
+                filter: blur(30px);
+            }
+
+            100% {
+                opacity: 0.4;
+                filter: blur(20px);
+            }
+        }
+
+        @keyframes scalePulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -200% center;
+            }
+
+            100% {
+                background-position: 200% center;
+            }
+        }
+
+        @keyframes glowPulse {
+
+            0%,
+            100% {
+                text-shadow: 0 0 20px rgba(45, 143, 122, 0.15), 0 0 60px rgba(45, 143, 122, 0.05);
+            }
+
+            50% {
+                text-shadow: 0 0 40px rgba(45, 143, 122, 0.4), 0 0 80px rgba(45, 143, 122, 0.12), 0 0 120px rgba(45, 143, 122, 0.05);
+            }
+        }
+
+        @keyframes letterPop {
+            0% {
+                transform: scale(0.3) rotate(-15deg);
+                opacity: 0;
+            }
+
+            60% {
+                transform: scale(1.2) rotate(3deg);
+                opacity: 1;
+            }
+
+            100% {
+                transform: scale(1) rotate(0deg);
+                opacity: 1;
+            }
+        }
+
+        .royale-brand-wrapper {
+            display: inline-block;
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .royale-brand-wrapper .brand-letter {
+            display: inline-block;
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-style: italic;
+            font-size: clamp(2.4rem, 6vw, 4.2rem);
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706, #f59e0b, #fbbf24);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite;
+            opacity: 0;
+            transform: scale(0.3) rotate(-15deg);
+            transition: transform 0.3s ease;
+        }
+
+        .royale-brand-wrapper .brand-letter:nth-child(1) {
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards;
+        }
+
+        .royale-brand-wrapper .brand-letter:nth-child(2) {
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s forwards;
+        }
+
+        .royale-brand-wrapper .brand-letter:nth-child(3) {
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.19s forwards;
+        }
+
+        .royale-brand-wrapper .brand-letter:nth-child(4) {
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.26s forwards;
+        }
+
+        .royale-brand-wrapper .brand-letter:nth-child(5) {
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.33s forwards;
+        }
+
+        .royale-brand-wrapper .brand-letter:nth-child(6) {
+            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.40s forwards;
+        }
+
+        .royale-brand-wrapper:hover .brand-letter {
+            transform: scale(1.05);
+        }
+
+        .brand-inline {
+            font-family: 'Playfair Display', serif;
+            font-weight: 900;
+            font-style: italic;
+            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .anim-fade-up {
+            opacity: 0;
+            animation: fadeUp 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+
+        .anim-fade-left {
+            opacity: 0;
+            animation: fadeLeft 0.8s ease forwards;
+        }
+
+        .anim-fade-right {
+            opacity: 0;
+            animation: fadeRight 0.8s ease forwards;
+        }
+
+        .anim-float {
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+
+        .anim-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        .anim-scale-pulse {
+            animation: scalePulse 3s ease-in-out infinite;
+        }
+
+        .delay-1 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.25s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.45s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.65s;
+        }
+
+        .delay-5 {
+            animation-delay: 0.85s;
+        }
+
+        .nav-link {
+            position: relative;
+            color: #9bb0bb;
+            transition: color 0.25s;
+            font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #5fd0ba;
+            transition: width 0.35s ease;
+        }
+
+        .nav-link:hover {
+            color: #f0f8fa;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .scroll-indicator {
+            width: 1.5px;
+            height: 40px;
+            background: linear-gradient(to bottom, #5fd0ba, transparent);
+            margin: 0 auto;
+            animation: pulseScroll 2.4s infinite;
+        }
+
+        @keyframes pulseScroll {
+            0% {
+                opacity: 0.3;
+                transform: scaleY(0.6);
+            }
+
+            50% {
+                opacity: 1;
+                transform: scaleY(1);
+            }
+
+            100% {
+                opacity: 0.3;
+                transform: scaleY(0.6);
+            }
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+        }
+
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        main,
+        header,
+        footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .reveal-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .reveal-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+
+        .reveal-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .blob-1 {
+            animation: floatSlow 10s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            animation: floatSlow 14s ease-in-out infinite reverse;
+        }
+
+        .mission-blur-section {
+            transition: filter 0.8s ease, opacity 0.8s ease;
+            filter: blur(8px);
+            opacity: 0.6;
+        }
+
+        .mission-blur-section.in-focus {
+            filter: blur(0px);
+            opacity: 1;
+        }
+
+        .text-responsive-hero {
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+        }
+
+        .text-responsive-h2 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+        }
+
+        .text-responsive-body {
+            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+        }
+
+        .section-padding {
+            padding: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        .steps-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .step-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .step-item .step-icon {
+            flex-shrink: 0;
+            width: 60px;
+            height: 60px;
+            border-radius: 1rem;
+            background: rgba(26, 46, 48, 0.8);
+            border: 1px solid rgba(60, 130, 120, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover .step-icon {
+            border-color: rgba(95, 208, 186, 0.5);
+            transform: scale(1.05);
+        }
+
+        .step-item .step-content {
+            flex: 1;
+            padding-top: 0.5rem;
+        }
+
+        .step-item .step-content h3 {
+            font-size: clamp(1.4rem, 2.5vw, 1.6rem);
+            font-weight: 700;
+            color: #e8edf2;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-item .step-content p {
+            color: #9bb0bb;
+            font-size: clamp(0.9rem, 1.2vw, 1.05rem);
+            line-height: 1.6;
+        }
+
+        .step-item:nth-child(1) {
+            margin-left: 0;
+        }
+
+        .step-item:nth-child(2) {
+            margin-left: 4rem;
+        }
+
+        .step-item:nth-child(3) {
+            margin-left: 8rem;
+        }
+
+        @media (max-width: 768px) {
+            .step-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+                margin-left: 0 !important;
+            }
+
+            .step-item .step-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+
+            .step-item .step-content {
+                padding-top: 0;
+            }
+        }
+
+        #cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(95, 208, 186, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
+        }
+
+        #cursor-glow.active {
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(95, 208, 186, 0.10) 0%, transparent 70%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .impact-sticky-wrapper {
+            position: relative;
+            min-height: 750px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .impact-card-sticky {
+            position: sticky;
+            top: 100px;
+            transition: all 0.7s cubic-bezier(0.2, 0.9, 0.4, 1);
+            margin-bottom: -20px;
+            background: rgba(8, 16, 20, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            border-radius: 1.5rem;
+            padding: 2rem 2.2rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            cursor: default;
+            position: sticky;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .impact-card-sticky:last-child {
+            margin-bottom: 0;
+        }
+
+        .impact-card-sticky:nth-child(1) {
+            z-index: 1;
+            top: 80px;
+            transform: translateY(0px) scale(1);
+        }
+
+        .impact-card-sticky:nth-child(2) {
+            z-index: 2;
+            top: 140px;
+            transform: translateY(30px) scale(0.98);
+        }
+
+        .impact-card-sticky:nth-child(3) {
+            z-index: 3;
+            top: 200px;
+            transform: translateY(60px) scale(0.96);
+        }
+
+        .impact-card-sticky:hover {
+            transform: translateY(-6px) scale(1.01) !important;
+            z-index: 10;
+        }
+
+        .impact-card-sticky::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.15), transparent 60%, rgba(95, 208, 186, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .impact-card-sticky:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            background: rgba(12, 28, 32, 0.95);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(95, 208, 186, 0.12);
+        }
+
+        .impact-card-sticky .impact-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 1rem;
+            background: rgba(95, 208, 186, 0.08);
+            border: 1px solid rgba(95, 208, 186, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #5fd0ba;
+            transition: all 0.4s ease;
+            flex-shrink: 0;
+        }
+
+        .impact-card-sticky:hover .impact-icon {
+            background: rgba(95, 208, 186, 0.15);
+            border-color: rgba(95, 208, 186, 0.25);
+            transform: scale(1.05) rotate(-3deg);
+        }
+
+        .impact-card-sticky .impact-number {
+            font-size: clamp(2.8rem, 5vw, 4rem);
+            font-weight: 900;
+            color: #eef2f5;
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+
+        .impact-card-sticky .impact-number .accent {
+            color: #5fd0ba;
+        }
+
+        .impact-card-sticky .impact-label {
+            color: #bcd0d8;
+            font-size: clamp(1rem, 1.2vw, 1.1rem);
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .impact-card-sticky .impact-sub {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: #5a7a85;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .impact-card-sticky .impact-sub i {
+            color: #5fd0ba;
+            font-size: 0.5rem;
+        }
+
+        .impact-card-sticky .impact-trend {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: #5fd0ba;
+            background: rgba(95, 208, 186, 0.08);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            border-radius: 100px;
+            padding: 0.15rem 0.7rem;
+        }
+
+        .impact-card-sticky .impact-trend i {
+            font-size: 0.55rem;
+        }
+
+        .impact-card-sticky .impact-glow {
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            filter: blur(50px);
+            opacity: 0.06;
+            pointer-events: none;
+            transition: opacity 0.6s ease;
+        }
+
+        .impact-card-sticky:hover .impact-glow {
+            opacity: 0.15;
+        }
+
+        .impact-card-sticky.featured {
+            border-color: rgba(95, 208, 186, 0.2);
+            background: rgba(8, 26, 30, 0.95);
+        }
+
+        .impact-card-sticky.featured .impact-number .accent {
+            color: #68d4c0;
+        }
+
+        .impact-card-sticky.featured .impact-icon {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+        }
+
+        .impact-card-sticky .impact-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .impact-card-sticky .impact-content {
+            flex: 1;
+        }
+
+        .impact-card-sticky .impact-footer {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-top: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 768px) {
+            .impact-card-sticky .impact-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+
+            .impact-card-sticky {
+                padding: 1.5rem;
+            }
+
+            .impact-card-sticky:nth-child(1) {
+                top: 60px;
+            }
+
+            .impact-card-sticky:nth-child(2) {
+                top: 100px;
+                transform: translateY(20px) scale(0.98);
+            }
+
+            .impact-card-sticky:nth-child(3) {
+                top: 140px;
+                transform: translateY(40px) scale(0.96);
+            }
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-section .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-section .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <span
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </span>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="#company" class="nav-link anim-fade-up delay-5">Company</a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i
+                        class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT Downloader
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB Downloader
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
+                        Uptime Pinger
+                    </a>
+                    <a href="/products/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-code text-teal-400"></i></span>
+                        Products
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="#" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-headset text-cyan-400"></i></span>
+                        Support
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-4 sm:px-6 pt-24 sm:pt-28 pb-12 sm:pb-16 relative z-10">
+
+        <section
+            class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+            <div
+                class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1">
+            </div>
+            <div
+                class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2">
+            </div>
+            <div
+                class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow">
+            </div>
+            <div class="relative z-10 w-full">
+                <div class="hero-grid">
+                    <div>
+                        <span
+                            class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                            <i class="fas fa-code mr-1 sm:mr-2"></i>Custom Scripts · Tools
+                        </span>
+                        <h1
+                            class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                            <span class="royale-brand-wrapper">
+                                <span class="brand-letter">R</span>
+                                <span class="brand-letter">O</span>
+                                <span class="brand-letter">Y</span>
+                                <span class="brand-letter">A</span>
+                                <span class="brand-letter">L</span>
+                                <span class="brand-letter">E</span>
+                            </span><br />
+                            <span class="text-gradient-shimmer">builds tools that work.</span>
+                        </h1>
+                        <p
+                            class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                            Custom scripts, video downloaders, uptime pingers &amp; software solutions — built to make
+                            your workflow effortless.
+                        </p>
+                        <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                            <span
+                                class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition"><i
+                                    class="fab fa-youtube mr-1 sm:mr-2"></i>YouTube DL</span>
+                            <span
+                                class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition"><i
+                                    class="fab fa-facebook mr-1 sm:mr-2"></i>Facebook DL</span>
+                            <span
+                                class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition"><i
+                                    class="fas fa-heartbeat mr-1 sm:mr-2"></i>Uptime Pinger</span>
+                        </div>
+                    </div>
+                    <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                        <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                            <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping">
+                            </div>
+                            <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse">
+                            </div>
+                            <div
+                                class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60">
+                                <i class="fas fa-terminal"></i></div>
+                        </div>
+                    </div>
+                </div>
+                <div
+                    class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                    <span>Scroll</span>
+                    <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                    <span class="scroll-indicator"></span>
+                </div>
+            </div>
+        </section>
+
+        <div
+            class="text-center text-[0.65rem] sm:text-xs text-gray-500 uppercase tracking-[0.2em] sm:tracking-[0.25em] border-t border-b border-[#1a262e] py-3 sm:py-5 mb-12 sm:mb-20 overflow-hidden">
+            <div class="flex flex-wrap justify-center gap-4 sm:gap-8 md:gap-16 animate-pulse">
+                <span class="anim-fade-up delay-1"><i class="fas fa-download mr-1 sm:mr-2"></i>1K+ downloads</span>
+                <span class="text-gray-600 hidden xs:inline">·</span>
+                <span class="anim-fade-up delay-2"><i class="fas fa-users mr-1 sm:mr-2"></i>247+ active users</span>
+                <span class="text-gray-600 hidden md:inline">·</span>
+                <span class="anim-fade-up delay-3 hidden md:inline"><i
+                        class="fas fa-check-circle mr-1 sm:mr-2"></i>99.9% uptime</span>
+            </div>
+        </div>
+
+        <section id="mission"
+            class="mb-16 sm:mb-24 scroll-mt-24 max-w-3xl mx-auto text-center mission-blur-section section-padding"
+            data-blur-section>
+            <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest"><i
+                    class="fas fa-bullseye mr-1 sm:mr-2"></i>our mission</span>
+            <h2 class="text-responsive-h2 font-bold mt-2 sm:mt-3 leading-tight">Tools that <span
+                    class="text-gradient">actually help</span></h2>
+            <p class="text-responsive-body text-gray-300 mt-3 sm:mt-5 leading-relaxed">
+                ROYALE builds custom scripts, video downloaders, and uptime monitoring tools that solve real problems.
+                No bloat, no tracking — just code that works.
+            </p>
+        </section>
+
+        <section id="how-it-works" class="mb-16 sm:mb-24 scroll-mt-24">
+            <div class="text-center mb-10 sm:mb-14 reveal">
+                <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest"><i
+                        class="fas fa-microchip mr-1 sm:mr-2"></i>what we build</span>
+                <h2 class="text-responsive-h2 font-bold mt-1 sm:mt-2">Our Tools</h2>
+                <p class="text-responsive-body text-gray-400 max-w-2xl mx-auto mt-2 sm:mt-3">
+                    Every tool we create is built with one goal: make your life easier.
+                </p>
+            </div>
+            <div class="steps-container">
+                <div class="step-item reveal-left delay-1">
+                    <div class="step-icon text-emerald-400"><i class="fab fa-youtube"></i></div>
+                    <div class="step-content">
+                        <h3>YouTube Downloader</h3>
+                        <p>Download videos, playlists, and audio in high quality. Supports 4K and multiple formats.</p>
+                    </div>
+                </div>
+                <div class="step-item reveal delay-2">
+                    <div class="step-icon text-cyan-400"><i class="fab fa-facebook"></i></div>
+                    <div class="step-content">
+                        <h3>Facebook Downloader</h3>
+                        <p>Save videos and reels in HD with no watermark. Works on public and private posts.</p>
+                    </div>
+                </div>
+                <div class="step-item reveal-right delay-3">
+                    <div class="step-icon text-purple-400"><i class="fas fa-heartbeat"></i></div>
+                    <div class="step-content">
+                        <h3>Uptime, Scraper &amp; Pinger</h3>
+                        <p>Monitor your websites 24/7. Get websites source code. Get alerts on downtime and track
+                            response times.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact" class="mb-16 sm:mb-24 scroll-mt-24">
+            <div class="text-center mb-10 sm:mb-14 reveal">
+                <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest"><i
+                        class="fas fa-chart-line mr-1 sm:mr-2"></i>our impact</span>
+                <h2 class="text-responsive-h2 font-bold mt-1 sm:mt-2">Real numbers from <span class="text-gradient">real
+                        users</span></h2>
+                <p class="text-gray-400 max-w-2xl mx-auto mt-2 text-sm sm:text-base">
+                    People trust ROYALE to get the job done.
+                </p>
+            </div>
+
+            <div class="impact-sticky-wrapper">
+                <div class="impact-card-sticky reveal-left delay-1">
+                    <div class="impact-glow" style="top:-40px;right:-40px;background:rgba(95,208,186,0.1);"></div>
+                    <div class="impact-row">
+                        <div class="impact-icon"><i class="fas fa-download"></i></div>
+                        <div class="impact-content">
+                            <div class="impact-number">1<span class="accent">K</span><span
+                                    class="text-sm text-gray-500 font-normal ml-1">+</span></div>
+                            <div class="impact-label">Videos downloaded from YouTube, Facebook &amp; more</div>
+                            <div class="impact-footer">
+                                <div class="impact-sub"><i class="fas fa-circle"></i> 250+ in the last month</div>
+                                <div class="impact-trend"><i class="fas fa-arrow-up"></i> +18% growth</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-card-sticky featured reveal delay-2">
+                    <div class="impact-glow" style="bottom:-30px;left:-30px;background:rgba(95,208,186,0.08);"></div>
+                    <div class="impact-row">
+                        <div class="impact-icon"
+                            style="color:#68d4c0;background:rgba(95,208,186,0.12);border-color:rgba(95,208,186,0.15);">
+                            <i class="fas fa-server"></i></div>
+                        <div class="impact-content">
+                            <div class="impact-number">99.9<span class="accent">7</span><span
+                                    class="text-sm text-gray-500 font-normal ml-1">%</span></div>
+                            <div class="impact-label">Uptime guaranteed across all monitoring services</div>
+                            <div class="impact-footer">
+                                <div class="impact-sub"><i class="fas fa-circle"></i> 24/7 · 365 days</div>
+                                <div class="impact-trend"><i class="fas fa-check-circle"></i> 99.99% achieved</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="impact-card-sticky reveal-right delay-3">
+                    <div class="impact-glow" style="top:-20px;right:-20px;background:rgba(95,208,186,0.08);"></div>
+                    <div class="impact-row">
+                        <div class="impact-icon"><i class="fas fa-code"></i></div>
+                        <div class="impact-content">
+                            <div class="impact-number">200<span class="accent">+</span></div>
+                            <div class="impact-label">Custom scripts built for businesses worldwide</div>
+                            <div class="impact-footer">
+                                <div class="impact-sub"><i class="fas fa-circle"></i> 40+ enterprise clients</div>
+                                <div class="impact-trend"><i class="fas fa-arrow-up"></i> +32% this year</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90"><i
+                            class="fas fa-rocket text-emerald-400 mr-2"></i>ready to level up your workflow?</h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Whether you need a video downloader, an uptime monitor, or a custom script — ROYALE delivers
+                        tools that just work.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <span
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-2 sm:px-3 py-1 rounded-full text-[0.7rem] sm:text-xs anim-scale-pulse"><i
+                                class="fas fa-download mr-1"></i>free downloaders</span>
+                        <span
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-2 sm:px-3 py-1 rounded-full text-[0.7rem] sm:text-xs anim-scale-pulse"
+                            style="animation-delay:0.5s;"><i class="fas fa-cog mr-1"></i>custom scripts</span>
+                        <span
+                            class="bg-indigo-900/30 text-indigo-300 border border-indigo-700/40 px-2 sm:px-3 py-1 rounded-full text-[0.7rem] sm:text-xs anim-scale-pulse"
+                            style="animation-delay:0.7s;"><i class="fas fa-heartbeat mr-1"></i>uptime pinger</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="company" class="reveal mb-12 sm:mb-16 scroll-mt-24 border-t border-[#1a262e] pt-10 sm:pt-14">
+            <div class="max-w-3xl">
+                <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest"><i
+                        class="fas fa-building mr-1 sm:mr-2"></i>company</span>
+                <h2 class="text-responsive-h2 font-bold mt-1 sm:mt-2 leading-tight">
+                    <span class="royale-brand-wrapper" style="display:inline;">
+                        <span class="brand-letter" style="font-size:clamp(2.2rem,5vw,3.5rem);">R</span>
+                        <span class="brand-letter" style="font-size:clamp(2.2rem,5vw,3.5rem);">O</span>
+                        <span class="brand-letter" style="font-size:clamp(2.2rem,5vw,3.5rem);">Y</span>
+                        <span class="brand-letter" style="font-size:clamp(2.2rem,5vw,3.5rem);">A</span>
+                        <span class="brand-letter" style="font-size:clamp(2.2rem,5vw,3.5rem);">L</span>
+                        <span class="brand-letter" style="font-size:clamp(2.2rem,5vw,3.5rem);">E</span>
+                    </span>
+                    <span class="text-white/90"> — code that empowers growth.</span>
+                </h2>
+                <p class="text-responsive-body text-gray-300 mt-3 sm:mt-5 leading-relaxed">
+                    We're a team of developers and automation experts building tools that make life easier. From video
+                    downloaders to uptime monitors and custom business scripts — we write code that solves real
+                    problems.
+                </p>
+                <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4">
+                    <span
+                        class="bg-emerald-900/20 border border-emerald-700/30 text-emerald-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base hover:bg-emerald-900/40 transition anim-float"><i
+                            class="fab fa-youtube mr-1 sm:mr-2"></i>YT Downloader</span>
+                    <span
+                        class="bg-blue-900/20 border border-blue-700/30 text-blue-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base hover:bg-blue-900/40 transition anim-float"
+                        style="animation-delay:0.3s;"><i class="fab fa-facebook mr-1 sm:mr-2"></i>FB Downloader</span>
+                    <span
+                        class="bg-green-900/20 border border-green-700/30 text-green-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base hover:bg-green-900/40 transition anim-float"
+                        style="animation-delay:0.6s;"><i class="fas fa-heartbeat mr-1 sm:mr-2"></i>Uptime Pinger</span>
+                    <span
+                        class="bg-amber-900/20 border border-amber-700/30 text-amber-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base hover:bg-amber-900/40 transition anim-float"
+                        style="animation-delay:0.9s;"><i class="fas fa-terminal mr-1 sm:mr-2"></i>Custom Scripts</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10">
+        <div
+            class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>2026</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i
+                        class="fas fa-download mr-1"></i>Downloaders</span>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+    <script>
+        (function () {
+            const cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', () => { cursorGlow.style.opacity = '1'; });
+            document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
+
+            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(el => observer.observe(el));
+            setTimeout(() => {
+                reveals.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            const missionSection = document.querySelector('[data-blur-section]');
+            if (missionSection) {
+                const missionObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        entry.isIntersecting ? missionSection.classList.add('in-focus') : missionSection.classList.remove('in-focus');
+                    });
+                }, { threshold: 0.25, rootMargin: '0px 0px -30px 0px' });
+                missionObserver.observe(missionSection);
+                setTimeout(() => {
+                    const rect = missionSection.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.7) missionSection.classList.add('in-focus');
+                }, 150);
+            }
+
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            document.querySelectorAll('a, button, .menu-container, .impact-card-sticky, .step-item, .from-waste-card').forEach(el => {
+                el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
+                el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
