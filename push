@@ -1,1 +1,1 @@
-git add . && git commit -m "Connecting my git with VSCode" && git push
+git add . && git commit -m "Added in-built  tailwindcss plugin." && git push
