@@ -1,5 +1,14 @@
-Django==4.0.8
-gunicorn==20.1.0
-python-decouple==3.6
-whitenoise==6.6.0
-setuptools>=65.5.0
+# Web Framework
+Django
+
+# For config
+python-decouple
+
+# To run our server
+gunicorn
+
+# For postgres
+dj-database-url
+
+# Serve static
+whitenoise
