@@ -12,6 +12,7 @@ from app_royale.u_views import (
 # --------------------------------------------
 urlpatterns += [
     path('', main.main_page, name="main_page"),
+    path('about/', main.about_us, name="about_us"),
     path('products/', main.products, name="products"),
     path('api/products', products.more_products, name="more_products"),
     path('contact/', contact.contact_us, name="contact"),

@@ -293,6 +293,13 @@ main, header, footer { position: relative; z-index: 2; }
 .nav-link:hover { color: #f0f8fa; }
 .nav-link:hover::after { width: 100%; }
 
+.nav-link.active {
+    background: #5fd0ba;
+}
+.nav-link.active::after {
+    width: 100%;
+}
+
 /* ============================================================
    MENU BTN
 ============================================================ */

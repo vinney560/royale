@@ -14,7 +14,7 @@ def more_products(request):
             'icon': 'fab fa-youtube',
             'iconColor': 'text-red-400',
             'tags': ['Popular', '4K Support'],
-            'link': 'https://google.com',
+            'link': 'https://v6.www-y2mate.com/',
             'featured': True,
             'stats': {'downloads': '12K+', 'rating': '4.9'}
         },
@@ -25,12 +25,23 @@ def more_products(request):
             'icon': 'fab fa-facebook',
             'iconColor': 'text-blue-400',
             'tags': ['HD Quality', 'No Watermark'],
-            'link': '#',
+            'link': 'https://lyxnexus.onrender.com/fb',
             'featured': False,
             'stats': {'downloads': '8K+', 'rating': '4.7'}
         },
         {
             'id': 3,
+            'name': 'Cloudinary Connect',
+            'description': 'Learn how to connect, upload, download and delete data from your Cloudinary Project.',
+            'icon': 'fas fa-database',
+            'iconColor': 'text-teal-400',
+            'tags': ['Bespoke', 'Automation', 'API'],
+            'link': '#',
+            'featured': True,
+            'stats': {'projects': '5+', 'clients': '4+'}
+        },
+        {
+            'id': 4,
             'name': 'Uptime & Pinger',
             'description': 'Monitor your websites 24/7. Get instant alerts on downtime, track response times, and keep your services online with 99.9% SLA.',
             'icon': 'fas fa-heartbeat',
@@ -41,20 +52,9 @@ def more_products(request):
             'stats': {'uptime': '99.97%', 'alerts': 'Instant'}
         },
         {
-            'id': 4,
-            'name': 'Custom Scripts',
-            'description': 'Need something specific? We build tailored automation scripts, web scrapers, API integrations, and custom software solutions for your business.',
-            'icon': 'fas fa-terminal',
-            'iconColor': 'text-teal-400',
-            'tags': ['Bespoke', 'Automation', 'API'],
-            'link': '#',
-            'featured': True,
-            'stats': {'projects': '200+', 'clients': '40+'}
-        },
-        {
             'id': 5,
-            'name': 'Twitter Video Downloader',
-            'description': 'Download videos from Twitter/X with ease. Supports HD quality, works with any tweet containing videos. Simple paste and download.',
+            'name': 'X Video Downloader',
+            'description': 'Download videos from X with ease. Supports HD quality, works with any tweet containing videos. Simple paste and download.',
             'icon': 'fab fa-twitter',
             'iconColor': 'text-sky-400',
             'tags': ['New', 'HD Quality'],
@@ -86,14 +86,14 @@ def more_products(request):
         },
         {
             'id': 8,
-            'name': 'Bulk Email Verifier',
-            'description': 'Verify email addresses in bulk. Check deliverability, catch-all domains, and syntax validation. Perfect for marketing campaigns.',
-            'icon': 'fas fa-envelope',
+            'name': 'View Tv',
+            'description': 'Watch TV shows, live tvs, sports and movies online with ease. No watermark, supports multiple languages. Works with all devices.',
+            'icon': 'fas fa-tv',
             'iconColor': 'text-amber-400',
-            'tags': ['Email', 'Bulk', 'Marketing'],
-            'link': '#',
-            'featured': False,
-            'stats': {'verified': '500K+', 'accuracy': '98.5%'}
+            'tags': ['Live', 'Sports', 'Movies'],
+            'link': 'https://viewstream-1.onrender.com',
+            'featured': True,
+            'stats': {'verified': '5K+', 'availability': '79%'}
         },
         {
             'id': 9,
@@ -138,7 +138,29 @@ def more_products(request):
             'link': '#',
             'featured': True,
             'stats': {'jobs': '50K+', 'uptime': '99.95%'}
-        }
+        },
+        {
+            'id': 13,
+            'name': 'TGive e-commerce',
+            'description': 'E-commerce platform for small businesses. Supports product listing, inventory management, and payment processing.',
+            'icon': 'fas fa-shopping-cart',
+            'iconColor': 'text-green-400',
+            'tags': ['For-Sale', 'ECommerce', 'Upgrade'],
+            'link': 'https://t-give-3.onrender.com/',
+            'featured': False,
+            'stats': {'jobs': '5K+', 'uptime': '99.95%'}
+        },
+        {
+            'id': 14,
+            'name': 'Lyma Hub',
+            'description': 'Join KONAMI Tournament now! Play with friends and win prizes. Have FUN!! 😏🥳',
+            'icon': 'fas fa-futbol',
+            'iconColor': 'text-purple-400',
+            'tags': ['For-Sale', 'Football', 'Quick Games'],
+            'link': 'https://lymak.vercel.app/',
+            'featured': False,
+            'stats': {'participants': '600+', 'uptime': '99.95%'}
+        },
     ]
 
     # Apply search filter

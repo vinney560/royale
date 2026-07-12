@@ -378,7 +378,7 @@
                 flash.classList.remove('show');
                 flash.classList.add('hide');
                 flashTimeout = null;
-            }, 1500);
+            }, 1000);
         }
 
         // ===== CLOSE BUTTON EVENT =====

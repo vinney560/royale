@@ -37,6 +37,23 @@
     <script src="{% static 'js/loading.js' %}"></script>
 
     <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
         .contact-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -302,7 +319,10 @@
                     <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
                     <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
                     <a href="/contact/" class="nav-link anim-fade-up delay-5 text-emerald-400"
-                        style="color:#5fd0ba;">Contact</a>
+                        style="color:#5fd0ba;">
+                        Contact
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
                 </nav>
                 <button id="menuToggle" class="menu-container anim-fade-up delay-3">
                     <i class="fas fa-bars menu-icon"></i>
@@ -336,7 +356,7 @@
                         <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
                         Back
                     </a>
-                    <a href="#" class="menu-link-product" data-menu-item>
+                    <a href="https://lyxnexus.onrender.com/fb" target="_blank" class="menu-link-product" data-menu-item>
                         <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
                         FB DL
                         <span class="product-badge">Rising</span>
@@ -345,26 +365,13 @@
                         <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
                         Uptime Pinger
                     </a>
-                    <a href="#" class="menu-link-product" data-menu-item>
+                    <a href="/products/" class="menu-link-product" data-menu-item>
                         <span class="product-icon"><i class="fas fa-code text-teal-400"></i></span>
-                        Custom Scripts
+                        All Products
                     </a>
                 </div>
 
                 <div class="menu-divider-full"></div>
-
-                <div class="menu-section-title">Connect</div>
-                <div class="menu-grid">
-                    <a href="#" class="menu-link-connect" data-menu-item>
-                        <span class="connect-icon"><i class="fas fa-headset text-cyan-400"></i></span>
-                        Support
-                    </a>
-                    <a href="#" class="menu-link-connect" data-menu-item>
-                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
-                        Request
-                    </a>
-                </div>
-
                 <div class="menu-footer-icons">
                     <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
                     <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
@@ -534,7 +541,7 @@
                 <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
             </span>
             <div class="flex gap-4 sm:gap-6">
-                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>2026</span>
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
                 <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
                 <span class="hover:text-white transition cursor-default"><i
                         class="fas fa-download mr-1"></i>Downloaders</span>

@@ -1,0 +1,733 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE · About Us — Custom Scripts &amp; Tools</title>
+    <meta name="description"
+        content="Learn about ROYALE — a team of developers building custom scripts, video downloaders, uptime pingers, and software tools that make work easier." />
+    <meta name="keywords"
+        content="ROYALE, about us, custom scripts, software development, YouTube downloader, Facebook downloader, uptime pinger, team" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.com/about/" />
+
+    <meta property="og:title" content="ROYALE · About Us" />
+    <meta property="og:description"
+        content="Learn about ROYALE — a team of developers building custom scripts, video downloaders, uptime pingers, and software tools." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.com/about/" />
+    <meta property="og:image" content="https://royale.com/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}"></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .about-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .about-image {
+            position: relative;
+            border-radius: 1.8rem;
+            overflow: hidden;
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            background: rgba(8, 16, 20, 0.6);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image .image-placeholder {
+            font-size: 6rem;
+            color: #5fd0ba;
+            opacity: 0.3;
+            padding: 3rem;
+            text-align: center;
+        }
+
+        .about-image .image-placeholder i {
+            display: block;
+            font-size: 5rem;
+            margin-bottom: 1rem;
+        }
+
+        .about-image .image-placeholder span {
+            font-size: 1rem;
+            color: #5a7a85;
+            display: block;
+        }
+
+        .about-image .image-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.1;
+            pointer-events: none;
+        }
+
+        .about-image .image-glow:nth-child(1) {
+            top: -50px;
+            right: -50px;
+            background: rgba(95, 208, 186, 0.2);
+        }
+
+        .about-image .image-glow:nth-child(2) {
+            bottom: -50px;
+            left: -50px;
+            background: rgba(58, 176, 160, 0.15);
+        }
+
+        .about-text h2 {
+            font-size: clamp(2.2rem, 4vw, 3rem);
+            font-weight: 800;
+            color: #eef2f5;
+            line-height: 1.2;
+            margin-bottom: 1rem;
+        }
+
+        .about-text h2 span {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .about-text p {
+            color: #9bb0bb;
+            font-size: clamp(1rem, 1.1vw, 1.1rem);
+            line-height: 1.8;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-text .about-tagline {
+            display: inline-block;
+            background: rgba(95, 208, 186, 0.08);
+            color: #5fd0ba;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(95, 208, 186, 0.1);
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+        }
+
+        .about-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .about-values {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .value-item {
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 1.2rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover {
+            border-color: rgba(95, 208, 186, 0.15);
+            transform: translateY(-4px);
+            background: rgba(12, 28, 32, 0.8);
+        }
+
+        .value-item .value-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 1rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            color: #5fd0ba;
+            margin: 0 auto 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .value-item:hover .value-icon {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: scale(1.05);
+        }
+
+        .value-item h4 {
+            color: #eef2f5;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+
+        .value-item p {
+            color: #7a9aa8;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        /* ===== TEAM SECTION ===== */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.8rem;
+            margin-top: 1.5rem;
+        }
+
+        .team-card {
+            text-align: center;
+            padding: 2rem 1.5rem;
+            background: rgba(8, 16, 20, 0.85);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover {
+            border-color: rgba(95, 208, 186, 0.15);
+            transform: translateY(-6px);
+            background: rgba(12, 28, 32, 0.9);
+        }
+
+        .team-card .team-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: rgba(95, 208, 186, 0.06);
+            border: 2px solid rgba(95, 208, 186, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            font-size: 2.2rem;
+            color: #5fd0ba;
+            transition: all 0.4s ease;
+        }
+
+        .team-card:hover .team-avatar {
+            border-color: rgba(95, 208, 186, 0.3);
+            transform: scale(1.05);
+        }
+
+        .team-card h4 {
+            color: #eef2f5;
+            font-size: 1.05rem;
+            font-weight: 600;
+        }
+
+        .team-card .team-role {
+            color: #5fd0ba;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .team-card p {
+            color: #7a9aa8;
+            font-size: 0.8rem;
+            margin-top: 0.3rem;
+            line-height: 1.5;
+        }
+
+        .team-card .team-social {
+            display: flex;
+            justify-content: center;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .team-card .team-social a {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #5a7a85;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .team-card .team-social a:hover {
+            background: rgba(95, 208, 186, 0.08);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+            transform: translateY(-2px);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            margin: 2rem 0;
+        }
+
+        @media (max-width: 640px) {
+            .stats-bar {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-item .stat-number {
+            font-size: clamp(2rem, 3vw, 2.8rem);
+            font-weight: 900;
+            color: #5fd0ba;
+            line-height: 1;
+        }
+
+        .stat-item .stat-label {
+            color: #5a7a85;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 640px) {
+            .about-wrapper {
+                padding: 1rem;
+            }
+            .team-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header
+        class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/"
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link active anim-fade-up delay-5">Company</a>
+                    <a href="/about/#" class="nav-link anim-fade-up delay-5 active"
+                        style="color:#5fd0ba;">
+                        About
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== POPUP MENU ===== -->
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i
+                        class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav active">About</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://lyxnexus.onrender.com/fb" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB Downloader
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
+                        Uptime Pinger
+                    </a>
+                    <a href="/products/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-code text-teal-400"></i></span>
+                        All Products
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="about-wrapper">
+
+            <!-- ===== HERO ===== -->
+            <section
+                class="relative rounded-2xl sm:rounded-3xl overflow-hidden border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 bg-[#0b1216]/50 backdrop-blur-sm mb-8">
+                <div
+                    class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1">
+                </div>
+                <div
+                    class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2">
+                </div>
+                <div class="relative z-10 text-center max-w-3xl mx-auto">
+                    <span
+                        class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-4 anim-fade-up delay-1">
+                        <i class="fas fa-users mr-1 sm:mr-2"></i>About Us
+                    </span>
+                    <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                        <span class="royale-brand-wrapper">
+                            <span class="brand-letter">R</span>
+                            <span class="brand-letter">O</span>
+                            <span class="brand-letter">Y</span>
+                            <span class="brand-letter">A</span>
+                            <span class="brand-letter">L</span>
+                            <span class="brand-letter">E</span>
+                        </span><br />
+                        <span class="text-gradient-shimmer">Code that empowers.</span>
+                    </h1>
+                    <p
+                        class="text-responsive-body text-gray-300 mt-4 max-w-2xl mx-auto leading-relaxed anim-fade-up delay-3">
+                        We're a team of developers and automation experts building tools that make life easier.
+                        From video downloaders to uptime monitors and custom business scripts — we write code that
+                        solves real problems.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ===== ABOUT GRID ===== -->
+            <div class="about-grid">
+                <div class="about-text reveal-left delay-1">
+                    <span class="about-tagline"><i class="fas fa-code mr-1"></i>Who We Are</span>
+                    <h2>Building tools that <span>actually work</span></h2>
+                    <p>
+                        ROYALE was founded with a simple mission: create software that solves real problems.
+                        No fluff, no tracking, no bloat — just clean, efficient code that gets the job done.
+                    </p>
+                    <p>
+                        We specialize in custom scripts, video downloaders, uptime monitoring tools, and
+                        automation solutions that help businesses and individuals work smarter, not harder.
+                    </p>
+                    <p>
+                        Every tool we build is crafted with care, tested thoroughly, and designed to be
+                        simple, fast, and reliable.
+                    </p>
+                </div>
+                <div class="about-image reveal-right delay-2">
+                    <div class="image-glow"></div>
+                    <div class="image-glow"></div>
+                    <div class="image-placeholder">
+                        <i class="fas fa-terminal"></i>
+                        <span>Code that solves problems</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== VALUES ===== -->
+            <div class="about-values">
+                <div class="value-item reveal delay-1">
+                    <div class="value-icon"><i class="fas fa-rocket"></i></div>
+                    <h4>Innovation</h4>
+                    <p>We build tools that push boundaries and make work easier.</p>
+                </div>
+                <div class="value-item reveal delay-2">
+                    <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h4>Privacy First</h4>
+                    <p>No logs, no tracking, no data harvesting. Your privacy matters.</p>
+                </div>
+                <div class="value-item reveal delay-3">
+                    <div class="value-icon"><i class="fas fa-code"></i></div>
+                    <h4>Clean Code</h4>
+                    <p>Efficient, maintainable, and built to last. Quality over quantity.</p>
+                </div>
+            </div>
+
+            <!-- ===== STATS BAR ===== -->
+            <div class="stats-bar">
+                <div class="stat-item reveal delay-1">
+                    <div class="stat-number">250+</div>
+                    <div class="stat-label">Active Users</div>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <div class="stat-number">1.2K+</div>
+                    <div class="stat-label">Downloads</div>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <div class="stat-number">99.9%</div>
+                    <div class="stat-label">Uptime</div>
+                </div>
+                <div class="stat-item reveal delay-4">
+                    <div class="stat-number">200+</div>
+                    <div class="stat-label">Custom Scripts</div>
+                </div>
+            </div>
+
+            <!-- ===== TEAM SECTION ===== -->
+            <div style="text-align:center;margin:2rem 0 1rem;">
+                <span class="about-tagline"><i class="fas fa-users mr-1"></i>Meet The Team</span>
+                <h2 style="font-size:clamp(2rem,3.5vw,2.6rem);font-weight:800;color:#eef2f5;margin-top:0.3rem;">
+                    The people behind <span style="background:linear-gradient(135deg,#5fd0ba,#3ab0a0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;">ROYALE</span>
+                </h2>
+                <p style="color:#9bb0bb;max-width:600px;margin:0.5rem auto 0;">A small team with big ideas.</p>
+            </div>
+
+            <div class="team-grid">
+                <div class="team-card reveal delay-2">
+                    <div class="team-avatar"><i class="fas fa-user-cog"></i></div>
+                    <h4>Lyxin Vincent</h4>
+                    <div class="team-role">Backend Engineer</div>
+                    <p>Specializes in API development, database optimization, and scalable architecture.</p>
+                    <div class="team-social">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="team-card reveal delay-3">
+                    <div class="team-avatar"><i class="fas fa-user-astronaut"></i></div>
+                    <h4>Marion Chloe</h4>
+                    <div class="team-role">Frontend Developer</div>
+                    <p>Creates beautiful, responsive interfaces with a focus on user experience and accessibility.</p>
+                    <div class="team-social">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="team-card reveal delay-4">
+                    <div class="team-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Marion Chloe</h4>
+                    <div class="team-role">QA &amp; Support</div>
+                    <p>Ensures every tool works flawlessly and helps users get the most out of our products.</p>
+                    <div class="team-social">
+                        <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CTA ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90"><i
+                            class="fas fa-rocket text-emerald-400 mr-2"></i>Ready to work with us?</h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Whether you need a custom script, a video downloader, or an uptime monitor — we're here to help.
+                        Let's build something great together.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/contact/"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                        <a href="/products/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-cubes"></i> Explore Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div
+            class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span
+                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE"
+                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i
+                        class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            // ===== CURSOR GLOW =====
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            // ===== SCROLL REVEAL =====
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            // ===== HEADER SCROLL =====
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ===== CURSOR GLOW ACTIVE =====
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .value-item, .team-card, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

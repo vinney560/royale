@@ -37,6 +37,23 @@
     <script src="{% static 'js/loading.js' %}"></script>
 
     <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
         .products-wrapper {
             max-width: 1200px;
             margin: 0 auto;
@@ -546,6 +563,41 @@
             border-color: rgba(52, 211, 153, 0.2);
         }
 
+        .product-card .product-tags .tag-for-sale {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(217, 119, 6, 0.05));
+            border-color: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            padding: 0.2rem 0.9rem;
+            border-radius: 100px;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(245, 158, 11, 0.05);
+        }
+        
+        .product-card:hover .product-tags .tag-for-sale {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.18), rgba(217, 119, 6, 0.08));
+            border-color: rgba(245, 158, 11, 0.3);
+            transform: scale(1.05);
+            box-shadow: 0 0 25px rgba(245, 158, 11, 0.15);
+        }
+        
+        .product-card .product-tags .tag-for-sale i {
+            font-size: 0.5rem;
+            color: #fbbf24;
+            animation: tagPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes tagPulse {
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.1); }
+        }
+
         .product-card .product-divider {
             width: 100%;
             height: 1px;
@@ -754,7 +806,11 @@
                     <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
                     <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
                     <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
-                    <a href="/products/" class="nav-link active anim-fade-up delay-5">Products</a>
+                    <a href="/products/" class="nav-link active anim-fade-up delay-5"
+                        style="color:#5fd0ba;">
+                        Products
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
                 </nav>
                 <button id="menuToggle" class="menu-container anim-fade-up delay-3">
                     <i class="fas fa-bars menu-icon"></i>
@@ -786,15 +842,6 @@
                     <a href="/" class="menu-link-product" data-menu-item>
                         <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
                         Back
-                    </a>
-                    <a href="#" class="menu-link-product" data-menu-item>
-                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
-                        YT DL
-                        <span class="product-badge">Popular</span>
-                    </a>
-                    <a href="#" class="menu-link-product" data-menu-item>
-                        <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
-                        Uptime Pinger
                     </a>
                     <a href="#" class="menu-link-product active-part" data-menu-item>
                         <span class="product-icon"><i class="fas fa-code text-teal-400"></i></span>
@@ -966,7 +1013,7 @@
             let selectedIndex = -1;
 
             function fetchAllProductNames() {
-                fetch('/api/products?page=1&limit=10')
+                fetch('/api/products?page=1&limit=100')
                     .then(function (response) { return response.json(); })
                     .then(function (data) {
                         var products = data.products || [];
@@ -1017,6 +1064,8 @@
                         tagHtml = '<span class="suggestion-tag popular">Popular</span>';
                     } else if (p.tags && p.tags.includes('New')) {
                         tagHtml = '<span class="suggestion-tag">New</span>';
+                    } else if (p.tags && p.tags.includes('For-Sale')) {
+                        tagHtml = '<span class="suggestion-tag popular"><i class="fas fa-tag"></i> For Sale</span>';
                     }
 
                     html += `
@@ -1169,6 +1218,7 @@
                     var tagClass = '';
                     if (tag === 'Popular') tagClass = 'tag-popular';
                     if (tag === 'New') tagClass = 'tag-new';
+                    if (tag === 'For-Sale') tagClass = 'tag-for-sale';
                     return '<span class="' + tagClass + '">' + tag + '</span>';
                 }).join('');
 
@@ -1202,7 +1252,7 @@
                         <div class="product-stats">
                             ${statsHtml}
                         </div>
-                        <a href="${product.link}" class="product-link">
+                        <a href="${product.link}" target="_blank" class="product-link">
                             Learn More <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -1284,6 +1334,7 @@
 
             // ===== SEARCH EVENTS =====
             searchBtn.addEventListener('click', function (e) {
+                if (searchInput.value.trim() === '') return;
                 e.preventDefault();
                 performSearch();
             });
