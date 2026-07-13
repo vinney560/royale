@@ -12,3 +12,7 @@ dj-database-url
 
 # Serve static
 whitenoise
+
+# qrcode
+qrcode
+Pillow
