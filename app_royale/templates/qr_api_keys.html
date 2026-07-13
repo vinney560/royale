@@ -24,11 +24,25 @@
     <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
 
     <script src="{% static 'css/tailwind.min.js' %}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load with media="print" then load on all -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <!-- Fallback for no JS -->
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>    
+
+    <script src="{% static 'js/loading.js' %}" async></script>
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    <script src="{% static 'js/loading.js' %}"></script>
 
     <style>
         .api-wrapper {
@@ -356,7 +370,7 @@
                     <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
                     <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
                     <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
-                    <a href="/qr_api_keys/" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
                         API Keys
                         <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
                     </a>
@@ -381,7 +395,7 @@
                     <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
                     <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
                     <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
-                    <a href="/qr_api_keys/" class="menu-link-nav active" data-menu-item>API Keys</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>API Keys</a>
                 </div>
 
                 <div class="menu-divider-full menu-link-main"></div>
@@ -554,7 +568,7 @@
                         Include your API key in the <code style="background:rgba(255,255,255,0.04);padding:0.1rem 0.4rem;border-radius:0.3rem;color:#5fd0ba;">X-API-Key</code> header or as a query parameter <code style="background:rgba(255,255,255,0.04);padding:0.1rem 0.4rem;border-radius:0.3rem;color:#5fd0ba;">?api_key=YOUR_KEY</code> when making requests to the ROYALE API.
                     </p>
                     <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
-                        <a href="/products/qr/api-keys/"
+                        <a href="/products/qr/"
                             class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
                             <i class="fas fa-qrcode"></i> QR Code Generator
                         </a>

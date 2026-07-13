@@ -30,11 +30,24 @@
     <script src="{% static 'css/tailwind.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    <script src="{% static 'js/loading.js' %}"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap"
-        rel="stylesheet" />
+    
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load with media="print" then load on all -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <!-- Fallback for no JS -->
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script src="{% static 'js/loading.js' %}" async></script>
+    
 
     <style>
         * {
@@ -624,6 +637,12 @@
         .step-item:nth-child(3) {
             margin-left: 8rem;
         }
+        .step-item:nth-child(4) {
+            margin-left: 4rem;
+        }
+        .step-item:nth-child(5) {
+            margin-left: 0rem;
+        }
 
         @media (max-width: 768px) {
             .step-item {
@@ -1056,6 +1075,9 @@
                             <span
                                 class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition"><i
                                     class="fas fa-heartbeat mr-1 sm:mr-2"></i>Uptime Pinger</span>
+                            <span
+                                class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition"><i
+                                    class="fas fa-qrcode mr-1 sm:mr-2"></i>QR GEN</span>
                         </div>
                     </div>
                     <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
@@ -1141,6 +1163,24 @@
                         <h3>Uptime, Scraper &amp; Pinger</h3>
                         <p>Monitor your websites 24/7. Get websites source code. Get alerts on downtime and track
                             response times.</p>
+                    </div>
+                </div>
+                <div class="step-item reveal-right delay-4">
+                    <div class="step-icon text-orange-400">
+                        <a href="/products/qr/" target="_blank"><i class="fas fa-qrcode"></i></a>
+                    </div>
+                    <div class="step-content">
+                        <h3>QR GEN</h3>
+                        <p>Generate QR codes for your content.</p>
+                    </div>
+                </div>
+                <div class="step-item reveal-right delay-5">
+                    <div class="step-icon text-teal-400">
+                        <a href="/products/" target="_blank"><i class="fas fa-cubes"></i></a>
+                    </div>
+                    <div class="step-content">
+                        <h3>All Products</h3>
+                        <p>Explore our vast variety of products. All useful tools are HERE!</p>
                     </div>
                 </div>
             </div>

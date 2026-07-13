@@ -80,7 +80,7 @@ main, header, footer { position: relative; z-index: 2; }
     font-family: 'Playfair Display', serif;
     font-weight: 900;
     font-style: italic;
-    font-size: clamp(2.0rem, 6vw, 4.2rem);
+    font-size: clamp(2.4rem, 6vw, 4.2rem);
     letter-spacing: -0.02em;
     background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706, #f59e0b, #fbbf24);
     background-size: 300% 300%;

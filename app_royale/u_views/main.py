@@ -22,3 +22,10 @@ def qr_api_keys(request):
         'RoyaleSSJXKi4U1qHHDopnrDSzx0RWOulLYF',
     ]
     return render(request, "qr_api_keys.html", {"year": year_gen(), "api_keys": api_keys})
+
+def qr_gen_scr(request):
+    page_title = "QR Generator Source"
+    code_lang="py" # we use extension (e.g. py, js, html, css, cpp, java, php, etc)
+    filename = "qr_gen_scr.txt" # BASE DIR is /static/scr_code
+    return render(request, "scr_code.html", 
+                  {"year": year_gen(), "filename": filename, "page_title": page_title, "code_lang": code_lang})

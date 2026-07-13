@@ -27,6 +27,7 @@ urlpatterns += [
     path('products/qr/', main.qr_code_gen, name="qr_code_gen"),
     path('api/products/qr-code-gen/', generate_qr_code, name="generate_qr_code"),
     path('products/qr/api-keys/', main.qr_api_keys, name="qr_api_keys"),
+    path('products/qr/scr/', main.qr_gen_scr, name="qr_gen_scr"),
 
     # 
 ]
