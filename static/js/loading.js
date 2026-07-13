@@ -279,6 +279,7 @@
         var messageTimeout = null;
         var closeBtnTimeout = null;
         var flashTimeout = null;
+        var fallbackTimer = null;
         var loaderText = document.getElementById('loaderText');
         var loaderSubtext = document.getElementById('loaderSubtext');
         var closeBtn = document.getElementById('loaderCloseBtn');
@@ -332,7 +333,16 @@
             if (closeBtnTimeout) {
                 clearTimeout(closeBtnTimeout);
             }
-            closeBtnTimeout = setTimeout(showCloseButton, 5000);
+            closeBtnTimeout = setTimeout(showCloseButton, 1000);
+
+            if (fallbackTimer) {
+                clearTimeout(fallbackTimer);
+            }
+            fallbackTimer = setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                }
+            }, 5000);
         }
 
         function hideLoader() {
@@ -353,6 +363,11 @@
                 closeBtnTimeout = null;
             }
 
+            if (fallbackTimer) {
+                clearTimeout(fallbackTimer);
+                fallbackTimer = null;
+            }
+
             overlay.classList.remove('show');
             overlay.classList.add('hide');
 
@@ -366,7 +381,6 @@
             }, 500);
         }
 
-        // ===== SAME-PAGE FLASH INDICATOR =====
         function showFlash() {
             if (flashTimeout) {
                 clearTimeout(flashTimeout);
@@ -381,7 +395,6 @@
             }, 1000);
         }
 
-        // ===== CLOSE BUTTON EVENT =====
         if (closeBtn) {
             closeBtn.addEventListener('click', function() {
                 hideLoader();
@@ -408,7 +421,6 @@
         // AUTO-DETECT NAVIGATION EVENTS
         // ============================================================
 
-        // 1. Link clicks - works on desktop AND mobile
         document.addEventListener('click', function(e) {
             var target = e.target.closest('a');
             if (!target) return;
@@ -419,7 +431,6 @@
             if (target.target === '_blank') return;
             if (e.ctrlKey || e.metaKey || e.shiftKey) return;
 
-            // Same-page anchor link (starts with # only)
             if (href.startsWith('#')) {
                 e.preventDefault();
                 var targetId = href.substring(1);
@@ -433,39 +444,42 @@
                 return;
             }
 
-            // Full URL with hash (e.g., /products/#section)
             if (href.includes('#')) {
                 showLoader();
                 return;
             }
 
-            // Regular navigation (no hash)
             showLoader();
         }, true);
 
-        // 2. Form submissions
         document.addEventListener('submit', function(e) {
+            if (e.target && e.target.hasAttribute('data-no-loader')) return;
             showLoader();
         }, true);
 
-        // 3. Page refresh / reload / close
         window.addEventListener('beforeunload', function() {
             showLoader();
         });
 
-        // 4. Page unload
         window.addEventListener('pagehide', function() {
             showLoader();
         });
 
-        // 5. Back/Forward navigation
         window.addEventListener('popstate', function() {
             showLoader();
         });
 
-        // 6. Hide loader when page is ready
         function hideOnReady() {
-            setTimeout(hideLoader, 400);
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 400);
         }
 
         if (document.readyState === 'loading') {
@@ -474,21 +488,17 @@
             hideOnReady();
         }
 
-        // 7. Full page load
         window.addEventListener('load', function() {
-            setTimeout(hideLoader, 500);
-        });
-
-        // 8. Fallback: force hide after 10 seconds max
-        var fallbackTimer = setTimeout(function() {
-            if (isShowing) {
-                console.warn('[PageLoader] Force hiding after 10s timeout');
-                hideLoader();
-            }
-        }, 10000);
-
-        window.addEventListener('load', function() {
-            clearTimeout(fallbackTimer);
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 500);
         });
 
         // ============================================================
@@ -513,19 +523,74 @@
         // ============================================================
 
         document.addEventListener('htmx:beforeRequest', showLoader);
-        document.addEventListener('htmx:afterRequest', hideLoader);
-        document.addEventListener('htmx:afterSwap', hideLoader);
+        document.addEventListener('htmx:afterRequest', function() {
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 100);
+        });
+        document.addEventListener('htmx:afterSwap', function() {
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 100);
+        });
 
         document.addEventListener('turbo:before-fetch', showLoader);
-        document.addEventListener('turbo:render', hideLoader);
+        document.addEventListener('turbo:render', function() {
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 100);
+        });
 
-        document.addEventListener('alpine:init', hideLoader);
+        document.addEventListener('alpine:init', function() {
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 100);
+        });
 
         document.addEventListener('page:loading', showLoader);
-        document.addEventListener('page:loaded', hideLoader);
+        document.addEventListener('page:loaded', function() {
+            setTimeout(function() {
+                if (isShowing) {
+                    hideLoader();
+                } else {
+                    overlay.classList.remove('show');
+                    overlay.classList.add('hide');
+                    overlay.style.display = 'none';
+                    overlay.style.opacity = '0';
+                }
+            }, 100);
+        });
 
         console.log('[PageLoader] Active ✓');
 
-    }); // end domReady
+    });
 
 })();

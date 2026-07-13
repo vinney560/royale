@@ -374,6 +374,29 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        .stat {
+            color: rgb(65, 97, 35);
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-section .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-section .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
     </style>
 </head>
 

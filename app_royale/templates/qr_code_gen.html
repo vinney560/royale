@@ -1,0 +1,826 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | QR Code Generator</title>
+    <meta name="description" content="Generate custom QR codes for free. Customize colors, size, and download instantly." />
+    <meta name="keywords" content="QR code generator, custom QR, free QR code, ROYALE tools" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.com/qr_code_gen/" />
+
+    <meta property="og:title" content="ROYALE · QR Code Generator" />
+    <meta property="og:description" content="Generate custom QR codes for free. Customize colors, size, and download instantly." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.com/qr_code_gen/" />
+    <meta property="og:image" content="https://royale.com/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}"></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .qr-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .qr-result {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(8, 16, 20, 0.85);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            margin-top: 2rem;
+        }
+
+        .qr-result.visible {
+            display: block;
+        }
+
+        .qr-result img {
+            max-width: 250px;
+            height: auto;
+            border-radius: 1rem;
+            background: white;
+            padding: 1rem;
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.3);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .qr-result .qr-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .qr-result .qr-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .qr-result .qr-actions .btn-primary {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            color: #070a0c;
+        }
+
+        .qr-result .qr-actions .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(95, 208, 186, 0.25);
+        }
+
+        .qr-result .qr-actions .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #e4edf2;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .qr-result .qr-actions .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .qr-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .qr-form label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #bcd0d8;
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.02em;
+        }
+
+        .qr-form textarea,
+        .qr-form input[type="text"],
+        .qr-form input[type="number"] {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            background: rgba(8, 16, 20, 0.8);
+            border: 1px solid rgba(60, 130, 120, 0.15);
+            border-radius: 0.75rem;
+            color: #e4edf2;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .qr-form textarea:focus,
+        .qr-form input:focus {
+            border-color: rgba(95, 208, 186, 0.4);
+            box-shadow: 0 0 0 3px rgba(95, 208, 186, 0.06);
+            background: rgba(12, 28, 32, 0.9);
+        }
+
+        .qr-form textarea::placeholder,
+        .qr-form input::placeholder {
+            color: #5a7a85;
+        }
+
+        .qr-form textarea {
+            min-height: 100px;
+            resize: vertical;
+            max-length: 1200;
+        }
+
+        .qr-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .qr-form .form-row-colors {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .qr-form .color-group {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 0.75rem;
+            padding: 0.4rem 1rem;
+        }
+
+        .qr-form .color-group label {
+            margin-bottom: 0;
+            font-size: 0.7rem;
+            color: #7a9aa8;
+            flex-shrink: 0;
+        }
+
+        .qr-form input[type="color"] {
+            width: 40px;
+            height: 40px;
+            padding: 2px;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(60, 130, 120, 0.15);
+            background: rgba(8, 16, 20, 0.8);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .qr-form input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 2px;
+        }
+
+        .qr-form input[type="color"]::-webkit-color-swatch {
+            border-radius: 0.4rem;
+            border: none;
+        }
+
+        .qr-form .color-hex {
+            font-size: 0.7rem;
+            color: #5a7a85;
+            font-family: monospace;
+            flex: 1;
+            min-width: 40px;
+        }
+
+        @media (max-width: 640px) {
+            .qr-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            .qr-form .form-row-colors {
+                grid-template-columns: 1fr;
+            }
+            .qr-form .color-group {
+                padding: 0.4rem 0.8rem;
+            }
+        }
+
+        .btn-generate {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.9rem 2.5rem;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            color: #070a0c;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+            font-family: inherit;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-generate:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(95, 208, 186, 0.25);
+        }
+
+        .btn-generate:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .btn-generate i {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-generate:hover i {
+            transform: rotate(-10deg);
+        }
+
+        .loading-spinner-small {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(7, 10, 12, 0.1);
+            border-top-color: #070a0c;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .qr-examples {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .qr-examples .example-item {
+            padding: 0.5rem;
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 0.75rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.7rem;
+            color: #7a9aa8;
+        }
+
+        .qr-examples .example-item:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            background: rgba(12, 28, 32, 0.8);
+            transform: translateY(-2px);
+        }
+
+        .qr-examples .example-item i {
+            font-size: 1.5rem;
+            color: #5fd0ba;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-section .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-section .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="/qr_code_gen/" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        QR Code
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="/qr_code_gen/" class="menu-link-nav active" data-menu-item>QR Code</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Service</div>
+                <div class="menu-grid-single">
+                    <a href="/products/qr/api-keys/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-key text-orange-400"></i></span>
+                        Get API Keys
+                    </a>
+                </div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/products/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="https://lyxnexus.onrender.com/fb" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="/qr_code_gen/" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-qrcode"></i></span>
+                        QR Gen
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="qr-wrapper">
+
+            <!-- ===== HERO ===== -->
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-qrcode mr-1 sm:mr-2"></i>Free Tool · QR Code
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">QR Code Generator</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Generate custom QR codes for free. Customize colors, size, and download instantly.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-download mr-1 sm:mr-2"></i>Download PNG
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-palette mr-1 sm:mr-2"></i>Custom Colors
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60"><i class="fas fa-qrcode"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== QR GENERATOR FORM ===== -->
+            <div class="glass-card featured">
+                <form class="qr-form" id="qrForm" data-no-loader>
+                    {% csrf_token %}
+
+                    <div class="form-group">
+                        <label for="data">Content <span style="color:#ef4444;">*</span></label>
+                        <textarea id="data" name="data" placeholder="Enter text, URL, or any data to encode..." maxlength="1200" required>https://pr-royale.vercel.app/</textarea>
+                        <div style="text-align:right;font-size:0.7rem;color:#5a7a85;margin-top:0.3rem;">
+                            <span id="charCount">0</span> / 1200
+                        </div>
+                    </div>
+
+                    <div class="form-row-colors">
+                        <div class="color-group">
+                            <label for="fill_color">Fill</label>
+                            <input type="color" id="fill_color" name="fill_color" value="#000000" />
+                            <span class="color-hex" id="fillColorHex">#000000</span>
+                        </div>
+                        <div class="color-group">
+                            <label for="back_color">Background</label>
+                            <input type="color" id="back_color" name="back_color" value="#ffffff" />
+                            <span class="color-hex" id="backColorHex">#ffffff</span>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="size">Size</label>
+                            <input type="number" id="size" name="size" value="10" min="4" max="30" />
+                        </div>
+                        <div class="form-group">
+                            <label for="border">Border</label>
+                            <input type="number" id="border" name="border" value="4" min="1" max="10" />
+                        </div>
+                        <div class="form-group" style="display:flex;align-items:flex-end;">
+                            <button type="submit" class="btn-generate" id="generateBtn">
+                                <i class="fas fa-qrcode"></i>
+                                <span>Generate</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+
+                <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid rgba(255,255,255,0.04);">
+                    <p style="color:#5a7a85;font-size:0.75rem;margin-bottom:0.5rem;">
+                        <i class="fas fa-bolt"></i> Quick examples:
+                    </p>
+                    <div class="qr-examples">
+                        <div class="example-item" data-text="https://pr-royale.vercel.app/">
+                            <i class="fas fa-globe"></i>
+                            Website
+                        </div>
+                        <div class="example-item" data-text="mailto:vincentkipngetich479@gmail.com">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </div>
+                        <div class="example-item" data-text="tel:+254112167195">
+                            <i class="fas fa-phone"></i>
+                            Phone
+                        </div>
+                        <div class="example-item" data-text="Hello, this is a test message!">
+                            <i class="fas fa-comment"></i>
+                            Text
+                        </div>
+                        <div class="example-item" data-text="https://wa.me/254740694312">
+                            <i class="fab fa-whatsapp"></i>
+                            WhatsApp
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== RESULT ===== -->
+            <div class="qr-result" id="qrResult">
+                <h3 style="color:#eef2f5;font-weight:600;margin-bottom:0.5rem;">
+                    <i class="fas fa-check-circle text-emerald-400"></i> Your QR Code
+                </h3>
+                <img id="qrImage" src="#" alt="QR Code" />
+                <p style="color:#5a7a85;font-size:0.8rem;margin-top:0.5rem;" id="qrContentDisplay"></p>
+                <div class="qr-actions">
+                    <button class="btn btn-primary" id="downloadBtn">
+                        <i class="fas fa-download"></i> Download PNG
+                    </button>
+                    <button class="btn btn-secondary" id="newCodeBtn">
+                        <i class="fas fa-undo"></i> Generate New
+                    </button>
+                </div>
+            </div>
+
+            <!-- ===== CTA ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-qrcode text-emerald-400 mr-2"></i>Need a QR code?
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Generate custom QR codes for your website, social media, business cards, and more.
+                        It's free, fast, and private.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/contact/"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                        <a href="/products/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-cubes"></i> Explore Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            var form = document.getElementById('qrForm');
+            var resultDiv = document.getElementById('qrResult');
+            var qrImage = document.getElementById('qrImage');
+            var qrContentDisplay = document.getElementById('qrContentDisplay');
+            var generateBtn = document.getElementById('generateBtn');
+            var downloadBtn = document.getElementById('downloadBtn');
+            var newCodeBtn = document.getElementById('newCodeBtn');
+
+            var fillColorInput = document.getElementById('fill_color');
+            var backColorInput = document.getElementById('back_color');
+            var fillColorHex = document.getElementById('fillColorHex');
+            var backColorHex = document.getElementById('backColorHex');
+
+            var dataInput = document.getElementById('data');
+            var charCount = document.getElementById('charCount');
+
+            dataInput.addEventListener('input', function() {
+                charCount.textContent = this.value.length;
+            });
+
+            charCount.textContent = dataInput.value.length;
+
+            fillColorInput.addEventListener('input', function() {
+                fillColorHex.textContent = this.value;
+            });
+
+            backColorInput.addEventListener('input', function() {
+                backColorHex.textContent = this.value;
+            });
+
+            document.querySelectorAll('.example-item').forEach(function(el) {
+                el.addEventListener('click', function() {
+                    document.getElementById('data').value = this.dataset.text;
+                    charCount.textContent = this.dataset.text.length;
+                    form.dispatchEvent(new Event('submit'));
+                });
+            });
+
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+
+                var data = document.getElementById('data').value.trim();
+                if (!data) {
+                    alert('Please enter some content to encode.');
+                    return;
+                }
+
+                var fillColor = fillColorInput.value;
+                var backColor = backColorInput.value;
+                var size = document.getElementById('size').value || 10;
+                var border = document.getElementById('border').value || 4;
+
+                generateBtn.disabled = true;
+                generateBtn.innerHTML = '<span class="loading-spinner-small"></span> Generating...';
+
+                fetch('/api/products/qr-code-gen/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    },
+                    body: JSON.stringify({
+                        data: data,
+                        fill_color: fillColor,
+                        back_color: backColor,
+                        size: parseInt(size),
+                        border: parseInt(border),
+                    })
+                })
+                .then(function(response) {
+                    if (!response.ok) {
+                        return response.text().then(function(text) {
+                            throw new Error(text || 'Generation failed');
+                        });
+                    }
+                    return response.blob();
+                })
+                .then(function(blob) {
+                    var url = URL.createObjectURL(blob);
+                    qrImage.src = url;
+                    qrContentDisplay.textContent = 'Content: ' + data.substring(0, 60) + (data.length > 60 ? '...' : '');
+                    resultDiv.classList.add('visible');
+                    generateBtn.innerHTML = '<i class="fas fa-qrcode"></i> <span>Generate</span>';
+                    generateBtn.disabled = false;
+
+                    setTimeout(function() {
+                        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 300);
+                })
+                .catch(function(error) {
+                    console.error('Error:', error);
+                    alert('Failed to generate QR code: ' + error.message);
+                    generateBtn.innerHTML = '<i class="fas fa-qrcode"></i> <span>Generate</span>';
+                    generateBtn.disabled = false;
+                });
+            });
+
+            downloadBtn.addEventListener('click', function() {
+                var link = document.createElement('a');
+                link.download = 'royale_qrcode.png';
+                link.href = qrImage.src;
+                link.click();
+            });
+
+            newCodeBtn.addEventListener('click', function() {
+                resultDiv.classList.remove('visible');
+                qrImage.src = '#';
+                document.getElementById('data').focus();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .example-item, .glass-card, .btn-generate, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,1 +1,1 @@
-git add . && git commit -m "Removed the rouge tailwind.min.css file from staticfiles" && git push
+git add . && git commit -m "v1.0.0.3" && git push

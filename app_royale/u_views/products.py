@@ -102,9 +102,9 @@ def more_products(request):
             'icon': 'fas fa-qrcode',
             'iconColor': 'text-indigo-400',
             'tags': ['QR Code', 'Tracking', 'Custom'],
-            'link': '#',
+            'link': 'qr/',
             'featured': False,
-            'stats': {'generated': '250K+', 'scans': '1.2M+'}
+            'stats': {'generated': '25+', 'scans': '1.2K+'}
         },
         {
             'id': 10,
@@ -164,6 +164,8 @@ def more_products(request):
     ]
 
     # Apply search filter
+    # Search in name, description, and tags
+    # Case-insensitive search (reduce noise)
     if search:
         all_products = [
             p for p in all_products

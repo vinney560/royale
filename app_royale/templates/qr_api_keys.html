@@ -1,0 +1,708 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | API Keys</title>
+    <meta name="description" content="Manage your ROYALE API keys for QR code generation and other services." />
+    <meta name="keywords" content="API keys, QR code API, ROYALE API, generate QR code" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.com/qr_api_keys/" />
+
+    <meta property="og:title" content="ROYALE · API Keys" />
+    <meta property="og:description" content="Manage your ROYALE API keys for QR code generation and other services." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.com/qr_api_keys/" />
+    <meta property="og:image" content="https://royale.com/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}"></script>
+
+    <style>
+        .api-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .api-table-wrap {
+            overflow-x: auto;
+            background: rgba(8, 16, 20, 0.85);
+            border-radius: 1.5rem;
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .api-table thead th {
+            text-align: left;
+            padding: 0.8rem 1rem;
+            color: #5a7a85;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            font-weight: 600;
+        }
+
+        .api-table tbody td {
+            padding: 0.8rem 1rem;
+            color: #e4edf2;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+            font-family: monospace;
+            font-size: 0.8rem;
+            word-break: break-all;
+        }
+
+        .api-table tbody tr:hover td {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .api-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .api-table .copy-btn {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: #9bb0bb;
+            padding: 0.3rem 0.8rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 0.7rem;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            white-space: nowrap;
+        }
+
+        .api-table .copy-btn:hover {
+            background: rgba(95, 208, 186, 0.1);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .api-table .copy-btn.copied {
+            background: rgba(52, 211, 153, 0.1);
+            border-color: rgba(52, 211, 153, 0.15);
+            color: #34d399;
+        }
+
+        .api-table .api-index {
+            color: #5a7a85;
+            font-weight: 600;
+            font-size: 0.75rem;
+            font-family: system-ui, sans-serif;
+        }
+
+        .api-table .api-key {
+            color: #bcd0d8;
+            font-family: 'Courier New', monospace;
+            font-size: 0.75rem;
+            letter-spacing: 0.02em;
+        }
+
+        .api-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .api-stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+        }
+
+        .api-stat-item .stat-number {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #5fd0ba;
+            line-height: 1;
+        }
+
+        .api-stat-item .stat-label {
+            color: #5a7a85;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+
+        .api-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+        }
+
+        .api-actions .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .api-actions .btn-primary {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            color: #070a0c;
+        }
+
+        .api-actions .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(95, 208, 186, 0.25);
+        }
+
+        .api-actions .btn-secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #e4edf2;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .api-actions .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-2px);
+        }
+
+        .api-actions .btn-danger {
+            background: rgba(239, 68, 68, 0.1);
+            color: #ef4444;
+            border: 1px solid rgba(239, 68, 68, 0.1);
+        }
+
+        .api-actions .btn-danger:hover {
+            background: rgba(239, 68, 68, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(12, 22, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(95, 208, 186, 0.2);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            color: #e4edf2;
+            font-size: 0.9rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 100;
+            animation: slideUp 0.4s ease;
+        }
+
+        .toast.visible {
+            display: flex;
+        }
+
+        .toast i {
+            color: #5fd0ba;
+            font-size: 1.2rem;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .copy-all-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1rem;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 0.5rem;
+            color: #9bb0bb;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .copy-all-btn:hover {
+            background: rgba(95, 208, 186, 0.08);
+            border-color: rgba(95, 208, 186, 0.12);
+            color: #5fd0ba;
+        }
+
+        @media (max-width: 640px) {
+            .api-wrapper {
+                padding: 1rem;
+            }
+            .api-table-wrap {
+                padding: 1rem;
+            }
+            .api-table thead th,
+            .api-table tbody td {
+                padding: 0.5rem 0.6rem;
+                font-size: 0.7rem;
+            }
+            .api-table .api-key {
+                font-size: 0.65rem;
+            }
+            .api-table .copy-btn {
+                padding: 0.2rem 0.5rem;
+                font-size: 0.6rem;
+            }
+            .api-stats {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-section .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-section .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="/qr_api_keys/" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        API Keys
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="/qr_api_keys/" class="menu-link-nav active" data-menu-item>API Keys</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/products/qr/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT Downloader
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="https://lyxnexus.onrender.com/fb" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB Downloader
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="/products/qr/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-qrcode"></i></span>
+                        QR Gen
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="api-wrapper">
+            <!-- ===== HERO ===== -->
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-qrcode mr-1 sm:mr-2"></i>QR API Access
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">QR API Access</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Manage your API keys for ROYALE services. Use these keys to authenticate API requests.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-circle-notch mr-1 sm:mr-2"></i>Unlimited Request
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-infinity mr-1 sm:mr-2"></i>Free Forever
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60">
+                                    <i class="fas fa-key"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== STATS ===== -->
+            <div class="api-stats">
+                <div class="api-stat-item reveal delay-1">
+                    <div class="stat-number">{{ api_keys|length }}</div>
+                    <div class="stat-label">Total Keys</div>
+                </div>
+                <div class="api-stat-item reveal delay-2">
+                    <div class="stat-number">Active</div>
+                    <div class="stat-label">Status</div>
+                </div>
+                <div class="api-stat-item reveal delay-3">
+                    <div class="stat-number">QR</div>
+                    <div class="stat-label">Service</div>
+                </div>
+                <div class="api-stat-item reveal delay-4">
+                    <div class="stat-number">Free</div>
+                    <div class="stat-label">Plan</div>
+                </div>
+            </div>
+
+            <!-- ===== API KEYS TABLE ===== -->
+            <div class="api-table-wrap reveal">
+                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
+                    <h3 style="color:#eef2f5;font-weight:600;font-size:1rem;">
+                        <i class="fas fa-key text-emerald-400 mr-2"></i>Your API Keys
+                    </h3>
+                    <button class="copy-all-btn" id="copyAllBtn">
+                        <i class="fas fa-copy"></i> Copy All
+                    </button>
+                </div>
+
+                <div class="api-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>API Key</th>
+                                <th style="text-align:right;">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for key in api_keys %}
+                            <tr>
+                                <td><span class="api-index">{{ forloop.counter }}</span></td>
+                                <td><span class="api-key" id="api-key-{{ forloop.counter0 }}">{{ key }}</span></td>
+                                <td style="text-align:right;">
+                                    <button class="copy-btn" data-key="{{ key }}" data-index="{{ forloop.counter0 }}">
+                                        <i class="fas fa-copy"></i> Copy
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- ===== USAGE INFO ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-code text-emerald-400 mr-2"></i>How to use your API key
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Include your API key in the <code style="background:rgba(255,255,255,0.04);padding:0.1rem 0.4rem;border-radius:0.3rem;color:#5fd0ba;">X-API-Key</code> header or as a query parameter <code style="background:rgba(255,255,255,0.04);padding:0.1rem 0.4rem;border-radius:0.3rem;color:#5fd0ba;">?api_key=YOUR_KEY</code> when making requests to the ROYALE API.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/products/qr/api-keys/"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-qrcode"></i> QR Code Generator
+                        </a>
+                        <a href="/contact/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Support
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            // ===== TOAST =====
+            var toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.innerHTML = '<i class="fas fa-check-circle"></i> <span id="toastMessage">Copied!</span>';
+            document.body.appendChild(toast);
+
+            function showToast(message) {
+                var msg = document.getElementById('toastMessage');
+                msg.textContent = message || 'Copied!';
+                toast.classList.add('visible');
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(function() {
+                    toast.classList.remove('visible');
+                }, 2000);
+            }
+
+            // ===== COPY SINGLE KEY =====
+            document.querySelectorAll('.copy-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    var key = this.dataset.key;
+                    navigator.clipboard.writeText(key).then(function() {
+                        btn.classList.add('copied');
+                        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+                        showToast('API key copied!');
+                        setTimeout(function() {
+                            btn.classList.remove('copied');
+                            btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+                        }, 2000);
+                    }).catch(function() {
+                        // Fallback
+                        var textarea = document.createElement('textarea');
+                        textarea.value = key;
+                        document.body.appendChild(textarea);
+                        textarea.select();
+                        document.execCommand('copy');
+                        document.body.removeChild(textarea);
+                        showToast('API key copied!');
+                    });
+                });
+            });
+
+            // ===== COPY ALL KEYS =====
+            document.getElementById('copyAllBtn').addEventListener('click', function() {
+                var keys = [];
+                document.querySelectorAll('.api-key').forEach(function(el) {
+                    keys.push(el.textContent.trim());
+                });
+                var allKeys = keys.join('\n');
+                navigator.clipboard.writeText(allKeys).then(function() {
+                    showToast('All ' + keys.length + ' keys copied!');
+                }).catch(function() {
+                    var textarea = document.createElement('textarea');
+                    textarea.value = allKeys;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast('All ' + keys.length + ' keys copied!');
+                });
+            });
+
+            // ===== CURSOR GLOW =====
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            // ===== SCROLL REVEAL =====
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            // ===== HEADER SCROLL =====
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ===== CURSOR GLOW ACTIVE =====
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .copy-btn, .copy-all-btn, .api-stat-item, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>
