@@ -97,9 +97,15 @@ def scrape(request):
                 'success': False,
                 'message': 'Unexpected error, please try again later'
             }, status=400)
-        return JsonResponse({
+        response_data = {
             'success': True,
             'html': result
-        }, json_dumps_params={'ensure_ascii': False})
+        }
+        
+        response = JsonResponse(response_data, json_dumps_params={'ensure_ascii': False})
+        response['Content-Type'] = 'application/json; charset=utf-8'
+        response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        
+        return response
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'})
