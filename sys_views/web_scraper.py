@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, StreamingHttpResponse
 from app_royale.year_gen import year_gen
 import requests
 from bs4 import BeautifulSoup
@@ -97,15 +97,27 @@ def scrape(request):
                 'success': False,
                 'message': 'Unexpected error, please try again later'
             }, status=400)
-        response_data = {
+        
+        import json
+        response_data = json.dumps({
             'success': True,
             'html': result
-        }
-        
-        response = JsonResponse(response_data, json_dumps_params={'ensure_ascii': False})
+        }, ensure_ascii=False)
+
+        response_bytes = response_data.encode('utf-8')
+
+        def generate():
+            yield response_bytes
+
+        response = StreamingHttpResponse(
+            generate(),
+            content_type='application/json; charset=utf-8'
+        )
         response['Content-Type'] = 'application/json; charset=utf-8'
         response['Cache-Control'] = 'no-cache, no-store, must-revalidate'
-        
+        response['Content-Encoding'] = 'identity'
+        response['Vary'] = 'Accept-Encoding'
+
         return response
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'})
