@@ -3,6 +3,7 @@ Django
 
 # For config
 python-decouple
+psycopg2-binary
 
 # To run our server
 gunicorn

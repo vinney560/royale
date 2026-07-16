@@ -62,22 +62,34 @@ WSGI_APPLICATION = 'pr_royale.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
-# DATABASE_URL = config("DATABASE_URL")
-# 
-# DATABASES = {
-#     'default': dj_database_url.config(
-#         default=DATABASE_URL,
-#         conn_max_age=600,
-#         conn_health_checks=True,
-#     )
-# }
+DATABASE_URL = config("DATABASE_URL")
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        **dj_database_url.config(
+            default=config('DATABASE_URL'),
+            conn_max_age=600,
+            conn_health_checks=True,
+            ssl_require=True,
+        ),
+        'OPTIONS': {
+            'sslmode': 'require',
+            'connect_timeout': 10,
+            'pool': {  # Requires psycopg2 >= 2.9
+                'min_size': 2,
+                'max_size': 20,
+                'timeout': 30,
+            }
+        }
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/6.0/ref/settings/#auth-password-validators
