@@ -16,7 +16,6 @@ handler403 = handler_403_request
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
-
 # ================= U_VIEW ================ ===
 # u_ -> User views
 from app_royale.u_views import (
@@ -26,6 +25,11 @@ from app_royale.u_views import (
 from sys_views import (
     web_scraper
 )
+# =============================================
+urlpatterns += [
+    path('robots.txt', main.robots_txt, name='robots_txt'),
+    path('sitemap.xml', main.sitemap_xml, name='sitemap_xml'),
+]
 # --------------------------------------------
 urlpatterns += [
     path('', main.main_page, name="main_page"),

@@ -1,4 +1,6 @@
 from django.shortcuts import render
+from django.http import HttpResponse
+from datetime import datetime
 from app_royale.year_gen import year_gen
 from django_ratelimit.decorators import ratelimit
 from sys_views.rate_limit_key import getKey
@@ -67,3 +69,90 @@ def pretty_printer_src(request):
         "code_lang": "py"
         }
     return render(request, "scr_code.html", context)
+
+# ============================================================
+# ROBOTS.TXT
+# ============================================================
+
+def robots_txt(request):
+    lines = [
+        "User-agent: *",
+        "Allow: /",
+        "",
+        "Disallow: /admin/",
+        "Disallow: /static/admin/",
+        "Disallow: /api/",
+        "Disallow: /accounts/",
+        "Disallow: /profile/",
+        "",
+        "Allow: /static/css/",
+        "Allow: /static/js/",
+        "Allow: /static/uploads/",
+        "",
+        "Sitemap: https://royale.de5.net/sitemap.xml",
+        "Crawl-delay: 1",
+    ]
+    return HttpResponse("\n".join(lines), content_type="text/plain")
+
+
+# ============================================================
+# SITEMAP.XML
+# ============================================================
+
+class PageSitemap:
+    """Define page priority and changefreq for each URL"""
+    
+    PAGES = {
+        '/': {'priority': '1.0', 'changefreq': 'weekly'},
+        '/about/': {'priority': '0.8', 'changefreq': 'monthly'},
+        '/contact/': {'priority': '0.8', 'changefreq': 'monthly'},
+        '/products/': {'priority': '0.9', 'changefreq': 'weekly'},
+        '/market/place/': {'priority': '0.8', 'changefreq': 'weekly'},
+        '/market/softwares/hotspot/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/products/web-scraper/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/downloader/fb/': {'priority': '0.8', 'changefreq': 'weekly'},
+        '/qr_code_gen/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/learn/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/profile/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/learn/c/': {'priority': '0.6', 'changefreq': 'monthly'},
+        '/learn/html/': {'priority': '0.6', 'changefreq': 'monthly'},
+        '/learn/assembly/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/products/qr/api-keys/': {'priority': '0.5', 'changefreq': 'monthly'},
+    }
+
+    @classmethod
+    def get_all_urls(cls):
+        """Return all URLs with their metadata"""
+        urls = []
+        for url, data in cls.PAGES.items():
+            urls.append({
+                'url': url,
+                'priority': data.get('priority', '0.5'),
+                'changefreq': data.get('changefreq', 'weekly'),
+            })
+        return urls
+
+def sitemap_xml(request):
+    today = datetime.now().strftime('%Y-%m-%d')
+    domain = 'https://royale.de5.net'
+    
+    xml_lines = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"',
+        '        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"',
+        '        xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9',
+        '        http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">',
+    ]
+    
+    for page in PageSitemap.get_all_urls():
+        xml_lines.append('    <url>')
+        xml_lines.append(f'        <loc>{domain}{page["url"]}</loc>')
+        xml_lines.append(f'        <lastmod>{today}</lastmod>')
+        xml_lines.append(f'        <changefreq>{page["changefreq"]}</changefreq>')
+        xml_lines.append(f'        <priority>{page["priority"]}</priority>')
+        xml_lines.append('    </url>')
+    
+    xml_lines.append('</urlset>')
+    
+    return HttpResponse('\n'.join(xml_lines), content_type='application/xml')
+# =======================================================
