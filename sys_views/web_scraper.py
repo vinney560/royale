@@ -100,6 +100,6 @@ def scrape(request):
         return JsonResponse({
             'success': True,
             'html': result
-        })
+        }, json_dumps_params={'ensure_ascii': False})
     else:
         return JsonResponse({'success': False, 'message': 'Invalid request method'})
