@@ -342,7 +342,7 @@
                 if (isShowing) {
                     hideLoader();
                 }
-            }, 7000);
+            }, 15_000);
         }
 
         function hideLoader() {
