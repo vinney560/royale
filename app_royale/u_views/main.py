@@ -111,7 +111,7 @@ class PageSitemap:
         '/market/softwares/hotspot/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/products/web-scraper/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/downloader/fb/': {'priority': '0.8', 'changefreq': 'weekly'},
-        '/qr_code_gen/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/products/qr/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/learn/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/profile/': {'priority': '0.5', 'changefreq': 'monthly'},
         '/learn/c/': {'priority': '0.6', 'changefreq': 'monthly'},
