@@ -1,0 +1,54 @@
+from colorama import init, Fore
+
+init(autoreset=True)
+
+# ANSI escape codes
+RESET = "\033[0m"
+STYLES = {
+    "DIM": "\033[2m",
+    "ITALIC": "\033[3m",
+    "UNDERLINE": "\033[4m",
+    "BLINK": "\033[5m",
+    "REVERSE": "\033[7m",
+    "STRIKE": "\033[9m",
+}
+
+
+class Style:
+    """ANSI style codes as attributes with validation."""
+    
+    DIM = STYLES["DIM"]
+    ITALIC = STYLES["ITALIC"]
+    UNDERLINE = STYLES["UNDERLINE"]
+    BLINK = STYLES["BLINK"]
+    REVERSE = STYLES["REVERSE"]
+    STRIKE = STYLES["STRIKE"]
+    
+    @classmethod
+    def list_styles(cls) -> list:
+        """Return list of all available style names."""
+        return [attr for attr in dir(cls) if not attr.startswith("_") and attr != "list_styles"]
+    
+    def __getattr__(self, name):
+        """Handle invalid style access."""
+        available = ", ".join(Style.list_styles())
+        raise AttributeError(
+            f"'{name}' is not a valid style. "
+            f"Available styles: {available}"
+        )
+
+
+def _printThis(style: str, message: str, color: str = Fore.WHITE) -> None:
+    """
+    Print a styled message to the console using ANSI escape codes.
+    
+    Args:
+        style: ANSI style code (Style.BOLD, Style.UNDERLINE, etc.)
+        message: The text to print
+        color: Foreground color from colorama (default: Fore.WHITE)
+    
+    Examples:
+        _printThis(Style.STRIKE, "Deprecated", Fore.RED)
+        _printThis(Style.UNDERLINE + Style.ITALIC, "Warning!", Fore.YELLOW)
+    """
+    print(f"{style}{color}{message}{RESET}")

@@ -488,6 +488,17 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
             animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
         }
 
         #particles-canvas {
@@ -557,10 +568,6 @@
         .mission-blur-section.in-focus {
             filter: blur(0px);
             opacity: 1;
-        }
-
-        .text-responsive-hero {
-            font-size: clamp(2.8rem, 8vw, 4.5rem);
         }
 
         .text-responsive-h2 {
@@ -1016,7 +1023,7 @@
                         <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
                         FB Downloader
                     </a>
-                    <a href="#" class="menu-link-product" data-menu-item>
+                    <a href="https://uptimerobot.com/" class="menu-link-product" data-menu-item>
                         <span class="product-icon"><i class="fas fa-heartbeat text-green-400"></i></span>
                         Uptime Pinger
                     </a>
@@ -1071,8 +1078,7 @@
                             class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
                             <i class="fas fa-code mr-1 sm:mr-2"></i>Custom Scripts · Tools
                         </span>
-                        <h1
-                            class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                        <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
                             <span class="royale-brand-wrapper">
                                 <span class="brand-letter">R</span>
                                 <span class="brand-letter">O</span>
@@ -1081,7 +1087,7 @@
                                 <span class="brand-letter">L</span>
                                 <span class="brand-letter">E</span>
                             </span><br />
-                            <span class="text-gradient-shimmer">builds tools that work.</span>
+                            <span class="text-gradient-shimmer">Software that solves. Code that delivers.</span>
                         </h1>
                         <p
                             class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
@@ -1181,10 +1187,12 @@
                     </div>
                 </div>
                 <div class="step-item reveal-right delay-3">
-                    <div class="step-icon text-purple-400"><i class="fas fa-heartbeat"></i></div>
+                    <div class="step-icon text-purple-400">
+                        <a href="https://uptimerobot.com/"><i class="fas fa-heartbeat"></i></a>
+                    </div>
                     <div class="step-content">
-                        <h3>Uptime, Scraper &amp; Pinger</h3>
-                        <p>Monitor your websites 24/7. Get websites source code. Get alerts on downtime and track
+                        <h3>UptimeRobot</h3>
+                        <p>Monitoring your websites 24/7. Prevents Auto-Sleep.
                             response times.</p>
                     </div>
                 </div>

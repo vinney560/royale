@@ -1,8 +1,11 @@
 import qrcode
 import json
 from django.http import HttpResponse, HttpResponseBadRequest
-# from django.views.decorators.csrf import csrf_exempt
+from django_ratelimit.decorators import ratelimit
+from sys_views.rate_limit_key import getKey
 
+
+@ratelimit(key=getKey, rate='20/m', block=True)
 def generate_qr_code(request):
     if request.method != 'POST':
         return HttpResponseBadRequest("POST method required")

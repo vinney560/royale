@@ -1,0 +1,883 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE · Too Many Requests</title>
+    <meta name="description" content="You've made too many requests. Please wait a moment and try again." />
+    <meta name="robots" content="noindex, follow" />
+
+    <meta property="og:title" content="ROYALE · 429 - Too Many Requests" />
+    <meta property="og:description" content="You've made too many requests. Please wait a moment and try again." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/429/" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #fbbf24, #f59e0b, #d97706, #f59e0b, #fbbf24);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 4s linear infinite;
+            font-size: clamp(6rem, 15vw, 10rem);
+            font-weight: 900;
+            display: inline-block;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .error-wrapper {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+            min-height: calc(100vh - 160px);
+            display: flex;
+            align-items: center;
+        }
+
+        .error-content {
+            width: 100%;
+            text-align: center;
+        }
+
+        .error-illustration {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-illustration .glow-ring {
+            position: absolute;
+            inset: -20px;
+            border-radius: 50%;
+            border: 2px solid rgba(245, 158, 11, 0.08);
+            animation: pulse-ring 3s ease-in-out infinite;
+        }
+
+        .error-illustration .glow-ring:nth-child(2) {
+            inset: -40px;
+            animation-delay: 1s;
+            border-color: rgba(245, 158, 11, 0.05);
+        }
+
+        .error-illustration .glow-ring:nth-child(3) {
+            inset: -60px;
+            animation-delay: 2s;
+            border-color: rgba(245, 158, 11, 0.03);
+        }
+
+        @keyframes pulse-ring {
+            0%, 100% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.05); opacity: 1; }
+        }
+
+        .error-illustration .floating-icon {
+            position: absolute;
+            font-size: 1.2rem;
+            color: #f59e0b;
+            opacity: 0.25;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .error-illustration .floating-icon:nth-child(4) {
+            top: -10px;
+            right: -20px;
+            animation-delay: 0.5s;
+            font-size: 1.6rem;
+        }
+
+        .error-illustration .floating-icon:nth-child(5) {
+            bottom: -10px;
+            left: -30px;
+            animation-delay: 1.5s;
+            font-size: 1.4rem;
+        }
+
+        .error-illustration .floating-icon:nth-child(6) {
+            top: 20%;
+            right: -45px;
+            animation-delay: 2.5s;
+            font-size: 1rem;
+        }
+
+        .error-illustration .floating-icon:nth-child(7) {
+            bottom: 30%;
+            left: -45px;
+            animation-delay: 3.5s;
+            font-size: 1rem;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(10deg); }
+        }
+
+        .error-title {
+            font-size: clamp(3rem, 6vw, 5rem);
+            font-weight: 800;
+            color: #eef2f5;
+            line-height: 1.1;
+            margin-top: 0.5rem;
+        }
+
+        .error-title span {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .error-subtitle {
+            font-size: clamp(1.2rem, 2vw, 1.6rem);
+            color: #9bb0bb;
+            margin-top: 0.5rem;
+            font-weight: 300;
+        }
+
+        .error-description {
+            color: #7a9aa8;
+            max-width: 500px;
+            margin: 1.5rem auto 2rem;
+            line-height: 1.8;
+            font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+        }
+
+        .error-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 2.2rem;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            color: #070a0c;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 40px rgba(95, 208, 186, 0.25);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 2.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 130, 120, 0.15);
+            background: rgba(8, 16, 20, 0.6);
+            color: #bcd0d8;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            color: #5fd0ba;
+            background: rgba(95, 208, 186, 0.04);
+            transform: translateY(-3px);
+        }
+
+        .btn-warning {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.85rem 2.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            background: rgba(245, 158, 11, 0.06);
+            color: #fbbf24;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-warning:hover {
+            border-color: rgba(245, 158, 11, 0.25);
+            background: rgba(245, 158, 11, 0.08);
+            transform: translateY(-3px);
+            color: #f59e0b;
+        }
+
+        .quick-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.5rem 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .quick-links a {
+            color: #5a7a85;
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .quick-links a:hover {
+            color: #5fd0ba;
+        }
+
+        .quick-links a i {
+            font-size: 0.6rem;
+            color: #5fd0ba;
+            opacity: 0.3;
+        }
+
+        /* ===== 429 SPECIFIC ANIMATIONS ===== */
+        .pulse-warning {
+            animation: pulseWarning 2s ease-in-out infinite;
+        }
+
+        @keyframes pulseWarning {
+            0%, 100% { opacity: 0.4; }
+            50% { opacity: 0.9; }
+        }
+
+        .spin-slow {
+            animation: spinSlow 20s linear infinite;
+        }
+
+        @keyframes spinSlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .fade-in-up.delay-1 { animation-delay: 0.1s; }
+        .fade-in-up.delay-2 { animation-delay: 0.25s; }
+        .fade-in-up.delay-3 { animation-delay: 0.4s; }
+        .fade-in-up.delay-4 { animation-delay: 0.55s; }
+        .fade-in-up.delay-5 { animation-delay: 0.7s; }
+        .fade-in-up.delay-6 { animation-delay: 0.85s; }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .suggestion-box {
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(245, 158, 11, 0.08);
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            margin-top: 2rem;
+            max-width: 450px;
+            margin-left: auto;
+            margin-right: auto;
+            transition: all 0.3s ease;
+        }
+
+        .suggestion-box:hover {
+            border-color: rgba(245, 158, 11, 0.15);
+            background: rgba(12, 28, 32, 0.6);
+        }
+
+        .suggestion-box .suggestion-icon {
+            font-size: 2rem;
+            color: #f59e0b;
+            opacity: 0.3;
+            margin-bottom: 0.5rem;
+        }
+
+        .suggestion-box p {
+            color: #9bb0bb;
+            font-size: 0.85rem;
+            margin: 0;
+            line-height: 1.6;
+        }
+
+        .suggestion-box .wait-timer {
+            font-family: 'Courier New', monospace;
+            color: #fbbf24;
+            font-size: 0.75rem;
+            background: rgba(245, 158, 11, 0.06);
+            padding: 0.2rem 0.8rem;
+            border-radius: 0.5rem;
+            display: inline-block;
+            margin-top: 0.5rem;
+            border: 1px solid rgba(245, 158, 11, 0.06);
+        }
+
+        /* ===== RATE LIMIT INDICATOR ===== */
+        .rate-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.08);
+            margin-top: 1.5rem;
+            font-size: 0.75rem;
+            color: #fbbf24;
+            font-weight: 500;
+        }
+
+        .rate-indicator .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #f59e0b;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.2; }
+        }
+
+        /* ===== PROGRESS BAR ===== */
+        .cooldown-bar {
+            max-width: 300px;
+            margin: 1rem auto 0;
+            height: 4px;
+            background: rgba(245, 158, 11, 0.06);
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .cooldown-bar .cooldown-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #f59e0b, #fbbf24);
+            border-radius: 4px;
+            transition: width 1s linear;
+        }
+
+        @media (max-width: 640px) {
+            .error-wrapper {
+                padding: 1rem;
+                min-height: calc(100vh - 120px);
+            }
+            .suggestion-box {
+                padding: 1rem 1.2rem;
+            }
+            .error-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .btn-primary, .btn-secondary, .btn-warning {
+                width: 100%;
+                justify-content: center;
+            }
+            .rate-indicator {
+                font-size: 0.65rem;
+                padding: 0.3rem 1rem;
+            }
+            .cooldown-bar {
+                max-width: 200px;
+            }
+        }
+
+        /* ===== RATE LIMIT BACKGROUND EFFECT ===== */
+        .throttle-lines {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            overflow: hidden;
+            opacity: 0.03;
+        }
+
+        .throttle-lines .line {
+            position: absolute;
+            height: 2px;
+            background: #f59e0b;
+            animation: lineMove 6s linear infinite;
+            border-radius: 2px;
+        }
+
+        .throttle-lines .line:nth-child(1) { width: 25%; top: 25%; left: -25%; animation-delay: 0s; }
+        .throttle-lines .line:nth-child(2) { width: 15%; top: 55%; left: -15%; animation-delay: 1.5s; }
+        .throttle-lines .line:nth-child(3) { width: 35%; top: 75%; left: -35%; animation-delay: 3s; }
+        .throttle-lines .line:nth-child(4) { width: 20%; top: 40%; left: -20%; animation-delay: 4.5s; }
+
+        @keyframes lineMove {
+            0% { transform: translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateX(400%); opacity: 0; }
+        }
+
+        .error-illustration .rate-icon {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #f59e0b;
+            opacity: 0.05;
+            animation: pulseWarning 3s ease-in-out infinite;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="/contact/" class="nav-link anim-fade-up delay-5">Contact</a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== POPUP MENU ===== -->
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="/contact/" class="menu-link-nav" data-menu-item>Contact</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-home"></i></span>
+                        Home
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="/products/web-scraper/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-spider text-teal-400"></i></span>
+                        Web Scraper
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="error-wrapper">
+
+            <div class="error-content">
+
+                <!-- ===== THROTTLE EFFECT ===== -->
+                <div class="throttle-lines">
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                    <div class="line"></div>
+                </div>
+
+                <!-- ===== 429 ILLUSTRATION ===== -->
+                <div class="error-illustration fade-in-up">
+                    <div class="glow-ring"></div>
+                    <div class="glow-ring"></div>
+                    <div class="glow-ring"></div>
+
+                    <div class="rate-icon">
+                        <i class="fas fa-tachometer-alt"></i>
+                    </div>
+
+                    <div class="floating-icon"><i class="fas fa-clock"></i></div>
+                    <div class="floating-icon"><i class="fas fa-hourglass-half"></i></div>
+                    <div class="floating-icon"><i class="fas fa-stopwatch"></i></div>
+                    <div class="floating-icon"><i class="fas fa-gauge-high"></i></div>
+
+                    <span class="text-gradient-shimmer pulse-warning">429</span>
+                </div>
+
+                <!-- ===== TEXT ===== -->
+                <h1 class="error-title fade-in-up delay-1">
+                    <span>Too Many</span> Requests
+                </h1>
+
+                <p class="error-subtitle fade-in-up delay-2">
+                    <i class="fas fa-hourglass-end mr-2" style="color:#f59e0b;"></i>
+                    Slow down, speedster!
+                </p>
+
+                <p class="error-description fade-in-up delay-3">
+                    You've been sending requests faster than we can handle. Please take a breather 
+                    and try again in a moment. This helps keep things fair for everyone.
+                </p>
+
+                <!-- ===== RATE INDICATOR ===== -->
+                <div class="rate-indicator fade-in-up delay-3">
+                    <span class="dot"></span>
+                    <span>Rate Limit: <strong style="color:#fbbf24;">Exceeded</strong></span>
+                    <span style="opacity:0.3;margin-left:0.3rem;">·</span>
+                    <span style="opacity:0.6;">Cooldown in progress</span>
+                </div>
+
+                <!-- ===== COOLDOWN BAR ===== -->
+                <div class="cooldown-bar fade-in-up delay-3">
+                    <div class="cooldown-fill" id="cooldownFill"></div>
+                </div>
+
+                <!-- ===== ACTIONS ===== -->
+                <div class="error-actions fade-in-up delay-4">
+                    <button id="retryBtn" class="btn-primary" disabled>
+                        <i class="fas fa-clock"></i> <span id="retryText">Wait 30s</span>
+                    </button>
+                    <a href="/" class="btn-secondary">
+                        <i class="fas fa-home"></i> Go Home
+                    </a>
+                    <a href="/contact/" class="btn-warning">
+                        <i class="fas fa-envelope"></i> Contact Support
+                    </a>
+                </div>
+
+                <!-- ===== SUGGESTION BOX ===== -->
+                <div class="suggestion-box fade-in-up delay-5">
+                    <div class="suggestion-icon">
+                        <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <p>
+                        <strong style="color:#eef2f5;">Pro tip:</strong> 
+                        Space out your requests. Most APIs have rate limits to prevent abuse.
+                        Take a moment and then <span style="color:#fbbf24;">try again</span>.
+                    </p>
+                    <div class="wait-timer">
+                        <i class="fas fa-hourglass-start mr-1"></i>
+                        <span>Next retry available in: <span id="timerDisplay">30</span>s</span>
+                    </div>
+                </div>
+
+                <!-- ===== QUICK LINKS ===== -->
+                <div class="quick-links fade-in-up delay-6">
+                    <a href="/"><i class="fas fa-circle"></i> Home</a>
+                    <a href="/about/"><i class="fas fa-circle"></i> About</a>
+                    <a href="/products/"><i class="fas fa-circle"></i> Products</a>
+                    <a href="/learn/"><i class="fas fa-circle"></i> Learn</a>
+                    <a href="/contact/"><i class="fas fa-circle"></i> Contact</a>
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== SCRIPTS ===== -->
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            // ===== CURSOR GLOW =====
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            // ===== HEADER SCROLL =====
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ===== CURSOR GLOW ACTIVE =====
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .suggestion-box, .btn-primary, .btn-secondary, .btn-warning');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+            // ===== COOLDOWN TIMER =====
+            var retryBtn = document.getElementById('retryBtn');
+            var retryText = document.getElementById('retryText');
+            var timerDisplay = document.getElementById('timerDisplay');
+            var cooldownFill = document.getElementById('cooldownFill');
+
+            var cooldownSeconds = 30;
+            var remaining = cooldownSeconds;
+            var timerInterval = null;
+            var progressInterval = null;
+
+            function startCooldown() {
+                remaining = cooldownSeconds;
+                retryBtn.disabled = true;
+                retryText.textContent = 'Wait ' + remaining + 's';
+                timerDisplay.textContent = remaining;
+                cooldownFill.style.width = '0%';
+
+                clearInterval(timerInterval);
+                clearInterval(progressInterval);
+
+                timerInterval = setInterval(function() {
+                    remaining--;
+                    if (remaining <= 0) {
+                        remaining = 0;
+                        clearInterval(timerInterval);
+                        clearInterval(progressInterval);
+                        retryBtn.disabled = false;
+                        retryText.innerHTML = '<i class="fas fa-sync mr-1"></i> Retry Now';
+                        timerDisplay.textContent = '0';
+                        cooldownFill.style.width = '100%';
+                        retryBtn.style.opacity = '1';
+
+                        // Show toast notification
+                        showRetryReady();
+                    } else {
+                        retryText.textContent = 'Wait ' + remaining + 's';
+                        timerDisplay.textContent = remaining;
+                        var progress = ((cooldownSeconds - remaining) / cooldownSeconds) * 100;
+                        cooldownFill.style.width = progress + '%';
+                    }
+                }, 1000);
+            }
+
+            function showRetryReady() {
+                // Brief flash effect
+                var indicator = document.querySelector('.rate-indicator');
+                indicator.style.borderColor = 'rgba(52, 211, 153, 0.3)';
+                indicator.style.background = 'rgba(52, 211, 153, 0.04)';
+                var dot = indicator.querySelector('.dot');
+                dot.style.background = '#34d399';
+                var text = indicator.querySelector('strong');
+                text.textContent = 'Ready';
+                text.style.color = '#34d399';
+
+                // Reset after 3 seconds
+                setTimeout(function() {
+                    indicator.style.borderColor = '';
+                    indicator.style.background = '';
+                    dot.style.background = '#f59e0b';
+                    text.textContent = 'Exceeded';
+                    text.style.color = '#fbbf24';
+                }, 3000);
+            }
+
+            // ===== RETRY BUTTON =====
+            retryBtn.addEventListener('click', function() {
+                if (!retryBtn.disabled) {
+                    location.reload();
+                }
+            });
+
+            // ===== KEYBOARD SHORTCUTS =====
+            document.addEventListener('keydown', function(e) {
+                // ESC to go home
+                if (e.key === 'Escape') {
+                    window.location.href = '/';
+                }
+                // 'R' to retry (if not disabled)
+                if (e.key === 'r' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                    var activeElement = document.activeElement;
+                    if (activeElement && activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
+                        if (!retryBtn.disabled) {
+                            location.reload();
+                        }
+                    }
+                }
+                // 'H' to go home
+                if (e.key === 'h' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+                    var activeElement = document.activeElement;
+                    if (activeElement && activeElement.tagName !== 'INPUT' && activeElement.tagName !== 'TEXTAREA') {
+                        window.location.href = '/';
+                    }
+                }
+            });
+
+            // ===== PARALLAX ON 429 TEXT =====
+            var textElement = document.querySelector('.text-gradient-shimmer');
+            document.addEventListener('mousemove', function(e) {
+                if (textElement) {
+                    var x = (e.clientX / window.innerWidth - 0.5) * 8;
+                    var y = (e.clientY / window.innerHeight - 0.5) * 8;
+                    textElement.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+                }
+            });
+
+            // ===== SUGGESTION: API Rate Limit Info =====
+            var suggestionBox = document.querySelector('.suggestion-box p');
+            var requestCount = Math.floor(Math.random() * 15) + 5;
+            var timeWindow = Math.floor(Math.random() * 5) + 1;
+
+            // Add some dynamic info
+            var infoSpan = document.createElement('span');
+            infoSpan.style.cssText = 'display:block;margin-top:0.5rem;color:#5a7a85;font-size:0.75rem;';
+            infoSpan.innerHTML = '⏱️ Last ' + timeWindow + ' min · ' + requestCount + ' requests made · Limit: 10/min';
+            suggestionBox.querySelector('p').appendChild(infoSpan);
+
+            // ===== SCROLL REVEAL =====
+            var fadeElements = document.querySelectorAll('.fade-in-up');
+            fadeElements.forEach(function(el) {
+                el.style.opacity = '';
+            });
+
+            // ===== DETECT IF THIS IS A FAST REPEAT =====
+            var repeatCount = parseInt(sessionStorage.getItem('royale_429_count') || '0');
+            sessionStorage.setItem('royale_429_count', String(repeatCount + 1));
+
+            if (repeatCount > 0) {
+                // User has seen this page multiple times, increase cooldown
+                cooldownSeconds = 30 + (repeatCount * 5);
+                if (cooldownSeconds > 60) cooldownSeconds = 60;
+
+                // Show a warning
+                var warningNote = document.createElement('div');
+                warningNote.style.cssText = 'margin-top:0.5rem;font-size:0.7rem;color:#ef4444;opacity:0.6;';
+                warningNote.textContent = '⚠️ Repeated rate limit. Please wait longer between requests.';
+                document.querySelector('.rate-indicator').appendChild(warningNote);
+            }
+
+            // ===== START COOLDOWN =====
+            startCooldown();
+
+        })();
+    </script>
+
+</body>
+
+</html>

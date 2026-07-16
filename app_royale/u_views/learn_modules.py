@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from app_royale.year_gen import year_gen
+from django_ratelimit.decorators import ratelimit
+from sys_views.rate_limit_key import getKey
+
 
 """
     This view renders learnable modules in our reach
 
     to enable a module, update the lessons to 1+ value
 """
+@ratelimit(key=getKey, rate='20/m', block=True)
 def modules_to_learn(request):
     context = {
         'year': year_gen(),
@@ -75,6 +79,7 @@ def modules_to_learn(request):
     Template:
         learn-lang.html: Template that renders the learning materials.
 """
+@ratelimit(key=getKey, rate='20/m', block=True)
 def learn_c(request):
     context = {
         'year': year_gen(),
@@ -170,6 +175,7 @@ def learn_c(request):
 
     return render(request, "learn-lang.html", context)
 
+@ratelimit(key=getKey, rate='20/m', block=True)
 def learn_html(request):
     context = {
         'year': year_gen(),
@@ -211,6 +217,7 @@ def learn_html(request):
 
     return render(request, "learn-lang.html", context)
 
+@ratelimit(key=getKey, rate='20/m', block=True)
 def learn_flowchart(request):
     context = {
         'year': year_gen(),

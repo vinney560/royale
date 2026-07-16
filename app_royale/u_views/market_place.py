@@ -1,6 +1,10 @@
 from django.shortcuts import render
 from app_royale.year_gen import year_gen
+from django_ratelimit.decorators import ratelimit
+from sys_views.rate_limit_key import getKey
 
+
+@ratelimit(key=getKey, rate='20/m', block=True)
 def market_place(request):
     """ Display Softwares to be sold in the market. The Meta data includes brief
         description of the software.
@@ -42,5 +46,6 @@ def market_place(request):
     }
     return render(request, 'market_place.html', context)
 
+@ratelimit(key=getKey, rate='20/m', block=True)
 def softwares_toSale_hotspot(request):
     return render(request, 'softwares_hotspot.html', {'year': year_gen()})

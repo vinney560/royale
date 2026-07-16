@@ -1,5 +1,9 @@
 from django.http import JsonResponse
+from django_ratelimit.decorators import ratelimit
+from sys_views.rate_limit_key import getKey
 
+
+@ratelimit(key=getKey, rate='20/m', block=True)
 def more_products(request):
     page = int(request.GET.get('page', 1))
     search = request.GET.get('search', '').strip().lower()
@@ -42,14 +46,14 @@ def more_products(request):
         },
         {
             'id': 4,
-            'name': 'Uptime & Pinger',
-            'description': 'Monitor your websites 24/7. Get instant alerts on downtime, track response times, and keep your services online with 99.9% SLA.',
-            'icon': 'fas fa-heartbeat',
+            'name': 'Pretty Printer',
+            'description': 'Print styled messages to the console with ANSI escape codes, and custom styles & colors for each message.',
+            'icon': 'fas fa-print',
             'iconColor': 'text-green-400',
-            'tags': ['24/7', '99.9% SLA', 'Alerts'],
-            'link': '#',
+            'tags': ['Styled', 'Colors', 'Offline'],
+            'link': 'pretty-printer/scr/',
             'featured': False,
-            'stats': {'uptime': '99.97%', 'alerts': 'Instant'}
+            'stats': {'coloring': '100%', 'styles': 'Instant'}
         },
         {
             'id': 5,
@@ -80,7 +84,7 @@ def more_products(request):
             'icon': 'fas fa-spider',
             'iconColor': 'text-purple-400',
             'tags': ['API', 'Automation', 'Pro'],
-            'link': '#',
+            'link': 'web-scraper/',
             'featured': True,
             'stats': {'requests': '1M+', 'uptime': '99.99%'}
         },
@@ -130,14 +134,14 @@ def more_products(request):
         },
         {
             'id': 12,
-            'name': 'Cron Job Manager',
-            'description': 'Schedule and manage cron jobs with ease. Monitor execution logs, get failure alerts, and track job history. Supports complex scheduling intervals.',
-            'icon': 'fas fa-clock',
+            'name': 'UptimeRobot',
+            'description': 'Monitor website availability and uptime of your services with ease.',
+            'icon': 'fas fa-heartbeat',
             'iconColor': 'text-lime-400',
             'tags': ['Automation', 'Schedule', 'Monitor'],
-            'link': '#',
+            'link': 'https://uptimerobot.com/',
             'featured': True,
-            'stats': {'jobs': '50K+', 'uptime': '99.95%'}
+            'stats': {'jobs': '50K+', 'uptime': '99.99%'}
         },
         {
             'id': 13,

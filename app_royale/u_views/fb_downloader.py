@@ -11,6 +11,8 @@ import threading
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 from bs4 import BeautifulSoup
+from django_ratelimit.decorators import ratelimit
+from sys_views.rate_limit_key import getKey
 
 HEADERS = {
     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
@@ -519,12 +521,14 @@ class FacebookVideoDownloader:
 # Initialize downloader
 downloader = FacebookVideoDownloader()
 
+@ratelimit(key=getKey, rate='20/m', block=True)
 def facebook_v_downloader(request):
     """Render the Facebook video downloader page"""
     return render(request, 'fb_vid_downloader.html')
 
 @csrf_exempt
 @require_http_methods(["POST"])
+@ratelimit(key=getKey, rate='20/m', block=True)
 def extract_metadata(request):
     """Extract metadata from Facebook video URL"""
     try:
@@ -584,6 +588,7 @@ def extract_metadata(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
+@ratelimit(key=getKey, rate='20/m', block=True)
 def direct_download(request):
     """Download video directly"""
     try:

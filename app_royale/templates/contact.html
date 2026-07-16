@@ -29,23 +29,20 @@
 
     <script src="{% static 'css/tailwind.min.js' %}"></script>
 
-    <!-- Preconnect -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Load with media="print" then load on all -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
-    <!-- Fallback for no JS -->
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
-    </noscript>    
+    </noscript>
 
     <script src="{% static 'js/loading.js' %}" async></script>
-    
+
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
 
     <style>
@@ -89,14 +86,14 @@
         .contact-info-grid {
             display: grid;
             grid-template-columns: 1fr;
-            gap: 1rem;
+            gap: 0.8rem;
         }
 
         .contact-info-item {
             display: flex;
             align-items: center;
             gap: 1rem;
-            padding: 1rem 1.2rem;
+            padding: 0.9rem 1.2rem;
             background: rgba(8, 16, 20, 0.6);
             border-radius: 1rem;
             border: 1px solid rgba(60, 130, 120, 0.08);
@@ -125,10 +122,11 @@
 
         .contact-info-item .info-text {
             flex: 1;
+            min-width: 0;
         }
 
         .contact-info-item .info-text .label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             letter-spacing: 0.08em;
             color: #5a7a85;
@@ -138,7 +136,7 @@
         .contact-info-item .info-text .value {
             color: #e4edf2;
             font-weight: 500;
-            font-size: clamp(0.9rem, 1vw, 1rem);
+            font-size: clamp(0.85rem, 1vw, 0.95rem);
         }
 
         .contact-info-item .info-text .value a {
@@ -148,6 +146,30 @@
         }
 
         .contact-info-item .info-text .value a:hover {
+            color: #5fd0ba;
+        }
+
+        .contact-info-item .info-text .value .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin-top: 0.2rem;
+        }
+
+        .contact-info-item .info-text .value .tech-stack span {
+            font-size: 0.7rem;
+            background: rgba(95, 208, 186, 0.06);
+            padding: 0.1rem 0.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(95, 208, 186, 0.06);
+            color: #5a7a85;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.2rem;
+        }
+
+        .contact-info-item .info-text .value .tech-stack span i {
+            font-size: 0.5rem;
             color: #5fd0ba;
         }
 
@@ -238,6 +260,8 @@
             font-family: inherit;
             position: relative;
             overflow: hidden;
+            width: 100%;
+            justify-content: center;
         }
 
         .btn-submit::before {
@@ -268,10 +292,9 @@
             transform: scale(0.96);
         }
 
-        /* ===== SOCIAL LINKS ===== */
         .social-links {
             display: flex;
-            gap: 1rem;
+            gap: 0.8rem;
             margin-top: 1.5rem;
             flex-wrap: wrap;
         }
@@ -280,13 +303,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 48px;
-            height: 48px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             background: rgba(8, 16, 20, 0.8);
             border: 1px solid rgba(60, 130, 120, 0.1);
             color: #9bb0bb;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             transition: all 0.3s ease;
             text-decoration: none;
         }
@@ -296,16 +319,6 @@
             border-color: rgba(95, 208, 186, 0.3);
             color: #5fd0ba;
             transform: translateY(-3px);
-        }
-
-        @media (max-width: 768px) {
-            .contact-wrapper {
-                padding: 1rem;
-            }
-
-            .glass-card {
-                padding: 1.5rem;
-            }
         }
 
         .hero-grid {
@@ -320,6 +333,95 @@
                 grid-template-columns: 1fr;
                 text-align: center;
             }
+            .contact-wrapper {
+                padding: 1rem;
+            }
+            .glass-card {
+                padding: 1.5rem;
+            }
+            .social-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contact-info-item {
+                padding: 0.7rem 0.8rem;
+                gap: 0.7rem;
+            }
+            .contact-info-item .info-icon {
+                width: 36px;
+                height: 36px;
+                font-size: 1rem;
+            }
+            .btn-submit {
+                padding: 0.7rem 1.5rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        .glass-card {
+            background: rgba(8, 16, 20, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            border-radius: 1.5rem;
+            padding: 2rem 2.2rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.15), transparent 60%, rgba(95, 208, 186, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(95, 208, 186, 0.25);
+        }
+
+        .glass-card.featured {
+            border-color: rgba(95, 208, 186, 0.15);
+            background: rgba(8, 26, 30, 0.95);
+        }
+
+        .glass-card.featured::before {
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.2), transparent 50%, rgba(95, 208, 186, 0.06));
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
         }
     </style>
 </head>
@@ -329,13 +431,10 @@
     <canvas id="particles-canvas"></canvas>
     <div id="cursor-glow"></div>
 
-    <header
-        class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
-            <a href="/"
-                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
-                <img src="/static/uploads/favicon.png" alt="ROYALE"
-                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
                 <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
             </a>
             <div class="flex items-center gap-2 sm:gap-4">
@@ -344,8 +443,7 @@
                     <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
                     <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
                     <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
-                    <a href="#" class="nav-link anim-fade-up delay-5 text-emerald-400"
-                        style="color:#5fd0ba;">
+                    <a href="/contact/" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
                         Contact
                         <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
                     </a>
@@ -358,12 +456,10 @@
         </div>
     </header>
 
-    <!-- ===== POPUP MENU ===== -->
     <div id="menuOverlay" class="menu-overlay">
         <div id="menuPopupWrapper" class="menu-popup-wrapper">
             <div id="menuPopup" class="menu-popup">
-                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i
-                        class="fas fa-times"></i></button>
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
 
                 <div class="menu-section-title menu-link-main">Navigation</div>
                 <div class="menu-grid-single menu-link-main">
@@ -371,7 +467,7 @@
                     <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
                     <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
                     <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
-                    <a href="#" class="menu-link-nav active" data-menu-item>Contact</a>
+                    <a href="/contact/" class="menu-link-nav active" data-menu-item>Contact</a>
                 </div>
 
                 <div class="menu-divider-full menu-link-main"></div>
@@ -407,11 +503,11 @@
             </div>
         </div>
     </div>
-    <!-- ===== MAIN CONTENT ===== -->
+
     <main class="relative z-10 pt-24 sm:pt-28">
 
         <div class="contact-wrapper">
-            <!-- ===== HERO ===== -->
+
             <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
                 <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
                 <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
@@ -420,7 +516,7 @@
                     <div class="hero-grid">
                         <div>
                             <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
-                                <i class="fas fa-qrcode mr-1 sm:mr-2"></i>Get in Touch
+                                <i class="fas fa-envelope mr-1 sm:mr-2"></i>Get in Touch
                             </span>
                             <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
                                 <span class="royale-brand-wrapper">
@@ -466,11 +562,9 @@
 
             <div class="contact-grid">
 
-                <!-- ===== LEFT: CONTACT INFO ===== -->
                 <div class="reveal-left delay-1">
 
-                    <h2 class="text-2xl sm:text-3xl font-bold text-white/90 mb-2">Get in <span
-                            class="text-gradient">touch</span></h2>
+                    <h2 class="text-2xl sm:text-3xl font-bold text-white/90 mb-2">Get in <span class="text-gradient">touch</span></h2>
                     <p class="text-gray-400 text-sm sm:text-base mb-6">
                         We respond within 24 hours. Let's talk about your project.
                     </p>
@@ -486,10 +580,26 @@
                         </div>
 
                         <div class="contact-info-item">
+                            <div class="info-icon"><i class="fas fa-phone"></i></div>
+                            <div class="info-text">
+                                <div class="label">Phone</div>
+                                <div class="value"><a href="tel:+254112167195">+254 112 167 195</a></div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
+                            <div class="info-icon"><i class="fab fa-whatsapp"></i></div>
+                            <div class="info-text">
+                                <div class="label">WhatsApp</div>
+                                <div class="value"><a href="https://wa.me/254740694312" target="_blank">+254 740 694 312</a></div>
+                            </div>
+                        </div>
+
+                        <div class="contact-info-item">
                             <div class="info-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="info-text">
                                 <div class="label">Location</div>
-                                <div class="value">Nairobi, Kenya</div>
+                                <div class="value">Nakuru, Kenya</div>
                             </div>
                         </div>
 
@@ -505,36 +615,39 @@
                             <div class="info-icon"><i class="fas fa-code"></i></div>
                             <div class="info-text">
                                 <div class="label">What We Build</div>
-                                <div class="value">Backends · Websites · Custom Scripts · &AMP; moreee </div>
+                                <div class="value">Custom Scripts · Downloaders · Uptime Tools · Backends · Websites</div>
                             </div>
                         </div>
+
                         <div class="contact-info-item">
                             <div class="info-icon"><i class="fas fa-laptop-code"></i></div>
                             <div class="info-text">
                                 <div class="label">Our Stack</div>
-                                <div class="value"><i class="fas fa-check-circle"></i>Django </div>
-                                <div class="value"><i class="fas fa-check-circle"></i>FastAPI </div>
-                                <div class="value"><i class="fas fa-check-circle"></i>Flask </div>
+                                <div class="value">
+                                    <div class="tech-stack">
+                                        <span><i class="fas fa-check-circle"></i> Django</span>
+                                        <span><i class="fas fa-check-circle"></i> FastAPI</span>
+                                        <span><i class="fas fa-check-circle"></i> Flask</span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
                     </div>
 
-                    <!-- Social Links -->
                     <div class="social-links">
                         <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                         <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                         <a href="#" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
 
                 </div>
 
-                <!-- ===== RIGHT: CONTACT FORM ===== -->
                 <div class="glass-card featured reveal-right delay-2">
 
-                    <h3 class="text-xl font-bold text-white/90 mb-1">Send a <span class="text-gradient">message</span>
-                    </h3>
+                    <h3 class="text-xl font-bold text-white/90 mb-1">Send a <span class="text-gradient">message</span></h3>
                     <p class="text-gray-400 text-sm mb-5">Fill in the form and we'll get back to you shortly.</p>
 
                     <form class="contact-form" method="POST" action="#">
@@ -565,8 +678,7 @@
 
                         <div class="form-group">
                             <label for="message">Message</label>
-                            <textarea id="message" name="message" placeholder="Tell us about your project..."
-                                required></textarea>
+                            <textarea id="message" name="message" placeholder="Tell us about your project..." required></textarea>
                         </div>
 
                         <button type="submit" class="btn-submit">
@@ -584,67 +696,69 @@
 
     </main>
 
-    <!-- ===== FOOTER ===== -->
     <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
-        <div
-            class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
-            <span
-                class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
-                <img src="/static/uploads/favicon.png" alt="ROYALE"
-                    class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
                 <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
             </span>
             <div class="flex gap-4 sm:gap-6">
                 <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
                 <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
-                <span class="hover:text-white transition cursor-default"><i
-                        class="fas fa-download mr-1"></i>Downloaders</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
             </div>
         </div>
     </footer>
 
-    <!-- ===== SCRIPTS ===== -->
     <script src="{% static 'js/bg_particle.js' %}"></script>
     <script src="{% static 'js/menu.js' %}"></script>
 
     <script>
-        (function () {
+        (function() {
 
-            // ===== CURSOR GLOW =====
-            const cursorGlow = document.getElementById('cursor-glow');
-            document.addEventListener('mousemove', (e) => {
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
                 cursorGlow.style.left = e.clientX + 'px';
                 cursorGlow.style.top = e.clientY + 'px';
             });
-            document.addEventListener('mouseenter', () => { cursorGlow.style.opacity = '1'; });
-            document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
 
-            // ===== SCROLL REVEAL =====
-            const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
             }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
-            reveals.forEach(el => observer.observe(el));
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
 
-            setTimeout(() => {
-                reveals.forEach(el => {
-                    const rect = el.getBoundingClientRect();
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
                     if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
                 });
             }, 200);
 
-            // ===== HEADER SCROLL =====
-            const header = document.querySelector('header');
-            window.addEventListener('scroll', () => {
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
                 header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
             });
 
-            // ===== CURSOR GLOW ACTIVE =====
-            document.querySelectorAll('a, button, .menu-container, .glass-card, .contact-info-item, .social-links a, .btn-submit, input, textarea, select').forEach(el => {
-                el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
-                el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .glass-card, .contact-info-item, .social-links a, .btn-submit, input, textarea, select');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
             });
 
         })();

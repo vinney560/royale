@@ -14,10 +14,16 @@ dj-database-url
 # Serve static
 whitenoise
 
+# rate limit
+django-ratelimit
+
 # qrcode
 qrcode
 Pillow
 
+# Log styling
+colorama
 
+# 
 requests
 beautifulsoup4
