@@ -3,6 +3,8 @@ from app_royale.year_gen import year_gen
 
 def main_page(request):
     return render(request, "main_page.html", {"year": year_gen()})
+def profile_page(request):
+    return render(request, "profile.html", {"year": year_gen()})
 
 def products(request):
     return render(request, "products.html", {"year": year_gen()})
@@ -29,3 +31,6 @@ def qr_gen_scr(request):
     filename = "qr_gen_scr.txt" # BASE DIR is /static/scr_code
     return render(request, "scr_code.html", 
                   {"year": year_gen(), "filename": filename, "page_title": page_title, "code_lang": code_lang})
+
+def royale_tv(request):
+    return render(request, "royale_tv.html")

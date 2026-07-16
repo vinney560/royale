@@ -49,6 +49,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                # Context for anonymous_user. usage (anonymous_user.username, id...)
+                'app_royale.anonymous_user_context.anonymous_user',
             ],
         },
     },

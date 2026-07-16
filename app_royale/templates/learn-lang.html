@@ -1,0 +1,1137 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | Learn {{ module }}</title>
+    <meta name="description" content="Learn {{ module }} with ROYALE. Free interactive tutorials and guides." />
+    <meta name="keywords" content="learn {{ module }}, {{ module }} tutorial, programming, ROYALE" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/learn-lang/" />
+
+    <meta property="og:title" content="ROYALE | Learn {{ module }}" />
+    <meta property="og:description" content="Learn {{ module }} with ROYALE. Free interactive tutorials and guides." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/learn-lang/" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" 
+        rel="stylesheet" 
+        media="print" 
+        onload="this.media='all'"
+    />
+
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/solid.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/brands.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    </noscript>
+    
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .learn-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .module-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 1rem;
+            background: rgba(95, 208, 186, 0.08);
+            border: 1px solid rgba(95, 208, 186, 0.12);
+            border-radius: 2rem;
+            color: #5fd0ba;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .note-item {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.2rem;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            margin-bottom: 1rem;
+        }
+
+        .note-item:hover {
+            border-color: rgba(95, 208, 186, 0.15);
+        }
+
+        .note-item.completed {
+            border-color: rgba(52, 211, 153, 0.25);
+            background: rgba(8, 26, 30, 0.9);
+        }
+
+        .note-item.completed:hover {
+            border-color: rgba(52, 211, 153, 0.4);
+        }
+
+        .note-item.completed .note-number {
+            background: rgba(52, 211, 153, 0.15);
+            border-color: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+        }
+
+        .note-item.completed .note-title {
+            color: #34d399;
+        }
+
+        .note-item.completed .note-toggle {
+            color: #34d399;
+        }
+
+        .note-item .note-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.2rem 1.5rem;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            user-select: none;
+        }
+
+        .note-item .note-header:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .note-item .note-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            border-radius: 0.75rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            color: #5fd0ba;
+            font-weight: 700;
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .note-item:hover .note-number {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+        }
+
+        .note-item .note-title {
+            flex: 1;
+            font-weight: 600;
+            color: #eef2f5;
+            font-size: 1rem;
+            transition: color 0.3s ease;
+        }
+
+        .note-item:hover .note-title {
+            color: #5fd0ba;
+        }
+
+        .note-item .note-toggle {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .note-item .note-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .note-item.open .note-toggle i {
+            transform: rotate(180deg);
+        }
+
+        .note-item .note-body {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.2, 0.9, 0.4, 1), padding 0.3s ease;
+            padding: 0 1.5rem;
+        }
+
+        .note-item.open .note-body {
+            max-height: 2000px;
+            padding: 0 1.5rem 1.5rem;
+        }
+
+        .note-item .note-body .note-content {
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            color: #bcd0d8;
+            font-size: 0.9rem;
+            line-height: 1.8;
+        }
+
+        .note-item .note-body .note-content img {
+            max-width: 100%;
+            border-radius: 0.75rem;
+            margin: 0 auto;
+            display: block;
+        }
+
+        .note-item .note-body .note-content .empty-message {
+            color: #5a7a85;
+            font-style: italic;
+        }
+
+        .note-item .note-body .note-content .video-container {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            overflow: hidden;
+            border-radius: 0.75rem;
+        }
+
+        .note-item .note-body .note-content .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 0.75rem;
+        }
+
+        .note-item .note-body .note-content .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 0.75rem;
+            background: #000;
+        }
+
+        .note-item .note-body .note-content .audio-container {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 0.75rem;
+        }
+
+        .note-item .note-body .note-content .audio-container audio {
+            width: 100%;
+        }
+
+        .note-item .note-body .note-content .doc-container {
+            padding: 1rem;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 0.75rem;
+            text-align: center;
+        }
+
+        .note-item .note-body .note-content .doc-container iframe {
+            width: 100%;
+            height: 500px;
+            border: none;
+            border-radius: 0.5rem;
+        }
+
+        .note-item .note-body .note-content .doc-container .doc-placeholder {
+            padding: 2rem;
+            color: #5a7a85;
+        }
+
+        .note-item .note-body .note-content .doc-container .doc-placeholder i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        .note-item .note-body .note-content .content-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            border-radius: 2rem;
+            color: #5fd0ba;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .note-item .note-body .note-content .content-link:hover {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: translateX(4px);
+        }
+
+        .note-item .note-body .note-content .note-actions {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        .note-item .note-body .note-content .note-actions .action-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.7rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 130, 120, 0.1);
+            background: transparent;
+            color: #9bb0bb;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .note-item .note-body .note-content .note-actions .action-btn:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            color: #5fd0ba;
+            background: rgba(95, 208, 186, 0.04);
+        }
+
+        .note-item .note-body .note-content .note-actions .action-btn.completed {
+            border-color: rgba(52, 211, 153, 0.2);
+            color: #34d399;
+            background: rgba(52, 211, 153, 0.06);
+        }
+
+        .note-item .note-body .note-content .note-actions .action-btn.completed:hover {
+            background: rgba(52, 211, 153, 0.1);
+        }
+
+        .note-item .note-body .note-content .note-actions .action-btn i {
+            font-size: 0.7rem;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 2rem;
+            padding: 0.3rem 0.3rem 0.3rem 1rem;
+            transition: all 0.3s ease;
+            max-width: 400px;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: rgba(95, 208, 186, 0.2);
+            box-shadow: 0 0 0 3px rgba(95, 208, 186, 0.04);
+        }
+
+        .search-wrapper i {
+            color: #5a7a85;
+            font-size: 0.8rem;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0;
+            color: #e4edf2;
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .search-wrapper input::placeholder {
+            color: #5a7a85;
+        }
+
+        .search-wrapper .search-btn {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.4rem 1.2rem;
+            color: #070a0c;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-wrapper .search-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(95, 208, 186, 0.15);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(60, 130, 120, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: rgba(95, 208, 186, 0.08);
+        }
+
+        .stat-item .stat-number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #5fd0ba;
+            line-height: 1;
+        }
+
+        .stat-item .stat-label {
+            color: #5a7a85;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        @media (max-width: 640px) {
+            .learn-wrapper {
+                padding: 1rem;
+            }
+            .note-item .note-header {
+                padding: 1rem;
+            }
+            .note-item.open .note-body {
+                padding: 0 1rem 1rem;
+            }
+            .search-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        Learn {{ module }}
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>Learn {{ module }}</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/learn/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="{{ icon }}"></i></span>
+                        Learn {{ module }}
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="learn-wrapper">
+
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <div class="flex items-center gap-3 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <span class="module-badge"><i class="fas fa-code"></i> Module</span>
+                                <span class="module-badge" style="background:rgba(95,208,186,0.12);border-color:rgba(95,208,186,0.15);color:#5fd0ba;">
+                                    <i class="fas fa-book"></i> {{ module }}
+                                </span>
+                            </div>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">Learn {{ module }}</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Master {{ module }} with our interactive tutorials. From zero to 'SharpYoungStar' — learn at your own pace.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-book-open mr-1 sm:mr-2"></i>{{ notes|length }} Lessons
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-clock mr-1 sm:mr-2"></i>Self-paced
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-gem mr-1 sm:mr-2"></i>Easy
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60">
+                                    <i class="{{ icon }}"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                <h2 class="text-xl font-bold text-white">
+                    <i class="fas fa-list mr-2"></i>All Notes
+                    <span class="text-sm font-normal text-slate-500 ml-2">({{ notes|length }} notes)</span>
+                </h2>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search notes..." />
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="notesContainer">
+                {% for note in notes %}
+                <div class="note-item reveal" data-title="{{ note.title|lower }}" data-completed="false">
+                    <div class="note-header" data-note-id="{{ note.id }}" data-content-url="{{ note.content_url|default:'' }}" data-content-type="{{ note.type|default:'html' }}">
+                        <span class="note-number">{{ note.id }}</span>
+                        <span class="note-title">{{ note.title }}</span>
+                        <span class="note-toggle"><i class="fas fa-chevron-down"></i></span>
+                    </div>
+                    <div class="note-body">
+                        <div class="note-content" id="note-content-{{ note.id }}">
+                            <span class="empty-message"><i class="fas fa-spinner fa-spin"></i> Loading...</span>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item reveal delay-1">
+                    <div class="stat-number">{{ notes|length }}</div>
+                    <div class="stat-label">Total Notes</div>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <div class="stat-number" id="openCount">0</div>
+                    <div class="stat-label">Open</div>
+                </div>
+                <div class="stat-item reveal delay-4">
+                    <div class="stat-number">{{ module }}</div>
+                    <div class="stat-label">Module</div>
+                </div>
+            </div>
+
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-graduation-cap text-emerald-400 mr-2"></i>Start learning {{ module }} today
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Master {{ module }} with our free tutorials. Perfect for beginners and professionals looking to level up their skills.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="#notesContainer"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-book-open"></i> Start Learning
+                        </a>
+                        <a href="/contact/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            var moduleName = '{{ module|lower }}';
+            var STORAGE_KEY = 'royale_learn_completed_' + moduleName;
+            var noteItems = document.querySelectorAll('.note-item');
+            var openCount = document.getElementById('openCount');
+            var completedCountEl = document.getElementById('completedCount');
+
+            function getCompleted() {
+                try {
+                    var data = localStorage.getItem(STORAGE_KEY);
+                    return data ? JSON.parse(data) : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function saveCompleted(completed) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(completed));
+            }
+
+            function updateCompletedCount() {
+                var completed = getCompleted();
+                var count = Object.keys(completed).length;
+                if (completedCountEl) {
+                    completedCountEl.textContent = count;
+                }
+            }
+
+            function updateOpenCount() {
+                var count = document.querySelectorAll('.note-item.open').length;
+                openCount.textContent = count;
+            }
+
+            function updateNoteCompletedState(noteId) {
+                var completed = getCompleted();
+                noteItems.forEach(function(item) {
+                    var header = item.querySelector('.note-header');
+                    var id = header.dataset.noteId;
+                    if (id === noteId || !noteId) {
+                        if (completed[id]) {
+                            item.dataset.completed = 'true';
+                            item.classList.add('completed');
+                        } else {
+                            item.dataset.completed = 'false';
+                            item.classList.remove('completed');
+                        }
+                    }
+                });
+            }
+
+            function restoreCompleteState(container) {
+                var noteItem = container.closest('.note-item');
+                if (!noteItem) return;
+
+                var noteId = noteItem.querySelector('.note-header').dataset.noteId;
+                var completed = getCompleted();
+                var btn = container.querySelector('.mark-complete-btn');
+
+                if (completed[noteId]) {
+                    noteItem.dataset.completed = 'true';
+                    noteItem.classList.add('completed');
+                    if (btn) {
+                        btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                        btn.classList.add('completed');
+                    }
+                } else {
+                    noteItem.dataset.completed = 'false';
+                    noteItem.classList.remove('completed');
+                }
+                updateCompletedCount();
+            }
+
+            function renderContent(contentDiv, url, type) {
+                if (!url || url.trim() === '') {
+                    contentDiv.innerHTML = '<span class="empty-message"><i class="fas fa-file"></i> Content not yet uploaded</span>';
+                    return;
+                }
+
+                var noteActions = '<div class="note-actions">' +
+                    '<button class="action-btn mark-complete-btn" onclick="toggleComplete(this)"><i class="fas fa-check-circle"></i> Mark Complete</button>';
+
+                // Only show download for doc and html types
+                if (type === 'doc' || type === 'html') {
+                    noteActions += '<button class="action-btn download-btn" onclick="downloadContent(this)"><i class="fas fa-download"></i> Download</button>';
+                }
+
+                noteActions += '</div>';
+
+                var htmlContent = '';
+
+                switch (type) {
+                    case 'image':
+                        htmlContent = '<img src="' + url + '" alt="Note content" loading="lazy" style="max-width:100%;border-radius:0.75rem;margin:0 auto;display:block;" />';
+                        break;
+
+                    case 'video':
+                        if (url.includes('youtube.com') || url.includes('youtu.be')) {
+                            var videoId = '';
+                            if (url.includes('youtube.com/embed/')) {
+                                videoId = url.split('youtube.com/embed/')[1].split('?')[0];
+                            } else if (url.includes('youtu.be/')) {
+                                videoId = url.split('youtu.be/')[1].split('?')[0];
+                            } else if (url.includes('watch?v=')) {
+                                videoId = url.split('watch?v=')[1].split('&')[0];
+                            }
+                            if (videoId) {
+                                htmlContent = '<div class="video-container"><iframe src="https://www.youtube.com/embed/' + videoId + '?autoplay=0&mute=0&modestbranding=0&rel=0&showinfo=0&controls=1&iv_load_policy=3&fs=1&cc_load_policy=0&hl=en&disablekb=1" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen loading="lazy"></iframe></div>';
+                            } else {
+                                htmlContent = '<div class="video-container"><video controls><source src="' + url + '" /></video></div>';
+                            }
+                        } else {
+                            htmlContent = '<div class="video-container"><video controls><source src="' + url + '" /></video></div>';
+                        }
+                        break;
+
+                    case 'audio':
+                        htmlContent = '<div class="audio-container"><audio controls><source src="' + url + '" /></audio></div>';
+                        break;
+
+                    case 'doc':
+                        if (url.endsWith('.pdf')) {
+                            htmlContent = '<div class="doc-container"><iframe src="' + url + '"></iframe></div>';
+                        } else {
+                            htmlContent = '<div class="doc-container"><div class="doc-placeholder"><i class="fas fa-file-alt"></i><p>Document preview not available. <a href="' + url + '" target="_blank" style="color:#5fd0ba;">Open document</a></p></div></div>';
+                        }
+                        break;
+
+                    case 'link':
+                        htmlContent = '<a href="' + url + '" target="_blank" class="content-link"><i class="fas fa-external-link-alt"></i> ' + url.replace(/^https?:\/\//, '').split('/')[0] + ' <i class="fas fa-arrow-right"></i></a>';
+                        break;
+
+                    case 'html':
+                    default:
+                        fetch(url)
+                            .then(function(response) {
+                                if (!response.ok) throw new Error('Not found');
+                                return response.text();
+                            })
+                            .then(function(html) {
+                                contentDiv.innerHTML = html + noteActions;
+                                restoreCompleteState(contentDiv);
+                            })
+                            .catch(function() {
+                                contentDiv.innerHTML = '<span class="empty-message"><i class="fas fa-file"></i> Content not yet uploaded</span>';
+                            });
+                        return;
+                }
+
+                contentDiv.innerHTML = htmlContent + noteActions;
+                restoreCompleteState(contentDiv);
+            }
+
+            noteItems.forEach(function(item) {
+                var header = item.querySelector('.note-header');
+                var noteId = header.dataset.noteId;
+                var contentUrl = header.dataset.contentUrl;
+                var contentType = header.dataset.contentType;
+                var contentLoaded = false;
+                var contentDiv = document.getElementById('note-content-' + noteId);
+
+                var completed = getCompleted();
+                if (completed[noteId]) {
+                    item.dataset.completed = 'true';
+                    item.classList.add('completed');
+                }
+
+                header.addEventListener('click', function() {
+                    var isOpen = item.classList.contains('open');
+
+                    if (!isOpen) {
+                        item.classList.add('open');
+                        updateOpenCount();
+
+                        if (!contentLoaded) {
+                            renderContent(contentDiv, contentUrl, contentType);
+                            contentLoaded = true;
+                        } else {
+                            restoreCompleteState(contentDiv);
+                        }
+                    } else {
+                        item.classList.remove('open');
+                        updateOpenCount();
+                    }
+                });
+            });
+
+            window.toggleComplete = function(btn) {
+                var container = btn.closest('.note-content');
+                var noteItem = container.closest('.note-item');
+                var header = noteItem.querySelector('.note-header');
+                var noteId = header.dataset.noteId;
+                var completed = getCompleted();
+
+                if (completed[noteId]) {
+                    delete completed[noteId];
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Mark Complete';
+                    btn.classList.remove('completed');
+                    noteItem.classList.remove('completed');
+                    noteItem.dataset.completed = 'false';
+                } else {
+                    completed[noteId] = true;
+                    btn.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                    btn.classList.add('completed');
+                    noteItem.classList.add('completed');
+                    noteItem.dataset.completed = 'true';
+                }
+
+                saveCompleted(completed);
+                updateCompletedCount();
+            };
+
+            window.downloadContent = function(btn) {
+                var container = btn.closest('.note-content');
+                var noteItem = container.closest('.note-item');
+                var header = noteItem.querySelector('.note-header');
+                var title = header.querySelector('.note-title').textContent;
+                var contentUrl = header.dataset.contentUrl;
+                var contentType = header.dataset.contentType;
+
+                if (!contentUrl || contentUrl.trim() === '') {
+                    alert('No content available to download.');
+                    return;
+                }
+
+                // Try to fetch with proper content type handling
+                fetch(contentUrl)
+                    .then(function(response) {
+                        if (!response.ok) throw new Error('Cannot fetch content');
+
+                        // Get content type from response headers
+                        var contentTypeHeader = response.headers.get('content-type') || '';
+
+                        // Determine file extension based on content type
+                        var ext = 'txt';
+                        if (contentTypeHeader.includes('pdf')) ext = 'pdf';
+                        else if (contentTypeHeader.includes('html') || contentTypeHeader.includes('text/html')) ext =
+                        'html';
+                        else if (contentTypeHeader.includes('plain') || contentTypeHeader.includes('text/plain')) ext =
+                            'txt';
+                        else if (contentTypeHeader.includes('json')) ext = 'json';
+                        else if (contentTypeHeader.includes('xml')) ext = 'xml';
+                        else if (contentTypeHeader.includes('javascript')) ext = 'js';
+                        else if (contentTypeHeader.includes('css')) ext = 'css';
+
+                        // If content type is html or plain text, get as text
+                        if (contentTypeHeader.includes('html') ||
+                            contentTypeHeader.includes('text/plain') ||
+                            contentTypeHeader.includes('text/html')) {
+                            return response.text().then(function(text) {
+                                return { data: text, ext: ext };
+                            });
+                        } else {
+                            // For binary content (PDF, images, etc), get as blob
+                            return response.blob().then(function(blob) {
+                                return { data: blob, ext: ext };
+                            });
+                        }
+                    })
+                    .then(function(result) {
+                        var filename = moduleName + '_' + title.replace(/[^a-zA-Z0-9]/g, '_') + '.' + result.ext;
+
+                        var blob;
+                        if (typeof result.data === 'string') {
+                            blob = new Blob([result.data], { type: 'text/plain;charset=utf-8' });
+                        } else {
+                            blob = result.data;
+                        }
+
+                        var link = document.createElement('a');
+                        link.href = URL.createObjectURL(blob);
+                        link.download = filename;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        URL.revokeObjectURL(link.href);
+
+                        // Show feedback
+                        var originalText = btn.innerHTML;
+                        btn.innerHTML = '<i class="fas fa-check"></i> Downloaded';
+                        setTimeout(function() {
+                            btn.innerHTML = originalText;
+                        }, 2000);
+                    })
+                    .catch(function() {
+                        // If fetch fails, open in new tab so user can save manually
+                        window.open(contentUrl, '_blank');
+                    });
+            };
+
+            var searchInput = document.getElementById('searchInput');
+            var searchBtn = document.getElementById('searchBtn');
+
+            function filterNotes() {
+                var query = searchInput.value.toLowerCase().trim();
+                noteItems.forEach(function(item) {
+                    var title = item.dataset.title || '';
+                    item.style.display = (title.includes(query) || query === '') ? 'block' : 'none';
+                });
+            }
+
+            searchInput.addEventListener('input', filterNotes);
+            searchBtn.addEventListener('click', filterNotes);
+
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    filterNotes();
+                }
+            });
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .note-item, .stat-item, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+            updateOpenCount();
+            updateCompletedCount();
+            updateNoteCompletedState();
+
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1175 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | HDStreamer</title>
+    <meta name="description" content="Watch live football matches from around the world. Free streaming sources for all major leagues." />
+    <meta name="keywords" content="live football, streaming, matches, ROYALE, HDStreamer" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/products/tv/" />
+
+    <meta property="og:title" content="ROYALE | HDStreamer" />
+    <meta property="og:description" content="Watch live football matches from around the world." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/products/tv/" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Load with media="print" then load on all -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <!-- Fallback for no JS -->
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>    
+
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .HDStreamer-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .match-card {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .match-card:hover {
+            border-color: rgba(95, 208, 186, 0.3);
+            transform: translateY(-6px);
+            background: rgba(12, 28, 32, 0.92);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .match-card .hot-badge {
+            position: absolute;
+            top: 0.5rem;
+            right: 0.5rem;
+            background: linear-gradient(135deg, #f59e0b, #ef4444);
+            color: #fff;
+            font-size: 0.55rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            letter-spacing: 0.05em;
+        }
+
+        .match-card .live-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            background: #ef4444;
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 0.15rem 0.6rem;
+            border-radius: 100px;
+            animation: pulseLive 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseLive {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .match-card .team-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.8rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .match-card .team-icon.home {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+        }
+
+        .match-card .team-icon.away {
+            background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+        }
+
+        .glass-card {
+            background: rgba(8, 16, 20, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            border-radius: 1.5rem;
+            padding: 2rem 2.2rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.15), transparent 60%, rgba(95, 208, 186, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .source-card {
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.06);
+            border-radius: 1rem;
+            padding: 1.2rem 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .source-card:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            background: rgba(12, 28, 32, 0.8);
+            transform: translateY(-4px);
+        }
+
+        .source-card .source-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+
+        .filter-btn {
+            padding: 0.4rem 1.2rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 130, 120, 0.1);
+            background: transparent;
+            color: #9bb0bb;
+            font-family: inherit;
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            color: #e4edf2;
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            color: #070a0c;
+            border-color: transparent;
+        }
+
+        .stream-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            color: #070a0c;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .stream-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(95, 208, 186, 0.2);
+        }
+
+        .stream-btn-secondary {
+            background: rgba(255, 255, 255, 0.04);
+            color: #9bb0bb;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+        }
+
+        .stream-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: #e4edf2;
+            transform: translateY(-2px);
+        }
+
+        .quality-badge {
+            font-size: 0.55rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 0.15rem 0.6rem;
+            border-radius: 100px;
+            letter-spacing: 0.05em;
+        }
+
+        .quality-hd {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.15);
+        }
+
+        .quality-sd {
+            background: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.15);
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .loading-wave {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            height: 40px;
+        }
+
+        .loading-bar {
+            width: 3px;
+            height: 24px;
+            background: linear-gradient(to top, #5fd0ba, #3ab0a0);
+            border-radius: 10px;
+            animation: wave 1s ease-in-out infinite;
+        }
+
+        .loading-bar:nth-child(2) { animation-delay: 0.1s; }
+        .loading-bar:nth-child(3) { animation-delay: 0.2s; }
+        .loading-bar:nth-child(4) { animation-delay: 0.3s; }
+
+        @keyframes wave {
+            0%, 100% { transform: scaleY(0.5); }
+            50% { transform: scaleY(1); }
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        .step-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .step {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+            background: rgba(8, 16, 20, 0.6);
+            border: 2px solid rgba(60, 130, 120, 0.15);
+            color: #5a7a85;
+            transition: all 0.3s ease;
+        }
+
+        .step.active {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border-color: #5fd0ba;
+            color: #070a0c;
+        }
+
+        .step.completed {
+            background: #34d399;
+            border-color: #34d399;
+            color: #070a0c;
+        }
+
+        .step-line {
+            flex: 1;
+            height: 2px;
+            background: rgba(60, 130, 120, 0.15);
+            max-width: 60px;
+        }
+
+        @media (max-width: 640px) {
+            .HDStreamer-wrapper {
+                padding: 1rem;
+            }
+            .glass-card {
+                padding: 1.2rem;
+            }
+        }
+
+        .stream-btn:hover .fa-redo {
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }        
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        HD Streamer
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>HD Streamer</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Source</div>
+                <div class="menu-grid-single">
+                    <a href="/products/tv/buy/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-wallet text-red-500"></i></span>
+                        Get This Streamer
+                    </a>
+                </div>
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/products/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-futbol"></i></span>
+                        HD Streamer
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="HDStreamer-wrapper">
+
+            <!-- ===== HERO ===== -->
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-futbol mr-2"></i>Live Sports Streaming
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">HD Streamer</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Watch live football matches from around the world. Free streaming sources for all major leagues.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-trophy mr-2"></i>Premier League
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-earth mr-2"></i>World Cup
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-futbol mr-2"></i>La Liga
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-star mr-2"></i>UCL
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60">
+                                    <i class="fas fa-tv mr-1" aria-hidden="true"></i>
+                                    <i class="fas fa-futbol text-[1.6rem] absolute top-18 right-31 text-emerald-300/80" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== MAIN CONTENT ===== -->
+            <div class="glass-card">
+                <!-- Step Indicator -->
+                <div class="step-indicator">
+                    <div class="step active" id="step1">1</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step2">2</div>
+                    <div class="step-line"></div>
+                    <div class="step" id="step3">3</div>
+                </div>
+
+                <!-- Step 1: Matches -->
+                <div id="step1Content">
+                    <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                        <h2 class="text-xl font-bold text-white">
+                            <i class="fas fa-list mr-2"></i>Matches
+                        </h2>
+                        <div class="flex flex-wrap gap-2">
+                            <button class="filter-btn active" data-filter="all"><i class="fas fa-check-circle mr-1"></i>All</button>
+                            <button class="filter-btn" data-filter="popular"><i class="fas fa-fire mr-1"></i>Popular</button>
+                            <button class="filter-btn" data-filter="live"><i class="fas fa-circle text-red-500 mr-1"></i>Live</button>
+                        </div>
+                    </div>
+
+                    <div id="matchesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
+                        <!-- Matches loaded via JS -->
+                    </div>
+                </div>
+
+                <!-- Step 2: Sources -->
+                <div id="step2Content" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <button id="backToMatches" class="mr-4 p-2 rounded-lg hover:bg-white/5 transition-colors text-slate-400 hover:text-white">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">
+                                <i class="fas fa-plug mr-2"></i>Select Source
+                            </h2>
+                            <p id="selectedMatchTitle" class="text-slate-400 text-sm"></p>
+                        </div>
+                    </div>
+                    <div id="sourcesContainer" class="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
+                        <!-- Sources loaded via JS -->
+                    </div>
+                </div>
+
+                <!-- Step 3: Streams -->
+                <div id="step3Content" class="hidden">
+                    <div class="flex items-center mb-6">
+                        <button id="backToSources" class="mr-4 p-2 rounded-lg hover:bg-white/5 transition-colors text-slate-400 hover:text-white">
+                            <i class="fas fa-arrow-left"></i>
+                        </button>
+                        <div>
+                            <h2 class="text-xl font-bold text-white">
+                                <i class="fas fa-play-circle mr-2"></i>Select Stream
+                            </h2>
+                            <p id="selectedSourceTitle" class="text-slate-400 text-sm"></p>
+                        </div>
+                    </div>
+                    <div id="streamsContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 max-h-[50vh] overflow-y-auto custom-scrollbar">
+                        <!-- Streams loaded via JS -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== STATS ===== -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                <div class="glass-card text-center py-4">
+                    <div class="text-2xl font-bold text-emerald-400" id="totalMatches">0</div>
+                    <div class="text-slate-400 text-sm">Matches</div>
+                </div>
+                <div class="glass-card text-center py-4">
+                    <div class="text-2xl font-bold text-emerald-400" id="totalSources">0</div>
+                    <div class="text-slate-400 text-sm">Sources</div>
+                </div>
+                <div class="glass-card text-center py-4">
+                    <div class="text-2xl font-bold text-emerald-400" id="activeViewers">0</div>
+                    <div class="text-slate-400 text-sm">Viewers</div>
+                </div>
+                <div class="glass-card text-center py-4">
+                    <div class="text-2xl font-bold text-emerald-400" id="liveCount">0</div>
+                    <div class="text-slate-400 text-sm">Live Now</div>
+                </div>
+            </div>
+
+            <!-- ===== CTA ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-futbol text-emerald-400 mr-2"></i>Never miss a match
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Find and watch live football streams from around the world. All sources are free and updated in real-time.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/products/"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-cubes"></i> Products
+                        </a>
+                        <a href="/contact/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            // ============================================================
+            // STATE
+            // ============================================================
+
+            var matches = [];
+            var currentMatch = null;
+            var currentSource = null;
+            var currentStreams = [];
+            var currentFilter = 'all';
+            var currentStep = 1;
+
+            var elements = {
+                matchesContainer: document.getElementById('matchesContainer'),
+                sourcesContainer: document.getElementById('sourcesContainer'),
+                streamsContainer: document.getElementById('streamsContainer'),
+                selectedMatchTitle: document.getElementById('selectedMatchTitle'),
+                selectedSourceTitle: document.getElementById('selectedSourceTitle'),
+                totalMatches: document.getElementById('totalMatches'),
+                totalSources: document.getElementById('totalSources'),
+                activeViewers: document.getElementById('activeViewers'),
+                liveCount: document.getElementById('liveCount'),
+                step1: document.getElementById('step1'),
+                step2: document.getElementById('step2'),
+                step3: document.getElementById('step3'),
+                step1Content: document.getElementById('step1Content'),
+                step2Content: document.getElementById('step2Content'),
+                step3Content: document.getElementById('step3Content'),
+                backToMatches: document.getElementById('backToMatches'),
+                backToSources: document.getElementById('backToSources'),
+            };
+
+            // ============================================================
+            // FETCH MATCHES
+            // ============================================================
+
+            function fetchMatches() {
+                showLoading(elements.matchesContainer);
+
+                fetch('https://streamed.pk/api/matches/football')
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        matches = data;
+                        updateStats();
+                        renderMatches();
+                    })
+                    .catch(function(error) {
+                        console.error('Error fetching matches:', error);
+                        elements.matchesContainer.innerHTML = `
+                            <div class="col-span-3 text-center py-12">
+                                <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                                <h3 class="text-white font-bold text-lg">Connection Error</h3>
+                                <p class="text-slate-400 text-sm">Failed to load matches. Please try again.</p>
+                                <button onclick="fetchMatches(this)" class="mt-4 stream-btn" style="width:auto;padding:0.5rem 2rem;" id="retryBtn">
+                                    <i class="fas fa-redo" id="retryIcon"></i> <span id="retryText">Retry</span>
+                                </button>                                
+                            </div>
+                        `;
+                    });
+            }
+
+            // ============================================================
+            // RENDER MATCHES
+            // ============================================================
+
+            function renderMatches() {
+                var container = elements.matchesContainer;
+                var filtered = getFilteredMatches();
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-3 text-center py-12">
+                            <i class="fas fa-filter text-slate-600 text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">No Matches Found</h3>
+                            <p class="text-slate-400 text-sm">Try changing your filter</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                var now = Date.now();
+
+                container.innerHTML = filtered.map(function(match) {
+                    var matchDate = new Date(match.date).getTime();
+                    var isLive = matchDate <= now && matchDate > now - 10800000;
+                    var homeTeam = (match.teams && match.teams.home && match.teams.home.name) ||
+                        (match.title ? match.title.split(' vs ')[0] : 'Team A');
+                    var awayTeam = (match.teams && match.teams.away && match.teams.away.name) ||
+                        (match.title ? match.title.split(' vs ')[1] : 'Team B');
+
+                    var hotBadge = match.popular ?
+                        '<span class="hot-badge"><i class="fas fa-fire"></i> HOT</span>' : '';
+
+                    var liveBadge = isLive ?
+                        '<span class="live-badge"><i class="fas fa-circle"></i> Live</span>' : '';
+
+                    var sourceCount = match.sources ? match.sources.length : 0;
+
+                    return `
+                        <div class="match-card" onclick="selectMatch('${match.id}')">
+                            ${hotBadge}
+                            <div class="flex items-center justify-between mb-3">
+                                <div class="text-xs text-slate-500">
+                                    <i class="far fa-clock mr-1"></i>
+                                    ${new Date(match.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
+                                </div>
+                                ${liveBadge}
+                            </div>
+                            <div class="space-y-3">
+                                <div class="flex items-center gap-3">
+                                    <div class="team-icon home">${homeTeam.charAt(0)}</div>
+                                    <span class="text-white font-medium truncate">${homeTeam}</span>
+                                </div>
+                                <div class="text-center text-slate-500 text-xs">
+                                    <i class="fas fa-vs"></i>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <div class="team-icon away">${awayTeam.charAt(0)}</div>
+                                    <span class="text-white font-medium truncate">${awayTeam}</span>
+                                </div>
+                            </div>
+                            <div class="mt-4 pt-3 border-t border-slate-700/50 flex items-center justify-between">
+                                <span class="text-xs text-slate-500">
+                                    <i class="fas fa-plug mr-1"></i>${sourceCount} sources
+                                </span>
+                                <button class="text-emerald-400 text-sm font-medium hover:text-emerald-300 transition">
+                                    Select <i class="fas fa-arrow-right ml-1 text-xs"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // ============================================================
+            // FILTERS
+            // ============================================================
+
+            function getFilteredMatches() {
+                var now = Date.now();
+
+                switch (currentFilter) {
+                    case 'popular':
+                        return matches.filter(function(m) { return m.popular; });
+                    case 'live':
+                        return matches.filter(function(m) {
+                            var d = new Date(m.date).getTime();
+                            return d <= now && d > now - 10800000;
+                        });
+                    case 'premier':
+                        return matches.filter(function(m) {
+                            return m.title && m.title.toLowerCase().includes('premier');
+                        });
+                    case 'laliga':
+                        return matches.filter(function(m) {
+                            return m.title && m.title.toLowerCase().includes('la liga');
+                        });
+                    default:
+                        return matches;
+                }
+            }
+
+            document.querySelectorAll('.filter-btn').forEach(function(btn) {
+                btn.addEventListener('click', function() {
+                    document.querySelectorAll('.filter-btn').forEach(function(b) {
+                        b.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    renderMatches();
+                });
+            });
+
+            // ============================================================
+            // SELECT MATCH
+            // ============================================================
+
+            window.selectMatch = function(matchId) {
+                currentMatch = matches.find(function(m) { return m.id === matchId; });
+                if (!currentMatch) return;
+
+                var homeTeam = (currentMatch.teams && currentMatch.teams.home && currentMatch.teams.home.name) ||
+                    (currentMatch.title ? currentMatch.title.split(' vs ')[0] : 'Team A');
+                var awayTeam = (currentMatch.teams && currentMatch.teams.away && currentMatch.teams.away.name) ||
+                    (currentMatch.title ? currentMatch.title.split(' vs ')[1] : 'Team B');
+
+                elements.selectedMatchTitle.textContent = homeTeam + ' vs ' + awayTeam;
+
+                goToStep(2);
+
+                if (currentMatch.sources && currentMatch.sources.length > 0) {
+                    renderSources();
+                } else {
+                    elements.sourcesContainer.innerHTML = `
+                        <div class="col-span-2 text-center py-12">
+                            <i class="fas fa-plug text-slate-600 text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">No Sources Available</h3>
+                            <p class="text-slate-400 text-sm">This match doesn't have any streaming sources yet</p>
+                        </div>
+                    `;
+                }
+            };
+
+            // ============================================================
+            // RENDER SOURCES
+            // ============================================================
+
+            function renderSources() {
+                var container = elements.sourcesContainer;
+
+                var sourceColors = {
+                    'admin': 'from-yellow-500 to-orange-500',
+                    'echo': 'from-blue-500 to-cyan-500',
+                    'delta': 'from-green-500 to-emerald-500',
+                    'golf': 'from-purple-500 to-pink-500'
+                };
+
+                var sourceIcons = {
+                    'admin': 'fas fa-crown',
+                    'echo': 'fas fa-broadcast-tower',
+                    'delta': 'fas fa-satellite',
+                    'golf': 'fas fa-golf-ball'
+                };
+
+                container.innerHTML = currentMatch.sources.map(function(source) {
+                    var color = sourceColors[source.source] || 'from-slate-500 to-slate-600';
+                    var icon = sourceIcons[source.source] || 'fas fa-plug';
+
+                    return `
+                        <div class="source-card" onclick="selectSource('${source.source}', '${source.id}')">
+                            <div class="flex items-center gap-4">
+                                <div class="source-icon bg-gradient-to-r ${color}">
+                                    <i class="${icon}"></i>
+                                </div>
+                                <div>
+                                    <h4 class="text-white font-bold text-lg">${source.source.toUpperCase()}</h4>
+                                    <p class="text-slate-400 text-xs">ID: ${source.id}</p>
+                                </div>
+                            </div>
+                            <button class="stream-btn mt-4" onclick="event.stopPropagation();selectSource('${source.source}', '${source.id}')">
+                                <i class="fas fa-arrow-right"></i> Select Source
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // ============================================================
+            // SELECT SOURCE
+            // ============================================================
+
+            window.selectSource = function(sourceName, sourceId) {
+                currentSource = { name: sourceName, id: sourceId };
+                elements.selectedSourceTitle.textContent = 'Streams from ' + sourceName.toUpperCase();
+
+                goToStep(3);
+                loadStreams();
+            };
+
+            // ============================================================
+            // LOAD STREAMS
+            // ============================================================
+
+            function loadStreams() {
+                var container = elements.streamsContainer;
+                showLoading(container);
+
+                fetch('https://streamed.pk/api/stream/' + currentSource.name + '/' + currentSource.id)
+                    .then(function(response) {
+                        return response.json();
+                    })
+                    .then(function(data) {
+                        currentStreams = data;
+                        renderStreams();
+                    })
+                    .catch(function(error) {
+                        console.error('Error loading streams:', error);
+                        container.innerHTML = `
+                            <div class="col-span-3 text-center py-12">
+                                <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
+                                <h3 class="text-white font-bold text-lg">Stream Error</h3>
+                                <p class="text-slate-400 text-sm">Failed to load streams from this source.</p>
+                                <button onclick="goToStep(2)" class="mt-4 stream-btn stream-btn-secondary" style="width:auto;padding:0.5rem 2rem;">
+                                    <i class="fas fa-arrow-left"></i> Back
+                                </button>
+                            </div>
+                        `;
+                    });
+            }
+
+            // ============================================================
+            // RENDER STREAMS
+            // ============================================================
+
+            function renderStreams() {
+                var container = elements.streamsContainer;
+
+                if (!currentStreams || currentStreams.length === 0) {
+                    container.innerHTML = `
+                        <div class="col-span-3 text-center py-12">
+                            <i class="fas fa-play-circle text-slate-600 text-4xl mb-4"></i>
+                            <h3 class="text-white font-bold text-lg">No Streams Available</h3>
+                            <p class="text-slate-400 text-sm">This source has no active streams</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                container.innerHTML = currentStreams.map(function(stream, index) {
+                    var quality = stream.hd ? 'HD' : (stream.quality || 'SD');
+                    var qualityClass = stream.hd ? 'quality-hd' : (quality === 'SD' ? 'quality-sd' : 'quality-low');
+
+                    return `
+                        <div class="source-card">
+                            <div class="flex items-start justify-between">
+                                <div>
+                                    <h4 class="text-white font-bold">Stream ${stream.streamNo || index + 1}</h4>
+                                    <p class="text-slate-400 text-xs">${currentSource.name.toUpperCase()}</p>
+                                </div>
+                                <span class="quality-badge ${qualityClass}">${quality}</span>
+                            </div>
+                            <div class="mt-3 space-y-1 text-sm text-slate-400">
+                                ${stream.language ? `<div><i class="fas fa-language mr-2"></i>${stream.language}</div>` : ''}
+                                <div><i class="fas fa-eye mr-2"></i>${stream.viewers || 0} viewers</div>
+                            </div>
+                            <button class="stream-btn mt-4" onclick="openStreamInTab('${stream.embedUrl}')">
+                                <i class="fas fa-play"></i> Play Stream
+                            </button>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // ============================================================
+            // OPEN STREAM IN NEW TAB
+            // ============================================================
+
+            window.openStreamInTab = function(url) {
+                window.open(url, '_blank');
+            };
+
+            // ============================================================
+            // STEP NAVIGATION
+            // ============================================================
+
+            function goToStep(step) {
+                currentStep = step;
+
+                // Update step indicators
+                var steps = [elements.step1, elements.step2, elements.step3];
+                steps.forEach(function(el, index) {
+                    var num = index + 1;
+                    el.classList.remove('active', 'completed');
+                    if (num === step) el.classList.add('active');
+                    else if (num < step) el.classList.add('completed');
+                });
+
+                // Show/hide content
+                elements.step1Content.classList.toggle('hidden', step !== 1);
+                elements.step2Content.classList.toggle('hidden', step !== 2);
+                elements.step3Content.classList.toggle('hidden', step !== 3);
+            }
+
+            elements.backToMatches.addEventListener('click', function() {
+                goToStep(1);
+            });
+
+            elements.backToSources.addEventListener('click', function() {
+                goToStep(2);
+            });
+
+            // ============================================================
+            // STATS
+            // ============================================================
+
+            function updateStats() {
+                var totalSources = 0;
+                var liveCount = 0;
+                var now = Date.now();
+
+                matches.forEach(function(m) {
+                    if (m.sources) totalSources += m.sources.length;
+                    var d = new Date(m.date).getTime();
+                    if (d <= now && d > now - 10800000) liveCount++;
+                });
+
+                elements.totalMatches.textContent = matches.length;
+                elements.totalSources.textContent = totalSources;
+                elements.liveCount.textContent = liveCount;
+
+                var viewers = matches.reduce(function(sum, m) {
+                    return sum + (m.popular ? 1500 : 500);
+                }, 0);
+                elements.activeViewers.textContent = viewers.toLocaleString();
+            }
+
+            // ============================================================
+            // HELPERS
+            // ============================================================
+
+            function showLoading(container) {
+                if (container) {
+                    container.innerHTML = `
+                        <div class="col-span-3 flex items-center justify-center py-12">
+                            <div class="text-center">
+                                <div class="loading-wave">
+                                    <div class="loading-bar"></div>
+                                    <div class="loading-bar"></div>
+                                    <div class="loading-bar"></div>
+                                    <div class="loading-bar"></div>
+                                </div>
+                                <p class="text-slate-400 text-sm mt-4">Loading...</p>
+                            </div>
+                        </div>
+                    `;
+                }
+            }
+
+            // ============================================================
+            // CURSOR GLOW
+            // ============================================================
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ============================================================
+            // INIT
+            // ============================================================
+
+            fetchMatches();
+
+            // Auto-refresh every 5 minutes
+            setInterval(fetchMatches, 300000);
+
+            // ============================================================
+            // CURSOR GLOW ACTIVE
+            // ============================================================
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .match-card, .source-card, .filter-btn, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

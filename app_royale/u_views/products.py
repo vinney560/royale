@@ -25,7 +25,7 @@ def more_products(request):
             'icon': 'fab fa-facebook',
             'iconColor': 'text-blue-400',
             'tags': ['HD Quality', 'No Watermark'],
-            'link': 'https://lyxnexus.onrender.com/fb',
+            'link': '/downloader/fb/',
             'featured': False,
             'stats': {'downloads': '8K+', 'rating': '4.7'}
         },
@@ -156,10 +156,21 @@ def more_products(request):
             'description': 'Join KONAMI Tournament now! Play with friends and win prizes. Have FUN!! 😏🥳',
             'icon': 'fas fa-futbol',
             'iconColor': 'text-purple-400',
-            'tags': ['For-Sale', 'Football', 'Quick Games'],
+            'tags': ['For-Sale', 'KONAMI', 'Quick Games'],
             'link': 'https://lymak.vercel.app/',
             'featured': False,
             'stats': {'participants': '600+', 'uptime': '99.95%'}
+        },
+        {
+            'id': 15,
+            'name': 'Royale Tv',
+            'description': 'Enjoy seemless Football streaming, No lag! Fewer ads.',
+            'icon': 'fas fa-tv',
+            'iconColor': 'text-teal-400',
+            'tags': ['For-Sale', 'Football', 'WC'],
+            'link': 'tv/',
+            'featured': False,
+            'stats': {'participants': '600+'}
         },
     ]
 

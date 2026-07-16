@@ -1,0 +1,1353 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | FB Video Downloader</title>
+    <meta name="description" content="Download Facebook videos for free. Extract metadata and download videos from Facebook posts, reels, and pages." />
+    <meta name="keywords" content="Facebook video downloader, FB downloader, video download, ROYALE" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/downloaders/fb/" />
+
+    <meta property="og:title" content="ROYALE | FB Video Downloader" />
+    <meta property="og:description" content="Download Facebook videos for free. Extract metadata and download videos from Facebook posts, reels, and pages." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/downloaders/fb/" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .fb-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .glass-card {
+            background: rgba(8, 16, 20, 0.92);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.12);
+            border-radius: 1.5rem;
+            padding: 2rem 2.2rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .glass-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.15), transparent 60%, rgba(95, 208, 186, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .glass-card:hover {
+            border-color: rgba(95, 208, 186, 0.25);
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 0.8rem 1.2rem;
+            background: rgba(8, 16, 20, 0.8);
+            border: 1px solid rgba(60, 130, 120, 0.15);
+            border-radius: 0.75rem;
+            color: #e4edf2;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .input-field:focus {
+            border-color: rgba(95, 208, 186, 0.4);
+            box-shadow: 0 0 0 3px rgba(95, 208, 186, 0.06);
+            background: rgba(12, 28, 32, 0.9);
+        }
+
+        .input-field::placeholder {
+            color: #5a7a85;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            color: #070a0c;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.2, 0.9, 0.4, 1);
+            font-family: inherit;
+        }
+
+        .btn-primary:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(95, 208, 186, 0.25);
+        }
+
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none !important;
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 130, 120, 0.1);
+            background: transparent;
+            color: #9bb0bb;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .btn-secondary:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            color: #5fd0ba;
+            background: rgba(95, 208, 186, 0.04);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(95, 208, 186, 0.1);
+            border-top-color: #5fd0ba;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .quality-badge {
+            display: inline-block;
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+            font-size: 0.6rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .quality-hd {
+            background: rgba(16, 185, 129, 0.12);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.12);
+        }
+
+        .quality-sd {
+            background: rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.12);
+        }
+
+        .quality-btn {
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.75rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 130, 120, 0.1);
+            background: transparent;
+            color: #9bb0bb;
+            font-family: inherit;
+        }
+
+        .quality-btn.active {
+            background: rgba(95, 208, 186, 0.08);
+            border-color: rgba(95, 208, 186, 0.2);
+            color: #5fd0ba;
+        }
+
+        .quality-btn:hover {
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #e4edf2;
+        }
+
+        .info-card {
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.04);
+            border-radius: 0.75rem;
+            padding: 0.8rem 1rem;
+        }
+
+        .info-card .label {
+            color: #5a7a85;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-card .value {
+            color: #eef2f5;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .url-item {
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 0.75rem;
+            padding: 0.6rem 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border: 1px solid rgba(60, 130, 120, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .url-item:hover {
+            border-color: rgba(95, 208, 186, 0.08);
+        }
+
+        .url-item .url-text {
+            font-size: 0.8rem;
+            color: #bcd0d8;
+            font-family: monospace;
+            word-break: break-all;
+            flex: 1;
+        }
+
+        .url-item .copy-btn {
+            background: none;
+            border: none;
+            color: #5a7a85;
+            cursor: pointer;
+            transition: color 0.3s ease;
+            padding: 0.2rem 0.5rem;
+        }
+
+        .url-item .copy-btn:hover {
+            color: #5fd0ba;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #5fd0ba, #3ab0a0);
+            border-radius: 4px;
+            transition: width 0.3s ease;
+            width: 0%;
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(12, 22, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(95, 208, 186, 0.15);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            color: #e4edf2;
+            font-size: 0.9rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 100;
+            animation: slideUp 0.4s ease;
+            max-width: 400px;
+        }
+
+        .toast.visible {
+            display: flex;
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        .toast.success i {
+            color: #34d399;
+        }
+
+        .toast.error i {
+            color: #ef4444;
+        }
+
+        .toast.info i {
+            color: #5fd0ba;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        .step-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .step-item .step-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 1rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #5fd0ba;
+            margin: 0 auto 0.8rem;
+            transition: all 0.3s ease;
+        }
+
+        .step-item:hover .step-icon {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: scale(1.05);
+        }
+
+        .step-item h4 {
+            color: #eef2f5;
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .step-item p {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
+
+        .thumbnail-container {
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 0.75rem;
+            overflow: hidden;
+            aspect-ratio: 16/9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .thumbnail-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .thumbnail-container .placeholder {
+            color: #5a7a85;
+            text-align: center;
+            padding: 1.5rem;
+        }
+
+        .thumbnail-container .placeholder i {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #2d8f7a;
+        }
+
+        .duration-badge {
+            position: absolute;
+            bottom: 0.5rem;
+            right: 0.5rem;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 0.15rem 0.6rem;
+            border-radius: 0.5rem;
+            font-size: 0.7rem;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        @media (max-width: 640px) {
+            .fb-wrapper {
+                padding: 1rem;
+            }
+            .glass-card {
+                padding: 1.2rem;
+            }
+            .toast {
+                bottom: 1rem;
+                right: 1rem;
+                left: 1rem;
+                max-width: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        FB Downloader
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>FB Downloader</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/products/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/market/place/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-store text-amber-400"></i></span>
+                        Marketplace
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="fb-wrapper">
+
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fab fa-facebook mr-1 sm:mr-2"></i>Free Tool
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">Facebook Video Downloader</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Download videos from Facebook posts, reels, and pages. Extract metadata and download in multiple qualities.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-download mr-1 sm:mr-2"></i>Free Download
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-film mr-1 sm:mr-2"></i>HD Quality
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60"><i class="fab fa-facebook"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===== MAIN FORM ===== -->
+            <div class="glass-card">
+                <div class="mb-6">
+                    <h2 class="text-xl font-bold text-white mb-2">Enter Facebook Video URL</h2>
+                    <p class="text-gray-400 text-sm">Paste the URL of any Facebook video (posts, reels, share links, pages)</p>
+                </div>
+
+                <div class="flex flex-col md:flex-row gap-3 mb-4">
+                    <div class="flex-1">
+                        <input type="url" id="videoUrl" placeholder="https://www.facebook.com/share/r/123abc/ or https://fb.watch/..." class="input-field" />
+                    </div>
+                    <button id="extractBtn" onclick="extractMetadata()" class="btn-primary">
+                        <i class="fas fa-search"></i> Extract
+                    </button>
+                </div>
+
+                <div class="text-xs text-gray-500 flex items-center gap-2">
+                    <i class="fas fa-info-circle"></i>
+                    <span>Supports: Videos, Reels, Share Links, Groups, Pages</span>
+                </div>
+            </div>
+
+            <!-- ===== LOADING ===== -->
+            <div id="loadingSection" class="glass-card text-center py-12 mt-6 hidden">
+                <div class="loading-spinner mx-auto mb-6"></div>
+                <h3 class="text-xl font-bold text-white mb-2">Extracting Video Metadata</h3>
+                <p class="text-gray-400">Please wait while we extract video information...</p>
+                <p class="text-xs text-gray-500 mt-2">This may take 10-20 seconds</p>
+            </div>
+
+            <!-- ===== ERROR ===== -->
+            <div id="errorSection" class="glass-card text-center py-12 mt-6 hidden">
+                <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-red-500/20 flex items-center justify-center">
+                    <i class="fas fa-exclamation-triangle text-3xl text-red-500"></i>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-3" id="errorTitle">Extraction Failed</h3>
+                <p class="text-gray-300 mb-6" id="errorMessage"></p>
+                <div class="flex flex-wrap gap-3 justify-center">
+                    <button onclick="retryExtraction()" class="btn-primary">Try Again</button>
+                    <button onclick="resetForm()" class="btn-secondary">Clear</button>
+                </div>
+            </div>
+
+            <!-- ===== RESULTS ===== -->
+            <div id="resultsSection" class="mt-6 hidden">
+                <div class="glass-card">
+                    <h3 class="text-xl font-bold text-white mb-6">Video Preview</h3>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Left: Thumbnail & Quality -->
+                        <div class="lg:col-span-1">
+                            <div class="thumbnail-container">
+                                <img id="videoThumbnail" src="" alt="Video Thumbnail" class="hidden" />
+                                <div class="placeholder" id="thumbnailPlaceholder">
+                                    <i class="fas fa-video"></i>
+                                    <span>Video Thumbnail</span>
+                                </div>
+                                <span class="duration-badge" id="durationBadge">00:00</span>
+                            </div>
+
+                            <div class="mt-4">
+                                <h4 class="font-bold text-white text-sm mb-3">Select Quality</h4>
+                                <div id="qualityOptions" class="flex flex-wrap gap-2"></div>
+                            </div>
+                        </div>
+
+                        <!-- Right: Metadata -->
+                        <div class="lg:col-span-2">
+                            <h4 id="videoTitle" class="text-xl font-bold text-white mb-3 line-clamp-2"></h4>
+                            <p id="videoDescription" class="text-gray-300 text-sm mb-6 line-clamp-3"></p>
+
+                            <div class="grid grid-cols-2 gap-3 mb-6">
+                                <div class="info-card">
+                                    <div class="label"><i class="fas fa-user mr-1"></i> Uploader</div>
+                                    <div class="value" id="videoUploader">-</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="label"><i class="fas fa-eye mr-1"></i> Views</div>
+                                    <div class="value" id="videoViews">-</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="label"><i class="fas fa-clock mr-1"></i> Duration</div>
+                                    <div class="value" id="videoDuration">-</div>
+                                </div>
+                                <div class="info-card">
+                                    <div class="label"><i class="fas fa-calendar mr-1"></i> Upload Date</div>
+                                    <div class="value" id="videoUploadDate">-</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-4">
+                                <div class="flex items-center justify-between mb-2">
+                                    <h4 class="font-bold text-white text-sm">Video URLs</h4>
+                                    <span class="text-xs text-gray-500" id="videoCount">0 URLs</span>
+                                </div>
+                                <div id="urlsContainer" class="space-y-2 max-h-40 overflow-y-auto"></div>
+                            </div>
+
+                            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pt-4 border-t border-gray-800">
+                                <div class="flex items-center gap-3">
+                                    <div class="w-10 h-10 rounded-xl bg-gray-800 flex items-center justify-center">
+                                        <i class="fas fa-download text-emerald-400 text-lg"></i>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500">Ready to Download</p>
+                                        <p id="downloadInfo" class="text-sm text-white font-medium">Select quality</p>
+                                    </div>
+                                </div>
+                                <button id="downloadBtn" onclick="downloadVideo()" class="btn-primary">
+                                    <i class="fas fa-download"></i> Download Video
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap gap-3 justify-center mt-6 pt-6 border-t border-gray-800">
+                        <button onclick="extractAnother()" class="btn-secondary">
+                            <i class="fas fa-redo"></i> Extract Another
+                        </button>
+                        <button onclick="copyMetadata()" class="btn-secondary">
+                            <i class="fas fa-copy"></i> Copy Metadata
+                        </button>
+                        <button onclick="shareVideo()" class="btn-secondary">
+                            <i class="fas fa-share"></i> Share
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Progress -->
+                <div id="downloadProgress" class="glass-card mt-4 hidden">
+                    <div class="flex justify-between text-sm mb-2">
+                        <span id="progressFileName" class="font-medium text-white truncate">Downloading...</span>
+                        <span id="progressPercentage" class="font-bold text-emerald-400">0%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div id="progressFill" class="progress-fill"></div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button onclick="cancelDownload()" class="text-xs text-red-400 hover:text-red-300 transition">
+                            <i class="fas fa-times mr-1"></i> Cancel Download
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== HOW TO ===== -->
+            <div class="glass-card mt-8">
+                <h3 class="text-xl font-bold text-white text-center mb-6">How to Download Facebook Videos</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-link"></i></div>
+                        <h4>1. Copy Video URL</h4>
+                        <p>Copy the URL from any Facebook video post, reel, or share link</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-search"></i></div>
+                        <h4>2. Extract Metadata</h4>
+                        <p>Paste the URL and click extract to get video information</p>
+                    </div>
+                    <div class="step-item">
+                        <div class="step-icon"><i class="fas fa-download"></i></div>
+                        <h4>3. Download</h4>
+                        <p>Choose quality and download the video to your device</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== CTA ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-download text-emerald-400 mr-2"></i>Download Facebook videos for free
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Extract metadata and download videos from Facebook posts, reels, and pages. Fast, free, and private.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/products/"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-cubes"></i> Products
+                        </a>
+                        <a href="/contact/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Copied!</span>
+    </div>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            // ============================================================
+            // STATE
+            // ============================================================
+
+            var currentMetadata = null;
+            var selectedQualityIndex = 0;
+            var downloadInProgress = false;
+            var abortController = null;
+
+            var videoUrlInput = document.getElementById('videoUrl');
+            var extractBtn = document.getElementById('extractBtn');
+            var downloadBtn = document.getElementById('downloadBtn');
+            var loadingSection = document.getElementById('loadingSection');
+            var errorSection = document.getElementById('errorSection');
+            var resultsSection = document.getElementById('resultsSection');
+            var downloadProgress = document.getElementById('downloadProgress');
+
+            var toast = document.getElementById('toast');
+            var toastMessage = document.getElementById('toastMessage');
+
+            // ============================================================
+            // TOAST
+            // ============================================================
+
+            function showToast(message, type) {
+                type = type || 'info';
+                toast.className = 'toast ' + type + ' visible';
+                toastMessage.textContent = message;
+
+                var icon = toast.querySelector('i');
+                if (type === 'success') {
+                    icon.className = 'fas fa-check-circle';
+                } else if (type === 'error') {
+                    icon.className = 'fas fa-exclamation-circle';
+                } else {
+                    icon.className = 'fas fa-info-circle';
+                }
+
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(function() {
+                    toast.classList.remove('visible');
+                }, 5000);
+            }
+
+            // ============================================================
+            // EXTRACT METADATA
+            // ============================================================
+
+            function isValidFacebookUrl(url) {
+                var patterns = [
+                    /facebook\.com\/.*\/videos\//i,
+                    /facebook\.com\/watch/i,
+                    /fb\.watch/i,
+                    /facebook\.com\/share/i,
+                    /facebook\.com\/reel/i,
+                    /facebook\.com\/.*\/reel/i,
+                    /facebook\.com\/.*\/posts/i,
+                    /facebook\.com\/photo\.php/i,
+                    /facebook\.com\/story\.php/i,
+                ];
+                return patterns.some(function(pattern) { return pattern.test(url); });
+            }
+
+            window.extractMetadata = function() {
+                var url = videoUrlInput.value.trim();
+
+                if (!url) {
+                    showToast('Please enter a Facebook video URL', 'error');
+                    videoUrlInput.focus();
+                    return;
+                }
+
+                if (!isValidFacebookUrl(url)) {
+                    showToast('Please enter a valid Facebook video URL', 'error');
+                    videoUrlInput.focus();
+                    return;
+                }
+
+                extractBtn.disabled = true;
+                extractBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Extracting...';
+                loadingSection.classList.remove('hidden');
+                errorSection.classList.add('hidden');
+                resultsSection.classList.add('hidden');
+
+                fetch('/api/fb/extract/metadata/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ url: url })
+                })
+                .then(function(response) { return response.json(); })
+                .then(function(data) {
+                    if (!data.success) {
+                        throw new Error(data.error || data.message || 'Failed to extract metadata');
+                    }
+                    currentMetadata = data;
+                    updateMetadataUI(data);
+                    loadingSection.classList.add('hidden');
+                    resultsSection.classList.remove('hidden');
+                    showToast(data.message || 'Metadata extracted successfully!', 'success');
+                })
+                .catch(function(error) {
+                    console.error('Extraction error:', error);
+                    loadingSection.classList.add('hidden');
+                    document.getElementById('errorTitle').textContent = 'Extraction Failed';
+                    document.getElementById('errorMessage').textContent = error.message;
+                    errorSection.classList.remove('hidden');
+                })
+                .finally(function() {
+                    extractBtn.disabled = false;
+                    extractBtn.innerHTML = '<i class="fas fa-search mr-2"></i> Extract';
+                });
+            };
+
+            // ============================================================
+            // UPDATE UI
+            // ============================================================
+
+            function updateMetadataUI(metadata) {
+                document.getElementById('videoTitle').textContent = metadata.title || 'Facebook Video';
+                document.getElementById('videoDescription').textContent = metadata.description || 'No description available';
+                document.getElementById('videoUploader').textContent = metadata.uploader || 'Unknown';
+                document.getElementById('videoViews').textContent = metadata.views || '0';
+                document.getElementById('videoDuration').textContent = metadata.duration || '00:00';
+                document.getElementById('durationBadge').textContent = metadata.duration || '00:00';
+                document.getElementById('videoUploadDate').textContent = metadata.upload_date || 'Unknown';
+
+                var thumbnailImg = document.getElementById('videoThumbnail');
+                var placeholder = document.getElementById('thumbnailPlaceholder');
+
+                if (metadata.thumbnail_url && metadata.thumbnail_url !== 'N/A') {
+                    thumbnailImg.src = metadata.thumbnail_url;
+                    thumbnailImg.onload = function() {
+                        thumbnailImg.classList.remove('hidden');
+                        placeholder.classList.add('hidden');
+                    };
+                    thumbnailImg.onerror = function() {
+                        thumbnailImg.classList.add('hidden');
+                        placeholder.classList.remove('hidden');
+                    };
+                } else {
+                    thumbnailImg.classList.add('hidden');
+                    placeholder.classList.remove('hidden');
+                }
+
+                updateQualityOptions(metadata.quality_options || []);
+                updateVideoUrls(metadata.video_urls || []);
+
+                var videoCount = metadata.video_urls ? metadata.video_urls.length : 0;
+                document.getElementById('videoCount').textContent = videoCount + ' URL' + (videoCount !== 1 ? 's' : '');
+
+                var options = metadata.quality_options || [];
+                if (options.length > 0) {
+                    var selected = options[selectedQualityIndex] || options[0];
+                    document.getElementById('downloadInfo').textContent = 'Selected: ' + selected.quality + ' quality';
+                }
+            }
+
+            function updateQualityOptions(options) {
+                var container = document.getElementById('qualityOptions');
+                container.innerHTML = '';
+
+                if (!options || options.length === 0) {
+                    container.innerHTML = '<span class="text-gray-400 text-sm">No quality options available</span>';
+                    return;
+                }
+
+                options.forEach(function(option, index) {
+                    var isSelected = index === selectedQualityIndex;
+                    var btn = document.createElement('button');
+                    btn.className = 'quality-btn' + (isSelected ? ' active' : '');
+                    btn.textContent = option.quality;
+                    btn.onclick = function() {
+                        document.querySelectorAll('.quality-btn').forEach(function(b) {
+                            b.classList.remove('active');
+                        });
+                        btn.classList.add('active');
+                        selectedQualityIndex = index;
+                        document.getElementById('downloadInfo').textContent = 'Selected: ' + option.quality +
+                        ' quality';
+                        showToast('Selected ' + option.quality + ' quality', 'info');
+                    };
+                    container.appendChild(btn);
+                });
+            }
+
+            function updateVideoUrls(urls) {
+                var container = document.getElementById('urlsContainer');
+                container.innerHTML = '';
+
+                if (!urls || urls.length === 0) {
+                    container.innerHTML = '<div class="text-gray-500 text-sm">No video URLs found</div>';
+                    return;
+                }
+
+                urls.forEach(function(url, index) {
+                    var div = document.createElement('div');
+                    div.className = 'url-item';
+                    div.innerHTML = `
+                        <span class="url-text">${url}</span>
+                        <button class="copy-btn" onclick="copyToClipboard('${url.replace(/'/g, "\\'")}')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    `;
+                    container.appendChild(div);
+                });
+            }
+
+            // ============================================================
+            // DOWNLOAD
+            // ============================================================
+
+            window.downloadVideo = function() {
+                if (!currentMetadata || !currentMetadata.url) {
+                    showToast('No video metadata available', 'error');
+                    return;
+                }
+            
+                if (downloadInProgress) {
+                    showToast('Download already in progress', 'warning');
+                    return;
+                }
+            
+                downloadInProgress = true;
+                abortController = new AbortController();
+            
+                downloadProgress.classList.remove('hidden');
+                var progressFill = document.getElementById('progressFill');
+                var progressPercentage = document.getElementById('progressPercentage');
+                var progressFileName = document.getElementById('progressFileName');
+            
+                var qualityOptions = currentMetadata.quality_options || [];
+                var selectedQuality = qualityOptions[selectedQualityIndex] || qualityOptions[0] || { quality: 'HD' };
+            
+                progressFileName.textContent = 'Downloading ' + selectedQuality.quality + ' quality video...';
+                progressFill.style.width = '0%';
+                progressPercentage.textContent = '0%';
+            
+                downloadBtn.disabled = true;
+                downloadBtn.innerHTML = '<i class="fas fa-spinner fa-spin mr-2"></i> Downloading...';
+            
+                fetch('/api/fb/dl-video/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        url: currentMetadata.url,
+                        quality_index: selectedQualityIndex
+                    }),
+                    signal: abortController.signal
+                })
+                .then(function(response) {
+                    if (!response.ok) {
+                        return response.json().then(function(data) {
+                            throw new Error(data.error || data.message || 'Download failed');
+                        });
+                    }
+                
+                    // Get content-disposition for filename
+                    var contentDisposition = response.headers.get('Content-Disposition');
+                    var filename = 'facebook_video.mp4';
+                    if (contentDisposition) {
+                        var matches = contentDisposition.match(/filename[^;=\n]*=((['"]).*?\2|[^;\n]*)/);
+                        if (matches && matches[1]) {
+                            filename = matches[1].replace(/['"]/g, '');
+                        }
+                    }
+                
+                    progressFileName.textContent = 'Downloading: ' + filename;
+                
+                    // Get total file size
+                    var totalSize = parseInt(response.headers.get('content-length') || 0);
+                    var downloadedSize = 0;
+                    var lastPercentage = 0;
+                
+                    // Read the stream with progress
+                    var reader = response.body.getReader();
+                    var chunks = [];
+                
+                    function readStream() {
+                        return reader.read().then(function(result) {
+                            if (result.done) {
+                                return chunks;
+                            }
+                        
+                            chunks.push(result.value);
+                            downloadedSize += result.value.length;
+                        
+                            // Update progress
+                            if (totalSize > 0) {
+                                var percentage = Math.min(Math.round((downloadedSize / totalSize) * 100), 100);
+                                if (percentage !== lastPercentage) {
+                                    lastPercentage = percentage;
+                                    progressFill.style.width = percentage + '%';
+                                    progressPercentage.textContent = percentage + '%';
+                                }
+                            } else {
+                                // If no content-length, show indeterminate progress
+                                var pulse = Math.min((downloadedSize / (1024 * 1024)) * 2, 90);
+                                progressFill.style.width = Math.min(pulse, 90) + '%';
+                                progressPercentage.textContent = Math.min(Math.round(pulse), 90) + '%';
+                            }
+                        
+                            return readStream();
+                        });
+                    }
+                
+                    return readStream().then(function(chunks) {
+                        // Create blob and trigger download
+                        var blob = new Blob(chunks);
+                        var url = window.URL.createObjectURL(blob);
+                        var a = document.createElement('a');
+                        a.href = url;
+                        a.download = filename;
+                        document.body.appendChild(a);
+                        a.click();
+                        document.body.removeChild(a);
+                        window.URL.revokeObjectURL(url);
+                    
+                        // Complete progress
+                        progressFill.style.width = '100%';
+                        progressPercentage.textContent = '100%';
+                    
+                        setTimeout(function() {
+                            downloadProgress.classList.add('hidden');
+                        }, 1000);
+                    
+                        showToast('Video downloaded successfully!', 'success');
+                    });
+                })
+                .catch(function(error) {
+                    if (error.name === 'AbortError') {
+                        showToast('Download cancelled', 'warning');
+                        progressFileName.textContent = 'Download cancelled';
+                    } else {
+                        showToast('Download failed: ' + error.message, 'error');
+                        progressFileName.textContent = 'Download failed';
+                    }
+                    downloadProgress.classList.add('hidden');
+                })
+                .finally(function() {
+                    downloadInProgress = false;
+                    abortController = null;
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = '<i class="fas fa-download mr-2"></i> Download Video';
+                });
+            };            
+
+            window.cancelDownload = function() {
+                if (abortController) {
+                    abortController.abort();
+                    showToast('Cancelling download...', 'warning');
+                }
+            };
+
+            // ============================================================
+            // UTILITY
+            // ============================================================
+
+            window.copyToClipboard = function(text) {
+                navigator.clipboard.writeText(text)
+                    .then(function() { showToast('Copied to clipboard', 'success'); })
+                    .catch(function() { showToast('Failed to copy', 'error'); });
+            };
+
+            window.copyMetadata = function() {
+                if (!currentMetadata) {
+                    showToast('No metadata to copy', 'error');
+                    return;
+                }
+                var text = 'Title: ' + currentMetadata.title + '\n' +
+                    'Description: ' + currentMetadata.description + '\n' +
+                    'Uploader: ' + currentMetadata.uploader + '\n' +
+                    'Views: ' + currentMetadata.views + '\n' +
+                    'Duration: ' + currentMetadata.duration + '\n' +
+                    'URL: ' + currentMetadata.url;
+                copyToClipboard(text);
+            };
+
+            window.shareVideo = function() {
+                if (!currentMetadata || !currentMetadata.url) {
+                    showToast('No video to share', 'error');
+                    return;
+                }
+                var shareUrl = window.location.origin + '/fb/?url=' + encodeURIComponent(currentMetadata.url);
+                if (navigator.share) {
+                    navigator.share({
+                        title: currentMetadata.title,
+                        text: currentMetadata.description,
+                        url: shareUrl
+                    });
+                } else {
+                    copyToClipboard(shareUrl);
+                }
+            };
+
+            window.retryExtraction = function() {
+                errorSection.classList.add('hidden');
+                extractMetadata();
+            };
+
+            window.resetForm = function() {
+                videoUrlInput.value = '';
+                errorSection.classList.add('hidden');
+                resultsSection.classList.add('hidden');
+                videoUrlInput.focus();
+            };
+
+            window.extractAnother = function() {
+                resultsSection.classList.add('hidden');
+                videoUrlInput.value = '';
+                videoUrlInput.focus();
+                showToast('Enter a new Facebook video URL', 'info');
+            };
+
+            // ============================================================
+            // EVENTS
+            // ============================================================
+
+            videoUrlInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    extractMetadata();
+                }
+            });
+
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    resetForm();
+                }
+            });
+
+            // ============================================================
+            // CURSOR GLOW
+            // ============================================================
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            // ============================================================
+            // SCROLL REVEAL
+            // ============================================================
+
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            // ============================================================
+            // HEADER SCROLL
+            // ============================================================
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            // ============================================================
+            // CURSOR GLOW ACTIVE
+            // ============================================================
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .glass-card, .url-item, .step-item, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

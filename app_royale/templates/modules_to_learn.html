@@ -1,0 +1,955 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | Learn Programming</title>
+    <meta name="description" content="Choose a programming language to learn. Free tutorials for C, HTML, Assembly and more." />
+    <meta name="keywords" content="learn programming, C, HTML, Assembly, tutorials, ROYALE" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/learn/" />
+
+    <meta property="og:title" content="ROYALE | Learn Programming" />
+    <meta property="og:description" content="Choose a programming language to learn. Free tutorials for C, HTML, Assembly and more." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/learn/" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+
+    <link 
+        rel="stylesheet" 
+        href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" 
+        rel="stylesheet" 
+        media="print" 
+        onload="this.media='all'"
+    />
+
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/solid.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+    <link 
+        rel="stylesheet" 
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/brands.min.css" 
+        media="print" 
+        onload="this.media='all'"
+    />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/devicon.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    </noscript>
+    
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .modules-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .module-card {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.8rem;
+            padding: 2.5rem 2rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .module-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.8rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.12), transparent 50%, rgba(95, 208, 186, 0.04));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .module-card:hover {
+            border-color: rgba(95, 208, 186, 0.3);
+            transform: translateY(-10px) scale(1.01);
+            background: rgba(12, 28, 32, 0.92);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(95, 208, 186, 0.06);
+        }
+
+        .module-card .card-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .module-card:hover .card-glow {
+            opacity: 0.12;
+        }
+
+        .module-card .module-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 1.5rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            color: #5fd0ba;
+            transition: all 0.4s ease;
+            margin-bottom: 1.2rem;
+        }
+
+        .module-card:hover .module-icon {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: scale(1.05) rotate(-4deg);
+        }
+
+        .module-card .module-name {
+            font-size: clamp(1.4rem, 1.8vw, 1.8rem);
+            font-weight: 700;
+            color: #eef2f5;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .module-card:hover .module-name {
+            color: #5fd0ba;
+        }
+
+        .module-card .module-desc {
+            color: #9bb0bb;
+            font-size: clamp(0.9rem, 1vw, 1rem);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            flex: 1;
+        }
+
+        .module-card .module-stats {
+            display: flex;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .module-card .module-stats .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            color: #5a7a85;
+        }
+
+        .module-card .module-stats .stat i {
+            color: #5fd0ba;
+            font-size: 0.65rem;
+        }
+
+        .module-card .module-stats .stat .num {
+            color: #eef2f5;
+            font-weight: 600;
+        }
+
+        .module-card .module-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(to right, transparent, rgba(95, 208, 186, 0.15), transparent);
+            margin: 0 auto 1.2rem;
+        }
+
+        .module-card .btn-start {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.8rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            color: #5fd0ba;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            font-family: inherit;
+            text-decoration: none;
+        }
+
+        .module-card .btn-start:hover {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: translateX(4px);
+        }
+
+        .module-card .btn-start i {
+            font-size: 0.65rem;
+            transition: transform 0.3s ease;
+        }
+
+        .module-card .btn-start:hover i {
+            transform: translateX(4px);
+        }
+
+        .module-card .status-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            font-weight: 600;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.12);
+            color: #fbbf24;
+        }
+
+        .module-card .status-badge.completed {
+            background: rgba(52, 211, 153, 0.1);
+            border-color: rgba(52, 211, 153, 0.12);
+            color: #34d399;
+        }
+
+        .module-card .coming-soon-badge {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 100px;
+            font-weight: 600;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.12);
+            color: #ef4444;
+        }
+
+        .module-card .coming-soon-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(7, 10, 12, 0.7);
+            backdrop-filter: blur(4px);
+            border-radius: 1.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .module-card .coming-soon-overlay i {
+            font-size: 2.5rem;
+            color: #ef4444;
+        }
+
+        .module-card .coming-soon-overlay span {
+            color: #eef2f5;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .module-card .coming-soon-overlay small {
+            color: #9bb0bb;
+            font-size: 0.85rem;
+        }
+
+        .module-card.coming-soon .coming-soon-overlay {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .module-card.coming-soon .btn-start {
+            opacity: 0.4;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .modules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 2rem;
+            padding: 0.3rem 0.3rem 0.3rem 1rem;
+            transition: all 0.3s ease;
+            max-width: 400px;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: rgba(95, 208, 186, 0.2);
+            box-shadow: 0 0 0 3px rgba(95, 208, 186, 0.04);
+        }
+
+        .search-wrapper i {
+            color: #5a7a85;
+            font-size: 0.8rem;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0;
+            color: #e4edf2;
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+        }
+
+        .search-wrapper input::placeholder {
+            color: #5a7a85;
+        }
+
+        .search-wrapper .search-btn {
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.4rem 1.2rem;
+            color: #070a0c;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-wrapper .search-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(95, 208, 186, 0.15);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 1rem;
+            border: 1px solid rgba(60, 130, 120, 0.04);
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover {
+            border-color: rgba(95, 208, 186, 0.08);
+        }
+
+        .stat-item .stat-number {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #5fd0ba;
+            line-height: 1;
+        }
+
+        .stat-item .stat-label {
+            color: #5a7a85;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.2rem;
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            grid-column: 1 / -1;
+        }
+
+        .empty-state i {
+            font-size: 4rem;
+            color: #2d8f7a;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .empty-state h3 {
+            color: #eef2f5;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: #5a7a85;
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 640px) {
+            .modules-wrapper {
+                padding: 1rem;
+            }
+            .module-card {
+                padding: 2rem 1.5rem;
+                border-radius: 1.4rem;
+            }
+            .module-card .module-icon {
+                width: 64px;
+                height: 64px;
+                font-size: 2rem;
+            }
+            .search-wrapper {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="/learn/" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        Learn
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="/learn/" class="menu-link-nav active" data-menu-item>Learn</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-graduation-cap"></i></span>
+                        Learn
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="modules-wrapper">
+
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-graduation-cap mr-1 sm:mr-2"></i>Choose Your Path
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">School Work should not stress you! Learn Programming with simplified notes.</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Let's help you with school work. Choose a programming language and start learning with our interactive tutorials. From zero to somewhere. 
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-book-open mr-1 sm:mr-2"></i>{{ modules|length }} Courses
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-clock mr-1 sm:mr-2"></i>Self-paced
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-gem mr-1 sm:mr-2"></i>Free
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60"><i class="fas fa-laptop-code"></i></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                <h2 class="text-xl font-bold text-white">
+                    <i class="fas fa-list mr-2"></i>All Courses
+                    <span class="text-sm font-normal text-slate-500 ml-2">({{ modules|length }} courses)</span>
+                </h2>
+                <div class="search-wrapper">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search courses..." />
+                    <button class="search-btn" id="searchBtn">
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="modules-grid" id="modulesGrid">
+                {% for module in modules %}
+                <div class="module-card reveal{% if module.lessons == 0 %} coming-soon{% endif %}" data-name="{{ module.name|lower }}" data-id="{{ module.id }}">
+                    <div class="card-glow" style="top:-40px;right:-40px;background:rgba(95,208,186,0.1);"></div>
+
+                    {% if module.lessons == 0 %}
+                    <div class="coming-soon-overlay">
+                        <i class="fas fa-clock"></i>
+                        <span>Coming Soon</span>
+                        <small>Stay tuned for updates</small>
+                    </div>
+                    <span class="coming-soon-badge"><i class="fas fa-clock"></i> Coming Soon</span>
+                    {% else %}
+                    <span class="status-badge" id="status-badge-{{ module.id }}">
+                        <i class="fas fa-circle"></i> Not Started
+                    </span>
+                    {% endif %}
+
+                    <div class="module-icon">
+                        <i class="{{ module.icon }}"></i>
+                    </div>
+                    <h3 class="module-name">{{ module.name }}</h3>
+                    <p class="module-desc">
+                        {% if 'C' in module.name %}
+                            Learn C programming from the ground up. Master pointers, memory management, and system programming.
+                        {% elif 'HTML' in module.name %}
+                            Build websites with HTML. Learn semantic markup, forms, tables, and modern HTML practices.
+                        {% elif 'Assembly' in module.name %}
+                            Understand how computers work at the lowest level. Learn x86 assembly and system architecture.
+                        {% elif 'Python' in module.name %}
+                            Master Python programming with interactive lessons. Perfect for beginners and advanced developers.
+                        {% elif 'JavaScript' in module.name %}
+                            Learn JavaScript from scratch. Master ES6, DOM manipulation, and modern web development.
+                        {% elif 'CSS' in module.name %}
+                            Style beautiful websites with CSS. Learn flexbox, grid, animations, and responsive design.
+                        {% else %}
+                            Master programming fundamentals with interactive lessons and real-world projects.
+                        {% endif %}
+                    </p>
+                    <div class="module-stats">
+                        <span class="stat"><i class="fas fa-book"></i> <span class="num">{% if module.lessons == 0 %}Coming Soon{% else %}{{ module.lessons }}{% endif %}</span> {% if module.lessons != 0 %}lessons{% endif %}</span>
+                        <span class="stat"><i class="fas fa-clock"></i> <span class="num">{% if module.lessons == 0 %}-{% else %}45{% endif %}</span> min</span>
+                        <span class="stat"><i class="fas fa-signal"></i> <span class="num">{% if module.lessons == 0 %}Coming Soon{% else %}Beginner{% endif %}</span></span>
+                    </div>
+                    <div class="module-divider"></div>
+                    {% if module.lessons == 0 %}
+                        <span class="btn-start" style="opacity:0.4;cursor:not-allowed;pointer-events:none;">
+                            <i class="fas fa-clock"></i> Coming Soon
+                        </span>
+                    {% else %}
+                        <a href="{{ module.url }}" class="btn-start">
+                            Start Learning <i class="fas fa-arrow-right"></i>
+                        </a>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item reveal delay-1">
+                    <div class="stat-number">{{ modules|length }}</div>
+                    <div class="stat-label">Total Courses</div>
+                </div>
+                <div class="stat-item reveal delay-2">
+                    <div class="stat-number" id="availableCount">{{ available_count|default:modules|length }}</div>
+                    <div class="stat-label">Available</div>
+                </div>
+                <div class="stat-item reveal delay-3">
+                    <div class="stat-number" id="completedCount">0</div>
+                    <div class="stat-label">Completed</div>
+                </div>
+                <div class="stat-item reveal delay-4">
+                    <div class="stat-number" id="inProgressCount">0</div>
+                    <div class="stat-label">In Progress</div>
+                </div>
+            </div>
+
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-graduation-cap text-emerald-400 mr-2"></i>Ready to start learning?
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Choose a programming language and begin your journey today. All courses are free and self-paced.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="#modulesGrid"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-book-open"></i> Browse Courses
+                        </a>
+                        <a href="/contact/"
+                            class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/contact/" class="hover:text-white transition text-emerald-400">Contact</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            var moduleCards = document.querySelectorAll('.module-card:not(.coming-soon)');
+            var searchInput = document.getElementById('searchInput');
+            var searchBtn = document.getElementById('searchBtn');
+
+            var STORAGE_KEY = 'royale_learn_module_progress';
+            var completedCountEl = document.getElementById('completedCount');
+            var inProgressCountEl = document.getElementById('inProgressCount');
+            var availableCountEl = document.getElementById('availableCount');
+
+            function getModuleProgress() {
+                try {
+                    var data = localStorage.getItem(STORAGE_KEY);
+                    return data ? JSON.parse(data) : {};
+                } catch (e) {
+                    return {};
+                }
+            }
+
+            function updateModuleStats() {
+                var progress = getModuleProgress();
+                var completed = 0;
+                var inProgress = 0;
+                var available = 0;
+
+                document.querySelectorAll('.module-card').forEach(function(card) {
+                    var isComingSoon = card.classList.contains('coming-soon');
+                    if (!isComingSoon) available++;
+
+                    var badge = card.querySelector('.status-badge');
+                    if (!badge) return;
+
+                    if (isComingSoon) return;
+
+                    var name = card.dataset.name || '';
+
+                    if (progress[name]) {
+                        if (progress[name] === 'completed') {
+                            completed++;
+                            badge.innerHTML = '<i class="fas fa-check-circle"></i> Completed';
+                            badge.className = 'status-badge completed';
+                        } else if (progress[name] === 'in-progress') {
+                            inProgress++;
+                            badge.innerHTML = '<i class="fas fa-spinner fa-spin"></i> In Progress';
+                            badge.className = 'status-badge';
+                        }
+                    } else {
+                        badge.innerHTML = '<i class="fas fa-circle"></i> Not Started';
+                        badge.className = 'status-badge';
+                    }
+                });
+
+                if (completedCountEl) completedCountEl.textContent = completed;
+                if (inProgressCountEl) inProgressCountEl.textContent = inProgress;
+                if (availableCountEl) availableCountEl.textContent = available;
+            }
+
+            moduleCards.forEach(function(card) {
+                var name = card.dataset.name || '';
+
+                card.addEventListener('click', function(e) {
+                    if (e.target.closest('.btn-start')) return;
+                    if (card.classList.contains('coming-soon')) return;
+
+                    var progress = getModuleProgress();
+                    var current = progress[name] || null;
+
+                    if (!current) {
+                        progress[name] = 'in-progress';
+                    } else if (current === 'in-progress') {
+                        progress[name] = 'completed';
+                    } else {
+                        delete progress[name];
+                    }
+
+                    localStorage.setItem(STORAGE_KEY, JSON.stringify(progress));
+                    updateModuleStats();
+                });
+            });
+
+            function filterModules() {
+                var query = searchInput.value.toLowerCase().trim();
+                document.querySelectorAll('.module-card').forEach(function(card) {
+                    var name = card.dataset.name || '';
+                    card.style.display = (name.includes(query) || query === '') ? 'flex' : 'none';
+                });
+            }
+
+            searchInput.addEventListener('input', filterModules);
+            searchBtn.addEventListener('click', filterModules);
+
+            searchInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    filterModules();
+                }
+            });
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .module-card, .stat-item, .from-waste-card');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+            updateModuleStats();
+
+        })();
+    </script>
+
+</body>
+
+</html>

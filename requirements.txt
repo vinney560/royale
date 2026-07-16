@@ -16,3 +16,7 @@ whitenoise
 # qrcode
 qrcode
 Pillow
+
+
+requests
+beautifulsoup4

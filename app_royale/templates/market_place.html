@@ -6,16 +6,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <title>ROYALE | API Keys</title>
-    <meta name="description" content="Manage your ROYALE API keys for QR code generation and other services." />
-    <meta name="keywords" content="API keys, QR code API, ROYALE API, generate QR code" />
+    <title>ROYALE | Marketplace</title>
+    <meta name="description" content="Discover ROYALE's premium software solutions. WiFi Hotspot software for businesses and home networks." />
+    <meta name="keywords" content="ROYALE, marketplace, WiFi Hotspot, software, premium, business" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://royale.de5.net/products/qr/api-keys/" />
+    <link rel="canonical" href="https://royale.de5.net/market/place/" />
 
-    <meta property="og:title" content="ROYALE · API Keys" />
-    <meta property="og:description" content="Manage your ROYALE API keys for QR code generation and other services." />
+    <meta property="og:title" content="ROYALE | Marketplace" />
+    <meta property="og:description" content="Discover ROYALE's premium software solutions." />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://royale.de5.net/products/qr/api-keys/" />
+    <meta property="og:url" content="https://royale.de5.net/market/place/" />
     <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -23,281 +23,24 @@
     <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
     <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
 
-    <script src="{% static 'css/tailwind.min.js' %}"></script>
-
-    <!-- Preconnect -->
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Load with media="print" then load on all -->
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
 
-    <!-- Fallback for no JS -->
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
         <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
-    </noscript>    
-
-    <script src="{% static 'js/loading.js' %}" async></script>
+    </noscript>
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
 
     <style>
-        .api-wrapper {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        .api-table-wrap {
-            overflow-x: auto;
-            background: rgba(8, 16, 20, 0.85);
-            border-radius: 1.5rem;
-            border: 1px solid rgba(60, 130, 120, 0.12);
-            padding: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .api-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-
-        .api-table thead th {
-            text-align: left;
-            padding: 0.8rem 1rem;
-            color: #5a7a85;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
-            font-weight: 600;
-        }
-
-        .api-table tbody td {
-            padding: 0.8rem 1rem;
-            color: #e4edf2;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-            font-family: monospace;
-            font-size: 0.8rem;
-            word-break: break-all;
-        }
-
-        .api-table tbody tr:hover td {
-            background: rgba(255, 255, 255, 0.02);
-        }
-
-        .api-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .api-table .copy-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: #9bb0bb;
-            padding: 0.3rem 0.8rem;
-            border-radius: 0.5rem;
-            cursor: pointer;
-            font-size: 0.7rem;
-            transition: all 0.3s ease;
-            font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.3rem;
-            white-space: nowrap;
-        }
-
-        .api-table .copy-btn:hover {
-            background: rgba(95, 208, 186, 0.1);
-            border-color: rgba(95, 208, 186, 0.15);
-            color: #5fd0ba;
-        }
-
-        .api-table .copy-btn.copied {
-            background: rgba(52, 211, 153, 0.1);
-            border-color: rgba(52, 211, 153, 0.15);
-            color: #34d399;
-        }
-
-        .api-table .api-index {
-            color: #5a7a85;
-            font-weight: 600;
-            font-size: 0.75rem;
-            font-family: system-ui, sans-serif;
-        }
-
-        .api-table .api-key {
-            color: #bcd0d8;
-            font-family: 'Courier New', monospace;
-            font-size: 0.75rem;
-            letter-spacing: 0.02em;
-        }
-
-        .api-stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 1rem;
-            margin-top: 1.5rem;
-        }
-
-        .api-stat-item {
-            text-align: center;
-            padding: 1rem;
-            background: rgba(8, 16, 20, 0.6);
-            border-radius: 1rem;
-            border: 1px solid rgba(60, 130, 120, 0.06);
-        }
-
-        .api-stat-item .stat-number {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: #5fd0ba;
-            line-height: 1;
-        }
-
-        .api-stat-item .stat-label {
-            color: #5a7a85;
-            font-size: 0.7rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.2rem;
-        }
-
-        .api-actions {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            margin-top: 1rem;
-        }
-
-        .api-actions .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.7rem 1.5rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: none;
-            font-family: inherit;
-            text-decoration: none;
-        }
-
-        .api-actions .btn-primary {
-            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
-            color: #070a0c;
-        }
-
-        .api-actions .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px rgba(95, 208, 186, 0.25);
-        }
-
-        .api-actions .btn-secondary {
-            background: rgba(255, 255, 255, 0.06);
-            color: #e4edf2;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-
-        .api-actions .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-2px);
-        }
-
-        .api-actions .btn-danger {
-            background: rgba(239, 68, 68, 0.1);
-            color: #ef4444;
-            border: 1px solid rgba(239, 68, 68, 0.1);
-        }
-
-        .api-actions .btn-danger:hover {
-            background: rgba(239, 68, 68, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: rgba(12, 22, 28, 0.95);
-            backdrop-filter: blur(16px);
-            border: 1px solid rgba(95, 208, 186, 0.2);
-            border-radius: 1rem;
-            padding: 1rem 1.5rem;
-            color: #e4edf2;
-            font-size: 0.9rem;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-            display: none;
-            align-items: center;
-            gap: 0.8rem;
-            z-index: 100;
-            animation: slideUp 0.4s ease;
-        }
-
-        .toast.visible {
-            display: flex;
-        }
-
-        .toast i {
-            color: #5fd0ba;
-            font-size: 1.2rem;
-        }
-
-        @keyframes slideUp {
-            0% { opacity: 0; transform: translateY(20px); }
-            100% { opacity: 1; transform: translateY(0); }
-        }
-
-        .copy-all-btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.4rem 1rem;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 0.5rem;
-            color: #9bb0bb;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .copy-all-btn:hover {
-            background: rgba(95, 208, 186, 0.08);
-            border-color: rgba(95, 208, 186, 0.12);
-            color: #5fd0ba;
-        }
-
-        @media (max-width: 640px) {
-            .api-wrapper {
-                padding: 1rem;
-            }
-            .api-table-wrap {
-                padding: 1rem;
-            }
-            .api-table thead th,
-            .api-table tbody td {
-                padding: 0.5rem 0.6rem;
-                font-size: 0.7rem;
-            }
-            .api-table .api-key {
-                font-size: 0.65rem;
-            }
-            .api-table .copy-btn {
-                padding: 0.2rem 0.5rem;
-                font-size: 0.6rem;
-            }
-            .api-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
         .text-gradient-shimmer {
             background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
             background-size: 200% auto;
@@ -318,6 +61,12 @@
             100% { background-position: 200% center; }
         }
 
+        .market-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
         .hero-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -332,13 +81,305 @@
             }
         }
 
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .product-card {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.8rem;
+            padding: 2rem;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 1.8rem;
+            padding: 2px;
+            background: linear-gradient(135deg, rgba(95, 208, 186, 0.12), transparent 50%, rgba(95, 208, 186, 0.04));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .product-card:hover {
+            border-color: rgba(95, 208, 186, 0.3);
+            transform: translateY(-8px);
+            background: rgba(12, 28, 32, 0.92);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(95, 208, 186, 0.06);
+        }
+
+        .product-card .card-glow {
+            position: absolute;
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease;
+        }
+
+        .product-card:hover .card-glow {
+            opacity: 0.12;
+        }
+
+        .product-card .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.2rem 0.8rem;
+            border-radius: 100px;
+            font-weight: 700;
+        }
+
+        .product-card .product-badge.free {
+            background: rgba(52, 211, 153, 0.1);
+            border: 1px solid rgba(52, 211, 153, 0.15);
+            color: #34d399;
+        }
+
+        .product-card .product-badge.premium {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+        }
+
+        .product-card .product-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 1.2rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #5fd0ba;
+            transition: all 0.4s ease;
+            margin-bottom: 1rem;
+        }
+
+        .product-card:hover .product-icon {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.2);
+            transform: scale(1.05) rotate(-4deg);
+        }
+
+        .product-card .product-name {
+            font-size: clamp(1.3rem, 1.6vw, 1.6rem);
+            font-weight: 700;
+            color: #eef2f5;
+            margin-bottom: 0.3rem;
+        }
+
+        .product-card .product-version {
+            font-size: 0.75rem;
+            color: #5a7a85;
+            margin-bottom: 0.8rem;
+        }
+
+        .product-card .product-desc {
+            color: #9bb0bb;
+            font-size: clamp(0.9rem, 1vw, 0.95rem);
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .product-card .product-divider {
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, transparent, rgba(95, 208, 186, 0.08), transparent);
+            margin: 1rem 0;
+        }
+
+        .product-card .product-pricing {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .product-card .product-pricing .old-price {
+            font-size: 1.1rem;
+            color: #5a7a85;
+            text-decoration: line-through;
+        }
+
+        .product-card .product-pricing .new-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #5fd0ba;
+        }
+
+        .product-card .product-pricing .currency {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #5a7a85;
+        }
+
+        .product-card .product-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .product-card .product-features span {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            padding: 0.15rem 0.7rem;
+            border-radius: 100px;
+            background: rgba(95, 208, 186, 0.04);
+            border: 1px solid rgba(95, 208, 186, 0.06);
+            color: rgba(95, 208, 186, 0.7);
+            font-weight: 500;
+        }
+
+        .product-card .product-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+            margin-top: auto;
+        }
+
+        .product-card .btn-buy {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            font-family: inherit;
+            text-decoration: none;
+            background: linear-gradient(135deg, #5fd0ba, #3ab0a0);
+            color: #070a0c;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .product-card .btn-buy:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(95, 208, 186, 0.25);
+        }
+
+        .product-card .btn-buy i {
+            font-size: 0.8rem;
+            transition: transform 0.3s ease;
+        }
+
+        .product-card .btn-buy:hover i {
+            transform: translateX(4px);
+        }
+
+        .product-card .btn-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(60, 130, 120, 0.1);
+            background: rgba(255, 255, 255, 0.03);
+            color: #9bb0bb;
+            font-family: inherit;
+            text-decoration: none;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .product-card .btn-info:hover {
+            border-color: rgba(95, 208, 186, 0.2);
+            color: #5fd0ba;
+            background: rgba(95, 208, 186, 0.04);
+            transform: translateY(-2px);
+        }
+
+        .product-card .btn-info i {
+            font-size: 0.8rem;
+        }
+
+        .product-card.premium {
+            border-color: rgba(245, 158, 11, 0.08);
+        }
+
+        .product-card.premium::before {
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.12), transparent 50%, rgba(245, 158, 11, 0.04));
+        }
+
+        .product-card.premium:hover {
+            border-color: rgba(245, 158, 11, 0.2);
+        }
+
+        .product-card.premium .product-icon {
+            background: rgba(245, 158, 11, 0.06);
+            border-color: rgba(245, 158, 11, 0.08);
+            color: #fbbf24;
+        }
+
+        .product-card.premium:hover .product-icon {
+            background: rgba(245, 158, 11, 0.12);
+            border-color: rgba(245, 158, 11, 0.15);
+        }
+
+        .product-card.premium .product-pricing .new-price {
+            color: #fbbf24;
+        }
+
+        .product-card.premium .btn-buy {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: #070a0c;
+        }
+
+        .product-card.premium .btn-buy:hover {
+            box-shadow: 0 8px 30px rgba(245, 158, 11, 0.25);
+        }
+
+        .product-card.premium .btn-info {
+            border-color: rgba(245, 158, 11, 0.08);
+        }
+
+        .product-card.premium .btn-info:hover {
+            border-color: rgba(245, 158, 11, 0.15);
+            color: #fbbf24;
+        }
+
+        @media (max-width: 500px) {
+            .product-card .product-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+
         .from-waste-section {
             margin-top: clamp(3rem, 8vw, 6rem);
             padding-top: clamp(1rem, 2vw, 2rem);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
-        .from-waste-section .from-waste-card {
+        .from-waste-card {
             background: rgba(10, 30, 34, 0.6);
             border: 1px solid rgba(60, 130, 120, 0.2);
             border-radius: 1.5rem;
@@ -346,9 +387,32 @@
             transition: all 0.4s ease;
         }
 
-        .from-waste-section .from-waste-card:hover {
+        .from-waste-card:hover {
             border-color: rgba(95, 208, 186, 0.4);
             transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        @media (max-width: 640px) {
+            .market-wrapper {
+                padding: 1rem;
+            }
+            .product-grid {
+                grid-template-columns: 1fr;
+                gap: 1.2rem;
+            }
+            .product-card {
+                padding: 1.5rem;
+            }
         }
     </style>
 </head>
@@ -371,7 +435,7 @@
                     <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
                     <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
                     <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
-                        API Keys
+                        Marketplace
                         <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
                     </a>
                 </nav>
@@ -395,30 +459,29 @@
                     <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
                     <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
                     <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
-                    <a href="#" class="menu-link-nav active" data-menu-item>API Keys</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>Marketplace</a>
                 </div>
 
                 <div class="menu-divider-full menu-link-main"></div>
 
                 <div class="menu-section-title">Products</div>
                 <div class="menu-grid">
-                    <a href="/products/qr/" class="menu-link-product" data-menu-item>
+                    <a href="/" class="menu-link-product" data-menu-item>
                         <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
                         Back
                     </a>
                     <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
                         <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
-                        YT Downloader
+                        YT DL
                         <span class="product-badge">Popular</span>
                     </a>
-                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
-                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
-                        FB Downloader
-                        <span class="product-badge">RISING</span>
+                    <a href="/products/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-code text-green-400"></i></span>
+                        Products
                     </a>
-                    <a href="/products/qr/" class="menu-link-product" data-menu-item>
-                        <span class="product-icon"><i class="fas fa-qrcode"></i></span>
-                        QR Gen
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-store"></i></span>
+                        Marketplace
                     </a>
                 </div>
 
@@ -448,8 +511,8 @@
 
     <main class="relative z-10 pt-24 sm:pt-28">
 
-        <div class="api-wrapper">
-            <!-- ===== HERO ===== -->
+        <div class="market-wrapper">
+
             <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
                 <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
                 <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
@@ -458,7 +521,7 @@
                     <div class="hero-grid">
                         <div>
                             <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
-                                <i class="fas fa-qrcode mr-1 sm:mr-2"></i>QR API Access
+                                <i class="fas fa-store mr-1 sm:mr-2"></i>Marketplace
                             </span>
                             <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
                                 <span class="royale-brand-wrapper">
@@ -469,17 +532,17 @@
                                     <span class="brand-letter">L</span>
                                     <span class="brand-letter">E</span>
                                 </span><br />
-                                <span class="text-gradient-shimmer">QR API Access</span>
+                                <span class="text-gradient-shimmer">Software Marketplace</span>
                             </h1>
                             <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
-                                Manage your API keys for ROYALE services. Use these keys to authenticate API requests.
+                                Discover premium software solutions built for businesses that demand reliability, speed, and scale.
                             </p>
                             <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
                                 <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
-                                    <i class="fas fa-circle-notch mr-1 sm:mr-2"></i>Unlimited Request
+                                    <i class="fas fa-wifi mr-1 sm:mr-2"></i>WiFi Hotspot
                                 </span>
                                 <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
-                                    <i class="fas fa-infinity mr-1 sm:mr-2"></i>Free Forever
+                                    <i class="fas fa-crown mr-1 sm:mr-2"></i>Enterprise Ready
                                 </span>
                             </div>
                         </div>
@@ -487,9 +550,7 @@
                             <div class="relative w-48 h-48 sm:w-64 sm:h-64">
                                 <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
                                 <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
-                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60">
-                                    <i class="fas fa-key"></i>
-                                </div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60"><i class="fas fa-store"></i></div>
                             </div>
                         </div>
                     </div>
@@ -501,80 +562,77 @@
                 </div>
             </section>
 
-            <!-- ===== STATS ===== -->
-            <div class="api-stats">
-                <div class="api-stat-item reveal delay-1">
-                    <div class="stat-number">{{ api_keys|length }}</div>
-                    <div class="stat-label">Total Keys</div>
-                </div>
-                <div class="api-stat-item reveal delay-2">
-                    <div class="stat-number">Active</div>
-                    <div class="stat-label">Status</div>
-                </div>
-                <div class="api-stat-item reveal delay-3">
-                    <div class="stat-number">QR</div>
-                    <div class="stat-label">Service</div>
-                </div>
-                <div class="api-stat-item reveal delay-4">
-                    <div class="stat-number">Free</div>
-                    <div class="stat-label">Plan</div>
-                </div>
+            <div class="flex flex-wrap justify-between items-center gap-4 mb-6">
+                <h2 class="text-xl font-bold text-white">
+                    <i class="fas fa-list mr-2"></i>Available Software
+                    <span class="text-sm font-normal text-slate-500 ml-2">({{ products|length }} products)</span>
+                </h2>
             </div>
 
-            <!-- ===== API KEYS TABLE ===== -->
-            <div class="api-table-wrap reveal">
-                <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.5rem;margin-bottom:1rem;">
-                    <h3 style="color:#eef2f5;font-weight:600;font-size:1rem;">
-                        <i class="fas fa-key text-emerald-400 mr-2"></i>Your API Keys
-                    </h3>
-                    <button class="copy-all-btn" id="copyAllBtn">
-                        <i class="fas fa-copy"></i> Copy All
-                    </button>
-                </div>
+            <div class="product-grid">
+                {% for product in products %}
+                <div class="product-card {% if product.premium %}premium{% endif %} reveal {% if forloop.counter == 1 %}reveal-left delay-1{% else %}reveal-right delay-2{% endif %}">
+                    <div class="card-glow" style="top:-40px;right:-40px;background:{% if product.premium %}rgba(245,158,11,0.08){% else %}rgba(95,208,186,0.1){% endif %};"></div>
 
-                <div class="api-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>API Key</th>
-                                <th style="text-align:right;">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {% for key in api_keys %}
-                            <tr>
-                                <td><span class="api-index">{{ forloop.counter }}</span></td>
-                                <td><span class="api-key" id="api-key-{{ forloop.counter0 }}">{{ key }}</span></td>
-                                <td style="text-align:right;">
-                                    <button class="copy-btn" data-key="{{ key }}" data-index="{{ forloop.counter0 }}">
-                                        <i class="fas fa-copy"></i> Copy
-                                    </button>
-                                </td>
-                            </tr>
-                            {% endfor %}
-                        </tbody>
-                    </table>
+                    <span class="product-badge {{ product.badge }}">
+                        <i class="fas fa-circle text-{% if product.badge == 'free' %}emerald{% else %}amber{% endif %}-500 text-[0.3rem] mr-1"></i>
+                        {{ product.badge|title }}
+                    </span>
+
+                    <div class="product-icon"><i class="{{ product.icon }}"></i></div>
+
+                    <div class="product-name">
+                        {{ product.name }}
+                        {% if product.premium %}
+                        <span style="color:#fbbf24;font-size:0.7rem;">Premium</span>
+                        {% endif %}
+                    </div>
+                    <div class="product-version">Version {{ product.version }}</div>
+
+                    <p class="product-desc">{{ product.description }}</p>
+
+                    <div class="product-divider"></div>
+
+                    <div class="product-features">
+                        {% for feature in product.features %}
+                        <span>{{ feature }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <div class="product-pricing">
+                        <span class="old-price">{{ product.old_price }}Ksh</span>
+                        <span class="new-price {% if product.premium %}premium-price{% endif %}">{{ product.new_price }}</span>
+                        <span class="currency">KES</span>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn-buy">
+                            <i class="fas fa-shopping-cart"></i> Buy
+                        </button>
+                        <a href="{{ product.info_url }}" class="btn-info">
+                            <i class="fas fa-info-circle"></i> Info
+                        </a>
+                    </div>
                 </div>
+                {% endfor %}
             </div>
 
-            <!-- ===== USAGE INFO ===== -->
             <div class="from-waste-section max-w-4xl mx-auto reveal">
                 <div class="from-waste-card">
                     <h4 class="font-bold text-lg sm:text-xl text-white/90">
-                        <i class="fas fa-code text-emerald-400 mr-2"></i>How to use your API key
+                        <i class="fas fa-rocket text-emerald-400 mr-2"></i>Need a custom solution?
                     </h4>
                     <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
-                        Include your API key in the <code style="background:rgba(255,255,255,0.04);padding:0.1rem 0.4rem;border-radius:0.3rem;color:#5fd0ba;">X-API-Key</code> header or as a query parameter <code style="background:rgba(255,255,255,0.04);padding:0.1rem 0.4rem;border-radius:0.3rem;color:#5fd0ba;">?api_key=YOUR_KEY</code> when making requests to the ROYALE API.
+                        We also build custom software tailored to your specific needs. Contact us to discuss your requirements.
                     </p>
                     <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
-                        <a href="/products/qr/"
-                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
-                            <i class="fas fa-qrcode"></i> QR Code Generator
-                        </a>
                         <a href="/contact/"
+                            class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                        <a href="/market/softwares/hotspot/"
                             class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
-                            <i class="fas fa-envelope"></i> Contact Support
+                            <i class="fas fa-wifi"></i> View Hotspot Details
                         </a>
                     </div>
                 </div>
@@ -605,68 +663,6 @@
     <script>
         (function() {
 
-            // ===== TOAST =====
-            var toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerHTML = '<i class="fas fa-check-circle"></i> <span id="toastMessage">Copied!</span>';
-            document.body.appendChild(toast);
-
-            function showToast(message) {
-                var msg = document.getElementById('toastMessage');
-                msg.textContent = message || 'Copied!';
-                toast.classList.add('visible');
-                clearTimeout(toast._timeout);
-                toast._timeout = setTimeout(function() {
-                    toast.classList.remove('visible');
-                }, 2000);
-            }
-
-            // ===== COPY SINGLE KEY =====
-            document.querySelectorAll('.copy-btn').forEach(function(btn) {
-                btn.addEventListener('click', function() {
-                    var key = this.dataset.key;
-                    navigator.clipboard.writeText(key).then(function() {
-                        btn.classList.add('copied');
-                        btn.innerHTML = '<i class="fas fa-check"></i> Copied!';
-                        showToast('API key copied!');
-                        setTimeout(function() {
-                            btn.classList.remove('copied');
-                            btn.innerHTML = '<i class="fas fa-copy"></i> Copy';
-                        }, 2000);
-                    }).catch(function() {
-                        // Fallback
-                        var textarea = document.createElement('textarea');
-                        textarea.value = key;
-                        document.body.appendChild(textarea);
-                        textarea.select();
-                        document.execCommand('copy');
-                        document.body.removeChild(textarea);
-                        showToast('API key copied!');
-                    });
-                });
-            });
-
-            // ===== COPY ALL KEYS =====
-            document.getElementById('copyAllBtn').addEventListener('click', function() {
-                var keys = [];
-                document.querySelectorAll('.api-key').forEach(function(el) {
-                    keys.push(el.textContent.trim());
-                });
-                var allKeys = keys.join('\n');
-                navigator.clipboard.writeText(allKeys).then(function() {
-                    showToast('All ' + keys.length + ' keys copied!');
-                }).catch(function() {
-                    var textarea = document.createElement('textarea');
-                    textarea.value = allKeys;
-                    document.body.appendChild(textarea);
-                    textarea.select();
-                    document.execCommand('copy');
-                    document.body.removeChild(textarea);
-                    showToast('All ' + keys.length + ' keys copied!');
-                });
-            });
-
-            // ===== CURSOR GLOW =====
             var cursorGlow = document.getElementById('cursor-glow');
             document.addEventListener('mousemove', function(e) {
                 cursorGlow.style.left = e.clientX + 'px';
@@ -679,7 +675,6 @@
                 cursorGlow.style.opacity = '0';
             });
 
-            // ===== SCROLL REVEAL =====
             var reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
@@ -697,14 +692,12 @@
                 });
             }, 200);
 
-            // ===== HEADER SCROLL =====
             var header = document.querySelector('header');
             window.addEventListener('scroll', function() {
                 header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
             });
 
-            // ===== CURSOR GLOW ACTIVE =====
-            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .copy-btn, .copy-all-btn, .api-stat-item, .from-waste-card');
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .product-card, .from-waste-card');
             interactiveElements.forEach(function(el) {
                 el.addEventListener('mouseenter', function() {
                     cursorGlow.classList.add('active');
