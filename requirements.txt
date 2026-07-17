@@ -27,3 +27,6 @@ colorama
 # 
 requests
 beautifulsoup4
+lxml
+facebook-scraper
+fake-useragent

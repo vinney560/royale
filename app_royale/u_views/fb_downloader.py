@@ -3,255 +3,56 @@ from django.shortcuts import render
 from django.http import JsonResponse, StreamingHttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_http_methods
-import requests, re, json, time, random, threading
+import requests
+import re
+import json
+import time
+import threading
 from urllib.parse import urlparse, unquote
 from datetime import datetime
 from bs4 import BeautifulSoup
-from django_ratelimit.decorators import ratelimit
-from sys_views.rate_limit_key import getKey
+from fake_useragent import UserAgent
 
-ALL_HEADERS = [
-    {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="99", "Safari";v="17.1", "Mobile";v="17.1"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"iOS"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="99", "Safari";v="16.6", "Mobile";v="16.6"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"iOS"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (iPhone14,3; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="99", "Safari";v="17.2", "Mobile";v="17.2"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"iOS"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (iPad; CPU OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="99", "Safari";v="17.1", "Mobile";v="17.1"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"iOS"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.163 Mobile Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="119", "Google Chrome";v="119"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 13; OnePlus 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.112 Mobile Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="118", "Google Chrome";v="118"',
-        'sec-ch-ua-mobile': '?1',
-        'sec-ch-ua-platform': '"Android"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (Linux; Android 13; SM-X910) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Android"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/121.0',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="121", "Google Chrome";v="121"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Windows"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Linux"',
-    },
-    {
-        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/121.0',
-        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7',
-        'Accept-Language': 'en-US,en;q=0.9',
-        'Accept-Encoding': 'gzip, deflate, br',
-        'DNT': '1',
-        'Connection': 'keep-alive',
-        'Upgrade-Insecure-Requests': '1',
-        'Sec-Fetch-Dest': 'document',
-        'Sec-Fetch-Mode': 'navigate',
-        'Sec-Fetch-Site': 'none',
-        'Sec-Fetch-User': '?1',
-        'Cache-Control': 'max-age=0',
-        'sec-ch-ua': '"Not_A Brand";v="8", "Chromium";v="121", "Google Chrome";v="121"',
-        'sec-ch-ua-mobile': '?0',
-        'sec-ch-ua-platform': '"Linux"',
-    }    
-]
+# ============================================================
+# FACEBOOK-SCRAPER IMPORTS
+# ============================================================
 
-HEADERS = random.choice(ALL_HEADERS)
-MOBILE_USER_AGENTS = [
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Mobile/15E148 Safari/604.1',
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1',
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1',
-    'Mozilla/5.0 (Linux; Android 14; SM-S918B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36',
-    'Mozilla/5.0 (Linux; Android 14; Pixel 8) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.6099.230 Mobile Safari/537.36',
-    'Mozilla/5.0 (Linux; Android 13; OnePlus 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.163 Mobile Safari/537.36',
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 15_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/15.5 Mobile/15E148 Safari/604.1',
-    'Mozilla/5.0 (Linux; Android 12; SM-G998B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.5993.112 Mobile Safari/537.36',
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 16_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.0 Mobile/15E148 Safari/604.1',
-    'Mozilla/5.0 (Linux; Android 13; SM-F936B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.6045.163 Mobile Safari/537.36',
-    'Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1',
-]
+try:
+    from facebook_scraper import get_post, set_cookies, set_user_agent, get_page_info
+    FACEBOOK_SCRAPER_AVAILABLE = True
+    print("[FacebookDownloader] facebook-scraper loaded successfully")
+except ImportError as e:
+    print(f"[FacebookDownloader] facebook-scraper not available: {e}")
+    FACEBOOK_SCRAPER_AVAILABLE = False
 
-def get_mobile_headers():
-    headers = HEADERS.copy()
-    headers['User-Agent'] = random.choice(MOBILE_USER_AGENTS)
-    
-    # Update sec-ch-ua based on user agent
-    if 'iPhone' in headers['User-Agent']:
-        headers['sec-ch-ua'] = '"Not_A Brand";v="99", "Safari";v="17.1", "Mobile";v="17.1"'
-        headers['sec-ch-ua-mobile'] = '?1'
-        headers['sec-ch-ua-platform'] = '"iOS"'
-    elif 'Android' in headers['User-Agent']:
-        headers['sec-ch-ua'] = '"Not_A Brand";v="8", "Chromium";v="120", "Google Chrome";v="120"'
-        headers['sec-ch-ua-mobile'] = '?1'
-        headers['sec-ch-ua-platform'] = '"Android"'
-    
+# ============================================================
+# FAKE USER-AGENT
+# ============================================================
+
+ua = UserAgent()
+
+def get_headers():
+    """Get random headers with fake user-agent"""
+    headers = {
+        'User-Agent': ua.random,
+        'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8',
+        'Accept-Language': 'en-US,en;q=0.9',
+        'Accept-Encoding': 'gzip, deflate',
+        'DNT': '1',
+        'Connection': 'keep-alive',
+        'Upgrade-Insecure-Requests': '1',
+        'Cache-Control': 'max-age=0',
+    }
     return headers
+
+# ============================================================
+# FACEBOOK VIDEO DOWNLOADER
+# ============================================================
 
 class FacebookVideoDownloader:
     def __init__(self):
         self.session = requests.Session()
-        self.session.headers.update(HEADERS)
+        self.session.headers.update(get_headers())
         self.session.cookies.update({
             'locale': 'en_US',
             'sb': 'random_string',
@@ -262,6 +63,24 @@ class FacebookVideoDownloader:
         self.cache = {}
         self.cache_timeout = 300
         self.lock = threading.Lock()
+        
+        # Configure facebook-scraper
+        if FACEBOOK_SCRAPER_AVAILABLE:
+            try:
+                # Set custom user-agent for facebook-scraper
+                set_user_agent(ua.random)
+                
+                # Set cookies
+                set_cookies({
+                    'locale': 'en_US',
+                    'sb': 'random_string',
+                    'datr': 'random_string',
+                    'c_user': '1000',
+                    'xs': 'random_string',
+                })
+                print("[FacebookDownloader] facebook-scraper configured")
+            except Exception as e:
+                print(f"[FacebookDownloader] Error configuring facebook-scraper: {e}")
     
     def is_valid_facebook_url(self, url):
         try:
@@ -272,24 +91,43 @@ class FacebookVideoDownloader:
         except:
             return False
     
-    def get_actual_video_url(self, url):
-        try:
-            response = self.session.get(url, timeout=10, allow_redirects=True)
-            final_url = response.url
-            
-            if 'login' in final_url or 'facebook.com/login' in final_url:
-                mobile_headers = get_mobile_headers()
-                # ======= DEBUG ===============
-                print(f"[Mobile Headers] {mobile_headers}")
-
-                response = requests.get(url, headers=mobile_headers, timeout=10, allow_redirects=True)
-                final_url = response.url
-            
-            return final_url, response.text
-            
-        except Exception as e:
-            print(f"Error getting actual URL: {e}")
-            return url, ""
+    def extract_video_id(self, url):
+        """Extract video ID from Facebook URL"""
+        # Pattern for watch URLs: /watch?v=123456789
+        watch_match = re.search(r'[?&]v=(\d+)', url)
+        if watch_match:
+            return watch_match.group(1)
+        
+        # Pattern for reel URLs: /reel/123456789
+        reel_match = re.search(r'/reel/(\d+)', url)
+        if reel_match:
+            return reel_match.group(1)
+        
+        # Pattern for share URLs: /share/v/123456789
+        share_match = re.search(r'/share/v/(\d+)', url)
+        if share_match:
+            return share_match.group(1)
+        
+        # Pattern for post URLs: /posts/123456789
+        post_match = re.search(r'/posts/(\d+)', url)
+        if post_match:
+            return post_match.group(1)
+        
+        # Pattern for fb.watch URLs
+        if 'fb.watch' in url:
+            try:
+                headers = get_headers()
+                response = requests.head(url, headers=headers, timeout=5, allow_redirects=True)
+                return self.extract_video_id(response.url)
+            except:
+                pass
+        
+        # Try to extract any number from URL
+        number_match = re.search(r'(\d{10,})', url)
+        if number_match:
+            return number_match.group(1)
+        
+        return None
     
     def extract_metadata(self, url):
         cache_key = f"metadata_{hash(url)}"
@@ -304,8 +142,47 @@ class FacebookVideoDownloader:
         try:
             print(f"Processing URL: {url}")
             
+            # ============================================================
+            # TRY FACEBOOK-SCRAPER FIRST
+            # ============================================================
+            
+            if FACEBOOK_SCRAPER_AVAILABLE:
+                try:
+                    # Try with get_page_info first
+                    try:
+                        page_info = get_page_info(url)
+                        if page_info:
+                            print(f"[facebook-scraper] get_page_info succeeded")
+                            metadata = self._parse_page_info(page_info, url)
+                            with self.lock:
+                                self.cache[cache_key] = (metadata, current_time)
+                            return metadata
+                    except Exception as e:
+                        print(f"[facebook-scraper] get_page_info failed: {e}")
+                    
+                    # Extract video ID and try get_post
+                    video_id = self.extract_video_id(url)
+                    if video_id:
+                        try:
+                            post = get_post(video_id, options={"comments": False})
+                            if post and post.get('video'):
+                                print(f"[facebook-scraper] get_post succeeded for ID: {video_id}")
+                                metadata = self._parse_post_data(post, url)
+                                with self.lock:
+                                    self.cache[cache_key] = (metadata, current_time)
+                                return metadata
+                        except Exception as e:
+                            print(f"[facebook-scraper] get_post failed: {e}")
+                            
+                except Exception as e:
+                    print(f"[facebook-scraper] Error: {e}")
+            
+            # ============================================================
+            # FALLBACK: MANUAL EXTRACTION
+            # ============================================================
+            
+            print("Trying manual extraction...")
             actual_url, html_content = self.get_actual_video_url(url)
-            print(f"Actual URL: {actual_url}")
             
             if not html_content:
                 return {'error': 'Could not fetch video page. The video might be private or require login.'}
@@ -317,9 +194,6 @@ class FacebookVideoDownloader:
             
             if 'login' in page_title.lower() or 'log in' in page_title.lower():
                 return {'error': 'Facebook is requiring login. Try using a different video or check if the video is public.'}
-            
-            if 'discover popular videos' in page_title.lower():
-                return {'error': 'Facebook redirected to generic page. The video might not be accessible or the URL is incorrect.'}
             
             metadata = self.extract_metadata_from_html(soup, actual_url, html_content)
             
@@ -341,6 +215,126 @@ class FacebookVideoDownloader:
         except Exception as e:
             return {'error': f'Error extracting metadata: {str(e)}'}
     
+    def _parse_page_info(self, page_info, url):
+        """Parse page info from facebook-scraper"""
+        metadata = {
+            'success': True,
+            'url': url,
+            'title': page_info.get('title', 'Facebook Video'),
+            'description': page_info.get('description', ''),
+            'duration': self._format_duration(page_info.get('duration', 0)),
+            'views': self._format_views(page_info.get('views', 0)),
+            'upload_date': page_info.get('upload_date', ''),
+            'uploader': page_info.get('author', 'Unknown Uploader'),
+            'uploader_url': page_info.get('author_url', ''),
+            'thumbnail_url': page_info.get('thumbnail', ''),
+            'video_urls': [],
+            'quality_options': [],
+            'formats': ['MP4'],
+            'extracted_at': datetime.now().isoformat(),
+            'message': 'Metadata extracted successfully (facebook-scraper)'
+        }
+        
+        # Extract video source
+        source = page_info.get('source', {})
+        if isinstance(source, dict):
+            for quality, video_url in source.items():
+                if video_url and 'http' in video_url:
+                    metadata['video_urls'].append(video_url)
+        elif isinstance(source, str) and 'http' in source:
+            metadata['video_urls'].append(source)
+        
+        # Also check for individual quality URLs
+        for key in ['sd_src', 'hd_src', 'src']:
+            if key in page_info and page_info[key]:
+                metadata['video_urls'].append(page_info[key])
+        
+        if metadata['video_urls']:
+            metadata['quality_options'] = self.generate_quality_options(metadata['video_urls'])
+        
+        return metadata
+    
+    def _parse_post_data(self, post, url):
+        """Parse post data from facebook-scraper get_post"""
+        metadata = {
+            'success': True,
+            'url': url,
+            'title': post.get('text', 'Facebook Video')[:100],
+            'description': post.get('text', ''),
+            'duration': self._format_duration(post.get('duration', 0)),
+            'views': self._format_views(post.get('views', 0)),
+            'upload_date': post.get('time', ''),
+            'uploader': post.get('username', 'Unknown Uploader'),
+            'uploader_url': post.get('profile_url', ''),
+            'thumbnail_url': post.get('image', ''),
+            'video_urls': [],
+            'quality_options': [],
+            'formats': ['MP4'],
+            'extracted_at': datetime.now().isoformat(),
+            'message': 'Metadata extracted successfully (facebook-scraper)'
+        }
+        
+        # Extract video URL from post
+        video = post.get('video', {})
+        if isinstance(video, dict):
+            for key in ['source', 'sd_src', 'hd_src', 'src']:
+                if key in video and video[key]:
+                    metadata['video_urls'].append(video[key])
+        
+        if isinstance(video, str) and 'http' in video:
+            metadata['video_urls'].append(video)
+        
+        # Try other video sources
+        for key in ['video_url', 'video_source', 'source']:
+            if key in post and post[key]:
+                metadata['video_urls'].append(post[key])
+        
+        if metadata['video_urls']:
+            metadata['quality_options'] = self.generate_quality_options(metadata['video_urls'])
+        
+        return metadata
+    
+    def _format_duration(self, seconds):
+        """Format duration from seconds to MM:SS"""
+        try:
+            seconds = int(seconds)
+            minutes = seconds // 60
+            secs = seconds % 60
+            return f"{minutes:02d}:{secs:02d}"
+        except:
+            return "00:00"
+    
+    def _format_views(self, views):
+        """Format views count"""
+        try:
+            views = int(views)
+            if views >= 1000000:
+                return f"{views/1000000:.1f}M"
+            elif views >= 1000:
+                return f"{views/1000:.1f}K"
+            else:
+                return str(views)
+        except:
+            return "Unknown"
+    
+    def get_actual_video_url(self, url):
+        try:
+            headers = get_headers()
+            response = requests.get(url, headers=headers, timeout=10, allow_redirects=True)
+            final_url = response.url
+            
+            if 'login' in final_url or 'facebook.com/login' in final_url:
+                mobile_headers = get_headers()
+                mobile_headers['User-Agent'] = 'Mozilla/5.0 (iPhone; CPU iPhone OS 17_1_2 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Mobile/15E148 Safari/604.1'
+                response = requests.get(url, headers=mobile_headers, timeout=10, allow_redirects=True)
+                final_url = response.url
+            
+            return final_url, response.text
+            
+        except Exception as e:
+            print(f"Error getting actual URL: {e}")
+            return url, ""
+    
     def extract_metadata_from_html(self, soup, url, html_content):
         metadata = {
             'success': True,
@@ -357,7 +351,7 @@ class FacebookVideoDownloader:
             'quality_options': [],
             'formats': ['MP4'],
             'extracted_at': datetime.now().isoformat(),
-            'message': 'Metadata extracted successfully'
+            'message': 'Metadata extracted successfully (manual)'
         }
         
         if metadata['video_urls']:
@@ -373,15 +367,6 @@ class FacebookVideoDownloader:
         meta_title = soup.find('meta', {'name': 'title'})
         if meta_title and meta_title.get('content'):
             return meta_title.get('content')
-        
-        json_ld = soup.find('script', type='application/ld+json')
-        if json_ld:
-            try:
-                data = json.loads(json_ld.string)
-                if isinstance(data, dict) and 'name' in data:
-                    return data['name']
-            except:
-                pass
         
         if soup.title:
             title = soup.title.string
@@ -402,15 +387,6 @@ class FacebookVideoDownloader:
         meta_desc = soup.find('meta', {'name': 'description'})
         if meta_desc and meta_desc.get('content'):
             return meta_desc.get('content')
-        
-        json_ld = soup.find('script', type='application/ld+json')
-        if json_ld:
-            try:
-                data = json.loads(json_ld.string)
-                if isinstance(data, dict) and 'description' in data:
-                    return data['description']
-            except:
-                pass
         
         desc_match = re.search(r'"snippet":"([^"]+)"', html_content)
         if desc_match:
@@ -476,8 +452,7 @@ class FacebookVideoDownloader:
                 try:
                     date_str = match.group(1)
                     if 'T' in date_str:
-                        date_part = date_str.split('T')[0]
-                        return date_part
+                        return date_str.split('T')[0]
                     return date_str
                 except:
                     pass
@@ -522,15 +497,6 @@ class FacebookVideoDownloader:
         if og_image and og_image.get('content'):
             return og_image.get('content')
         
-        json_ld = soup.find('script', type='application/ld+json')
-        if json_ld:
-            try:
-                data = json.loads(json_ld.string)
-                if isinstance(data, dict) and 'thumbnailUrl' in data:
-                    return data['thumbnailUrl']
-            except:
-                pass
-        
         thumb_patterns = [
             r'"thumbnailUrl":"([^"]+)"',
             r'"thumbnail":"([^"]+)"',
@@ -545,87 +511,47 @@ class FacebookVideoDownloader:
                 if thumb_url and 'http' in thumb_url:
                     return thumb_url
         
-        return "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_play_button_icon_%282013%E2%80%932017%29.svg/1200px-YouTube_play_button_icon_%282013%E2%80%932017%29.svg.png"
+        return ""
     
     def extract_video_urls(self, html_content):
-        video_map = {}
+        video_urls = []
         
-        patterns_with_quality = [
-            (r'"browser_native_hd_url":"([^"]+)"', 'HD'),
-            (r'"browser_native_sd_url":"([^"]+)"', 'SD'),
-            (r'"playable_url_quality_hd":"([^"]+)"', 'HD'),
-            (r'"playable_url_quality_sd":"([^"]+)"', 'SD'),
-            (r'"hd_src":"([^"]+)"', 'HD'),
-            (r'"sd_src":"([^"]+)"', 'SD'),
-            (r'"playable_url":"([^"]+)"', 'Auto'),
-            (r'"src":"([^"]+)"', 'Unknown'),
-            (r'"source":"([^"]+)"', 'Unknown'),
-            (r'"video_url":"([^"]+)"', 'Unknown'),
-            (r'"contentUrl":"([^"]+)"', 'Unknown'),
-            (r'"url":"([^"]+)"', 'Unknown'),
+        patterns = [
+            r'"browser_native_hd_url":"([^"]+)"',
+            r'"browser_native_sd_url":"([^"]+)"',
+            r'"playable_url_quality_hd":"([^"]+)"',
+            r'"playable_url_quality_sd":"([^"]+)"',
+            r'"hd_src":"([^"]+)"',
+            r'"sd_src":"([^"]+)"',
+            r'"playable_url":"([^"]+)"',
+            r'"src":"([^"]+)"',
+            r'"video_url":"([^"]+)"',
+            r'"contentUrl":"([^"]+)"',
+            r'"url":"([^"]+)"',
         ]
         
-        for pattern, quality in patterns_with_quality:
-            match = re.search(pattern, html_content)
-            if match:
-                video_url = match.group(1).replace('\\/', '/')
+        for pattern in patterns:
+            matches = re.findall(pattern, html_content)
+            for match in matches:
+                video_url = match.replace('\\/', '/')
                 video_url = unquote(video_url)
                 
                 if any(ext in video_url.lower() for ext in ['.mp4', '.mov', '.avi', '.webm', 'video']):
                     if any(domain in video_url.lower() for domain in ['facebook.com', 'fbcdn.net', 'cdn.fbsbx.com', 'video.xx.fbcdn.net']):
-                        detected_quality = self.detect_quality_from_url(video_url)
-                        final_quality = detected_quality if detected_quality != 'Unknown' else quality
-                        
-                        if final_quality not in video_map:
-                            video_map[final_quality] = video_url
-                        elif quality == 'HD' and final_quality in ['SD', 'Unknown']:
-                            video_map[final_quality] = video_url
+                        if video_url not in video_urls:
+                            video_urls.append(video_url)
         
-        unique_urls = {}
-        for quality, url in video_map.items():
-            url_normalized = url.split('?')[0]
-            if url_normalized not in unique_urls.values():
-                unique_urls[quality] = url
+        url_pattern = r'(https?://[^\s"<>]*?(?:\.mp4|\.mov|\.avi|\.webm|/video/[^\s"<>]*))'
+        matches = re.findall(url_pattern, html_content, re.IGNORECASE)
+        for match in matches:
+            clean_url = match.replace('\\/', '/')
+            clean_url = unquote(clean_url)
+            
+            if any(domain in clean_url for domain in ['facebook.com', 'fbcdn.net', 'cdn.fbsbx.com', 'video.xx.fbcdn.net']):
+                if clean_url not in video_urls:
+                    video_urls.append(clean_url)
         
-        quality_order = {
-            'HD': 0, '4K': 0, '1440p': 1, '1080p': 2, 
-            '720p': 3, '480p': 4, '360p': 5, '240p': 6, 
-            'SD': 7, 'Auto': 8, 'Unknown': 9
-        }
-        
-        video_urls = [
-            url for quality, url in sorted(
-                unique_urls.items(), 
-                key=lambda x: quality_order.get(x[0], 99)
-            )
-        ]
-        
-        return video_urls
-    
-    def detect_quality_from_url(self, video_url):
-        quality_patterns = [
-            (r'(\d{3,4})p', lambda m: f'{m.group(1)}p'),
-            (r'(hd|high)', 'HD'),
-            (r'(sd|standard|low)', 'SD'),
-            (r'(4k|2160)', '4K'),
-            (r'(1440)', '1440p'),
-            (r'(1080)', '1080p'),
-            (r'(720)', '720p'),
-            (r'(480)', '480p'),
-            (r'(360)', '360p'),
-            (r'(240)', '240p'),
-        ]
-        
-        video_url_lower = video_url.lower()
-        
-        for pattern, quality in quality_patterns:
-            match = re.search(pattern, video_url_lower)
-            if match:
-                if callable(quality):
-                    return quality(match)
-                return quality
-        
-        return 'Unknown'
+        return list(dict.fromkeys(video_urls))
     
     def extract_video_urls_alternative(self, html_content):
         video_urls = []
@@ -640,9 +566,6 @@ class FacebookVideoDownloader:
             if any(domain in clean_url for domain in ['facebook.com', 'fbcdn.net', 'cdn.fbsbx.com', 'video.xx.fbcdn.net']):
                 if clean_url not in video_urls:
                     video_urls.append(clean_url)
-        
-        base64_pattern = r'data:video/[^;]+;base64,[A-Za-z0-9+/=]+'
-        base64_matches = re.findall(base64_pattern, html_content)
         
         return list(set(video_urls))
     
@@ -697,7 +620,7 @@ class FacebookVideoDownloader:
             video_url = metadata['video_urls'][quality_index]
             filename = self.generate_filename(metadata)
             
-            headers = HEADERS.copy()
+            headers = get_headers()
             headers['Range'] = 'bytes=0-1'
             try:
                 head_response = requests.head(video_url, headers=headers, timeout=10)
@@ -736,18 +659,23 @@ class FacebookVideoDownloader:
         
         return f"fb_{title_clean}_{timestamp}.mp4"
 
-# Initialize downloader
+# ============================================================
+# INITIALIZE DOWNLOADER
+# ============================================================
+
 downloader = FacebookVideoDownloader()
+
+# ============================================================
+# VIEWS
+# ============================================================
 
 @csrf_exempt
 def facebook_v_downloader(request):
-    """Render the Facebook video downloader page"""
     return render(request, 'fb_vid_downloader.html')
 
 @csrf_exempt
 @require_http_methods(["POST"])
 def extract_metadata(request):
-    """Extract metadata from Facebook video URL"""
     try:
         if request.content_type and 'application/json' in request.content_type:
             data = json.loads(request.body)
@@ -758,8 +686,7 @@ def extract_metadata(request):
         if not url:
             return JsonResponse({
                 'success': False,
-                'error': 'URL is required',
-                'message': 'Please enter a Facebook video URL'
+                'error': 'URL is required'
             }, status=400)
         
         try:
@@ -787,13 +714,12 @@ def extract_metadata(request):
         print("=== EXTRACTION COMPLETE ===\n")
         
         metadata['success'] = True
-        return JsonResponse(metadata)
+        return JsonResponse(metadata, json_dumps_params={'ensure_ascii': False})
         
     except json.JSONDecodeError:
         return JsonResponse({
             'success': False,
-            'error': 'Invalid JSON data',
-            'message': 'Invalid JSON data'
+            'error': 'Invalid JSON data'
         }, status=400)
     except Exception as e:
         print(f"Unexpected error in extract_metadata: {e}")
@@ -806,7 +732,6 @@ def extract_metadata(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def direct_download(request):
-    """Download video directly"""
     try:
         if request.content_type and 'application/json' in request.content_type:
             data = json.loads(request.body)
@@ -857,9 +782,6 @@ def direct_download(request):
             'Accept-Language': 'en-US,en;q=0.9',
             'Referer': 'https://www.facebook.com/',
             'Origin': 'https://www.facebook.com',
-            'Sec-Fetch-Dest': 'video',
-            'Sec-Fetch-Mode': 'no-cors',
-            'Sec-Fetch-Site': 'cross-site',
         }
         
         video_response = requests.get(video_url, headers=headers, stream=True, timeout=60)
@@ -898,3 +820,17 @@ def direct_download(request):
             'success': False,
             'error': f'Download failed: {str(e)}'
         }, status=500)
+
+def test_endpoint(request):
+    test_urls = [
+        "https://www.facebook.com/watch/?v=123456789",
+        "https://fb.watch/abc123def/",
+        "https://www.facebook.com/reel/123456789"
+    ]
+    
+    return JsonResponse({
+        'status': 'online',
+        'service': 'Facebook Video Downloader',
+        'test_urls': test_urls,
+        'timestamp': datetime.now().isoformat()
+    })
