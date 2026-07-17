@@ -73,7 +73,7 @@ def more_products(request):
             'icon': 'fab fa-instagram',
             'iconColor': 'text-pink-400',
             'tags': ['Popular', 'No Watermark'],
-            'link': '#',
+            'link': '/downloader/instagram/',
             'featured': False,
             'stats': {'downloads': '9K+', 'rating': '4.8'}
         },

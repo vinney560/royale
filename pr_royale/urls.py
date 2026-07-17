@@ -16,11 +16,11 @@ handler403 = handler_403_request
 urlpatterns = [
     path('admin/', admin.site.urls),
 ]
-# ================= U_VIEW ================ ===
+# ================= U_VIEW ===================
 # u_ -> User views
 from app_royale.u_views import (
     main, contact, products, qr_gen, learn_modules, 
-    market_place, fb_downloader
+    market_place, fb_downloader, insta_downloader
 )
 from sys_views import (
     web_scraper
@@ -77,6 +77,11 @@ urlpatterns += [
     path('downloader/fb/', fb_downloader.facebook_v_downloader, name='facebook_downloader'),
     path('api/fb/extract/metadata/', fb_downloader.extract_metadata, name='extract_metadata'),
     path('api/fb/dl-video/', fb_downloader.direct_download, name='direct_download'),
+]
+
+# Instagram Downloader
+urlpatterns += [
+    path('downloader/instagram/', insta_downloader.insta_downloader, name='instagram_downloader'),
 ]
 # --------------------------------------------
 # Learning modules
