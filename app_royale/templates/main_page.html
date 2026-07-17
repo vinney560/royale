@@ -32,7 +32,7 @@
     <script src="{% static 'css/tailwind.min.js' %}"></script>
 
     <link rel="stylesheet" href="{% static 'css/base.css' %}" />
-    
+
     <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -46,459 +46,11 @@
     </noscript>
 
     <script src="{% static 'js/loading.js' %}" async></script>
-    
 
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            background: #070a0c;
-            color: #e4edf2;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        ::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: #0f171c;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: #2d8f7a;
-            border-radius: 20px;
-        }
-
-        @keyframes fadeUp {
-            0% {
-                opacity: 0;
-                transform: translateY(40px) scale(0.96);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        @keyframes fadeLeft {
-            0% {
-                opacity: 0;
-                transform: translateX(-40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes fadeRight {
-            0% {
-                opacity: 0;
-                transform: translateX(40px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes floatSlow {
-            0% {
-                transform: translateY(0px) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-18px) rotate(1deg);
-            }
-            100% {
-                transform: translateY(0px) rotate(0deg);
-            }
-        }
-
-        @keyframes pulseGlow {
-            0% {
-                opacity: 0.4;
-                filter: blur(20px);
-            }
-            50% {
-                opacity: 0.9;
-                filter: blur(30px);
-            }
-            100% {
-                opacity: 0.4;
-                filter: blur(20px);
-            }
-        }
-
-        @keyframes scalePulse {
-            0% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        @keyframes shimmer {
-            0% {
-                background-position: -200% center;
-            }
-            100% {
-                background-position: 200% center;
-            }
-        }
-
-        @keyframes glowPulse {
-
-            0%,
-            100% {
-                text-shadow: 0 0 20px rgba(45, 143, 122, 0.15), 0 0 60px rgba(45, 143, 122, 0.05);
-            }
-            50% {
-                text-shadow: 0 0 40px rgba(45, 143, 122, 0.4), 0 0 80px rgba(45, 143, 122, 0.12), 0 0 120px rgba(45, 143, 122, 0.05);
-            }
-        }
-
-        @keyframes letterPop {
-            0% {
-                transform: scale(0.3) rotate(-15deg);
-                opacity: 0;
-            }
-            60% {
-                transform: scale(1.2) rotate(3deg);
-                opacity: 1;
-            }
-            100% {
-                transform: scale(1) rotate(0deg);
-                opacity: 1;
-            }
-        }
-
-        @keyframes slideUp {
-            0% {
-                opacity: 0;
-                transform: translateY(60px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.8);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes rotateIn {
-            0% {
-                opacity: 0;
-                transform: rotate(-10deg) scale(0.9);
-            }
-            100% {
-                opacity: 1;
-                transform: rotate(0deg) scale(1);
-            }
-        }
-
-        @keyframes borderGlow {
-            0%,
-            100% {
-                border-color: rgba(95, 208, 186, 0.08);
-                box-shadow: 0 0 0px rgba(95, 208, 186, 0);
-            }
-            50% {
-                border-color: rgba(95, 208, 186, 0.2);
-                box-shadow: 0 0 30px rgba(95, 208, 186, 0.05);
-            }
-        }
-
-        @keyframes slideDown {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulseRing {
-            0% {
-                transform: scale(1);
-                opacity: 0.6;
-            }
-            100% {
-                transform: scale(1.2);
-                opacity: 0;
-            }
-        }
-
-        @keyframes countUp {
-            0% {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes shimmerBg {
-            0% {
-                background-position: -200% center;
-            }
-            100% {
-                background-position: 200% center;
-            }
-        }
-
-        /* ===== ANIMATION CLASSES ===== */
-        .anim-slide-up {
-            opacity: 0;
-            animation: slideUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
-        }
-
-        .anim-scale-in {
-            opacity: 0;
-            animation: scaleIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .anim-rotate-in {
-            opacity: 0;
-            animation: rotateIn 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .anim-border-glow {
-            animation: borderGlow 3s ease-in-out infinite;
-        }
-
-        .anim-slide-down {
-            opacity: 0;
-            animation: slideDown 0.6s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
-        }
-
-        .anim-pulse-ring {
-            animation: pulseRing 2s ease-out infinite;
-        }
-
-        .anim-stagger>*:nth-child(1) {
-            animation-delay: 0.05s;
-        }
-        .anim-stagger>*:nth-child(2) {
-            animation-delay: 0.15s;
-        }
-        .anim-stagger>*:nth-child(3) {
-            animation-delay: 0.25s;
-        }
-        .anim-stagger>*:nth-child(4) {
-            animation-delay: 0.35s;
-        }
-        .anim-stagger>*:nth-child(5) {
-            animation-delay: 0.45s;
-        }
-        .anim-stagger>*:nth-child(6) {
-            animation-delay: 0.55s;
-        }
-
-        .anim-duration-1 {
-            animation-duration: 0.6s !important;
-        }
-        .anim-duration-2 {
-            animation-duration: 0.9s !important;
-        }
-        .anim-duration-3 {
-            animation-duration: 1.2s !important;
-        }
-
-        .anim-delay-1 {
-            animation-delay: 0.1s !important;
-        }
-        .anim-delay-2 {
-            animation-delay: 0.25s !important;
-        }
-        .anim-delay-3 {
-            animation-delay: 0.45s !important;
-        }
-        .anim-delay-4 {
-            animation-delay: 0.65s !important;
-        }
-        .anim-delay-5 {
-            animation-delay: 0.85s !important;
-        }
-        .anim-delay-6 {
-            animation-delay: 0.115s !important;
-        }
-
-        .royale-brand-wrapper {
-            display: inline-block;
-            position: relative;
-            margin-bottom: 20px;
-        }
-
-        .royale-brand-wrapper .brand-letter {
-            display: inline-block;
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-style: italic;
-            font-size: clamp(2.4rem, 6vw, 4.2rem);
-            letter-spacing: -0.02em;
-            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706, #f59e0b, #fbbf24);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite;
-            opacity: 0;
-            transform: scale(0.3) rotate(-15deg);
-            transition: transform 0.3s ease;
-        }
-
-        .royale-brand-wrapper .brand-letter:nth-child(1) {
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards;
-        }
-        .royale-brand-wrapper .brand-letter:nth-child(2) {
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s forwards;
-        }
-        .royale-brand-wrapper .brand-letter:nth-child(3) {
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.19s forwards;
-        }
-        .royale-brand-wrapper .brand-letter:nth-child(4) {
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.26s forwards;
-        }
-        .royale-brand-wrapper .brand-letter:nth-child(5) {
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.33s forwards;
-        }
-        .royale-brand-wrapper .brand-letter:nth-child(6) {
-            animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.40s forwards;
-        }
-
-        .royale-brand-wrapper:hover .brand-letter {
-            transform: scale(1.05);
-        }
-
-        .brand-inline {
-            font-family: 'Playfair Display', serif;
-            font-weight: 900;
-            font-style: italic;
-            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .anim-fade-up {
-            opacity: 0;
-            animation: fadeUp 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
-        }
-        .anim-fade-left {
-            opacity: 0;
-            animation: fadeLeft 0.8s ease forwards;
-        }
-        .anim-fade-right {
-            opacity: 0;
-            animation: fadeRight 0.8s ease forwards;
-        }
-        .anim-float {
-            animation: floatSlow 7s ease-in-out infinite;
-        }
-        .anim-pulse-glow {
-            animation: pulseGlow 4s ease-in-out infinite;
-        }
-        .anim-scale-pulse {
-            animation: scalePulse 3s ease-in-out infinite;
-        }
-
-        .delay-1 {
-            animation-delay: 0.1s;
-        }
-        .delay-2 {
-            animation-delay: 0.25s;
-        }
-        .delay-3 {
-            animation-delay: 0.45s;
-        }
-        .delay-4 {
-            animation-delay: 0.65s;
-        }
-        .delay-5 {
-            animation-delay: 0.85s;
-        }
-        .delay-6 {
-            animation-delay: 0.85s;
-        }
-
-        .nav-link {
-            position: relative;
-            color: #9bb0bb;
-            transition: color 0.25s;
-            font-size: clamp(0.9rem, 1.2vw, 1.05rem);
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: #5fd0ba;
-            transition: width 0.35s ease;
-        }
-
-        .nav-link:hover {
-            color: #f0f8fa;
-        }
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .scroll-indicator {
-            width: 1.5px;
-            height: 40px;
-            background: linear-gradient(to bottom, #5fd0ba, transparent);
-            margin: 0 auto;
-            animation: pulseScroll 2.4s infinite;
-        }
-
-        @keyframes pulseScroll {
-            0% {
-                opacity: 0.3;
-                transform: scaleY(0.6);
-            }
-            50% {
-                opacity: 1;
-                transform: scaleY(1);
-            }
-            100% {
-                opacity: 0.3;
-                transform: scaleY(0.6);
-            }
-        }
-
-        .text-gradient {
-            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        /* ============================================================
+           PAGE-SPECIFIC STYLES
+           ============================================================ */
 
         .text-gradient-shimmer {
             background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
@@ -515,26 +67,79 @@
             max-width: 100%;
         }
 
-        @keyframes shimmer {
-            0% { background-position: -200% center; }
-            100% { background-position: 200% center; }
+        .text-responsive-h2 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
         }
 
-        #particles-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            pointer-events: none;
+        .text-responsive-body {
+            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
         }
 
-        main,
-        header,
-        footer {
-            position: relative;
-            z-index: 2;
+        .text-responsive-hero {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+        }
+
+        .section-padding {
+            padding: clamp(1.5rem, 4vw, 3rem);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .scroll-indicator {
+            width: 1.5px;
+            height: 40px;
+            background: linear-gradient(to bottom, #5fd0ba, transparent);
+            margin: 0 auto;
+            animation: pulseScroll 2.4s infinite;
+        }
+
+        @keyframes pulseScroll {
+            0% { opacity: 0.3; transform: scaleY(0.6); }
+            50% { opacity: 1; transform: scaleY(1); }
+            100% { opacity: 0.3; transform: scaleY(0.6); }
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blob-1 {
+            animation: floatSlow 10s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            animation: floatSlow 14s ease-in-out infinite reverse;
+        }
+
+        .anim-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; filter: blur(20px); }
+            50% { opacity: 0.9; filter: blur(30px); }
+            100% { opacity: 0.4; filter: blur(20px); }
         }
 
         .reveal {
@@ -592,13 +197,53 @@
             transform: rotate(0deg) scale(1);
         }
 
-        .blob-1 {
-            animation: floatSlow 10s ease-in-out infinite;
+        .anim-float {
+            animation: floatSlow 7s ease-in-out infinite;
         }
 
-        .blob-2 {
-            animation: floatSlow 14s ease-in-out infinite reverse;
+        .anim-scale-pulse {
+            animation: scalePulse 3s ease-in-out infinite;
         }
+
+        @keyframes scalePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .anim-stagger>*:nth-child(1) { animation-delay: 0.05s; }
+        .anim-stagger>*:nth-child(2) { animation-delay: 0.15s; }
+        .anim-stagger>*:nth-child(3) { animation-delay: 0.25s; }
+        .anim-stagger>*:nth-child(4) { animation-delay: 0.35s; }
+        .anim-stagger>*:nth-child(5) { animation-delay: 0.45s; }
+        .anim-stagger>*:nth-child(6) { animation-delay: 0.55s; }
+
+        .anim-fade-up {
+            opacity: 0;
+            animation: fadeUp 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(40px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .anim-slide-up {
+            opacity: 0;
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.65s; }
+        .delay-5 { animation-delay: 0.85s; }
+        .delay-6 { animation-delay: 0.85s; }
 
         .mission-blur-section {
             transition: filter 0.8s ease, opacity 0.8s ease;
@@ -611,17 +256,9 @@
             opacity: 1;
         }
 
-        .text-responsive-h2 {
-            font-size: clamp(2.2rem, 5vw, 3.2rem);
-        }
-
-        .text-responsive-body {
-            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
-        }
-
-        .section-padding {
-            padding: clamp(1.5rem, 4vw, 3rem);
-        }
+        /* ============================================================
+           STEPS / TOOLS SECTION
+           ============================================================ */
 
         .steps-container {
             display: flex;
@@ -629,6 +266,7 @@
             gap: 2rem;
             max-width: 900px;
             margin: 0 auto;
+            width: 100%;
         }
 
         .step-item {
@@ -662,6 +300,7 @@
         .step-item .step-content {
             flex: 1;
             padding-top: 0.5rem;
+            min-width: 0;
         }
 
         .step-item .step-content h3 {
@@ -682,27 +321,13 @@
             line-height: 1.6;
         }
 
-        .step-item:nth-child(1) {
-            margin-left: 0;
-        }
-        .step-item:nth-child(2) {
-            margin-left: 4rem;
-        }
-        .step-item:nth-child(3) {
-            margin-left: 8rem;
-        }
-        .step-item:nth-child(4) {
-            margin-left: 12rem;
-        }
-        .step-item:nth-child(5) {
-            margin-left: 8rem;
-        }
-        .step-item:nth-child(6) {
-            margin-left: 4rem;
-        }
-        .step-item:nth-child(7) {
-            margin-left: 0rem;
-        }
+        .step-item:nth-child(1) { margin-left: 0; }
+        .step-item:nth-child(2) { margin-left: 4rem; }
+        .step-item:nth-child(3) { margin-left: 8rem; }
+        .step-item:nth-child(4) { margin-left: 12rem; }
+        .step-item:nth-child(5) { margin-left: 8rem; }
+        .step-item:nth-child(6) { margin-left: 4rem; }
+        .step-item:nth-child(7) { margin-left: 0; }
 
         @media (max-width: 768px) {
             .step-item {
@@ -719,40 +344,13 @@
             }
             .step-item .step-content {
                 padding-top: 0;
+                width: 100%;
             }
         }
 
-        #cursor-glow {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(95, 208, 186, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease;
-        }
-
-        #cursor-glow.active {
-            width: 450px;
-            height: 450px;
-            background: radial-gradient(circle, rgba(95, 208, 186, 0.10) 0%, transparent 70%);
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            align-items: center;
-        }
-
-        @media (max-width: 768px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
+        /* ============================================================
+           IMPACT CARDS
+           ============================================================ */
 
         .impact-grid {
             display: grid;
@@ -966,12 +564,6 @@
             background: rgba(52, 211, 153, 0.1);
         }
 
-        .impact-card .impact-stats .trend.down {
-            color: #f87171;
-            border-color: rgba(248, 113, 113, 0.08);
-            background: rgba(248, 113, 113, 0.04);
-        }
-
         .impact-card .impact-stats .trend i {
             font-size: 0.5rem;
         }
@@ -989,6 +581,17 @@
             background: rgba(95, 208, 186, 0.1);
             border-color: rgba(95, 208, 186, 0.12);
         }
+
+        @media (max-width: 640px) {
+            .impact-card {
+                padding: 1.5rem;
+                min-height: 200px;
+            }
+        }
+
+        /* ============================================================
+           TESTIMONIALS
+           ============================================================ */
 
         .testimonial-grid {
             display: grid;
@@ -1070,6 +673,10 @@
             color: #5a7a85;
         }
 
+        /* ============================================================
+           STATS COUNTERS
+           ============================================================ */
+
         .stats-counter-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1124,6 +731,10 @@
             opacity: 0.2;
             margin-bottom: 0.5rem;
         }
+
+        /* ============================================================
+           FEATURES
+           ============================================================ */
 
         .features-list {
             display: grid;
@@ -1189,6 +800,10 @@
             line-height: 1.5;
         }
 
+        /* ============================================================
+           CTA / FROM WASTE
+           ============================================================ */
+
         .from-waste-section {
             margin-top: clamp(3rem, 8vw, 6rem);
             padding-top: clamp(1rem, 2vw, 2rem);
@@ -1208,33 +823,9 @@
             transform: translateY(-4px);
         }
 
-        @media (max-width: 768px) {
-            .step-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 1rem;
-                margin-left: 0 !important;
-            }
-            .step-item .step-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-            .step-item .step-content {
-                padding-top: 0;
-            }
-        }        
-
-        @media (max-width: 640px) {
-            .anim-stagger>* {
-                animation-delay: 0.05s !important;
-            }
-            .impact-card {
-                padding: 1.5rem;
-                min-height: 200px;
-            }
-        }
+        /* ============================================================
+           SHIMMER DIVIDER
+           ============================================================ */
 
         .shimmer-divider {
             height: 1px;
@@ -1242,6 +833,38 @@
             margin: 2rem 0;
             animation: shimmerBg 3s linear infinite;
             background-size: 200% auto;
+        }
+
+        @keyframes shimmerBg {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        /* ============================================================
+           RESPONSIVE OVERFLOW FIX
+           ============================================================ */
+
+        main {
+            overflow-x: hidden;
+        }
+
+        .max-w-6xl {
+            max-width: 72rem;
+            width: 100%;
+        }
+
+        img, video, iframe, svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* Fix any hidden overflow */
+        .relative {
+            overflow: visible;
+        }
+
+        .overflow-hidden {
+            overflow: hidden !important;
         }
     </style>
 </head>
@@ -1468,7 +1091,8 @@
         <!-- ===== STATS COUNTER SECTION ===== -->
         <section class="mb-16 sm:mb-24">
             <div class="text-center mb-6 reveal">
-                <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i class="fas fa-chart-simple mr-1"></i>by the numbers</span>
+                <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i
+                        class="fas fa-chart-simple mr-1"></i>by the numbers</span>
                 <h2 class="text-responsive-h2 font-bold mt-1">ROYALE in <span class="text-gradient">numbers</span></h2>
             </div>
             <div class="stats-counter-grid">
@@ -1578,7 +1202,8 @@
         <!-- ===== FEATURES SECTION ===== -->
         <section class="mb-16 sm:mb-24">
             <div class="text-center mb-10 reveal">
-                <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i class="fas fa-star mr-1"></i>why royale</span>
+                <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i
+                        class="fas fa-star mr-1"></i>why royale</span>
                 <h2 class="text-responsive-h2 font-bold mt-1">Built with <span class="text-gradient">purpose</span></h2>
             </div>
             <div class="features-list">
@@ -1629,8 +1254,8 @@
 
             <div class="impact-grid">
                 <!-- Card 1 -->
-                <div class="impact-card reveal-left delay-1" 
-                     onmousemove="handleCardMove(this, event)">
+                <div class="impact-card reveal-left delay-1"
+                    onmousemove="handleCardMove(this, event)">
                     <div class="impact-glow-spot"></div>
                     <div class="impact-glow-spot"></div>
                     <div class="impact-top">
@@ -1647,11 +1272,12 @@
 
                 <!-- Card 2 - Featured -->
                 <div class="impact-card featured reveal delay-2"
-                     onmousemove="handleCardMove(this, event)">
+                    onmousemove="handleCardMove(this, event)">
                     <div class="impact-glow-spot"></div>
                     <div class="impact-glow-spot"></div>
                     <div class="impact-top">
-                        <div class="impact-icon-wrap" style="color:#68d4c0;background:rgba(95,208,186,0.12);border-color:rgba(95,208,186,0.15);">
+                        <div class="impact-icon-wrap"
+                            style="color:#68d4c0;background:rgba(95,208,186,0.12);border-color:rgba(95,208,186,0.15);">
                             <i class="fas fa-server"></i>
                         </div>
                         <span class="impact-badge"><i class="fas fa-check-circle"></i> Verified</span>
@@ -1666,7 +1292,7 @@
 
                 <!-- Card 3 -->
                 <div class="impact-card reveal-right delay-3"
-                     onmousemove="handleCardMove(this, event)">
+                    onmousemove="handleCardMove(this, event)">
                     <div class="impact-glow-spot"></div>
                     <div class="impact-glow-spot"></div>
                     <div class="impact-top">
@@ -1686,13 +1312,16 @@
         <!-- ===== TESTIMONIALS ===== -->
         <section id="testimonials" class="mb-16 sm:mb-24 scroll-mt-24">
             <div class="text-center mb-10 reveal">
-                <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i class="fas fa-quote-left mr-1"></i>testimonials</span>
+                <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i
+                        class="fas fa-quote-left mr-1"></i>testimonials</span>
                 <h2 class="text-responsive-h2 font-bold mt-1">What our <span class="text-gradient">users say</span></h2>
             </div>
             <div class="testimonial-grid">
                 <div class="testimonial-card reveal-rotate delay-1">
-                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="testimonial-text">"ROYALE's Facebook downloader is the best I've ever used. Fast, clean, and no ads. Saved me hours of work."</p>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">"ROYALE's Facebook downloader is the best I've ever used. Fast, clean,
+                        and no ads. Saved me hours of work."</p>
                     <div class="testimonial-author">
                         <div class="avatar"><i class="fas fa-user"></i></div>
                         <div>
@@ -1702,8 +1331,10 @@
                     </div>
                 </div>
                 <div class="testimonial-card reveal-rotate delay-2">
-                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="testimonial-text">"The uptime monitoring tools have been a game changer for our business. We've never had better uptime."</p>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">"The uptime monitoring tools have been a game changer for our business.
+                        We've never had better uptime."</p>
                     <div class="testimonial-author">
                         <div class="avatar"><i class="fas fa-user"></i></div>
                         <div>
@@ -1713,8 +1344,10 @@
                     </div>
                 </div>
                 <div class="testimonial-card reveal-rotate delay-3">
-                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <p class="testimonial-text">"Custom scripts from ROYALE saved our team 40+ hours a month. Absolutely worth every penny."</p>
+                    <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                    <p class="testimonial-text">"Custom scripts from ROYALE saved our team 40+ hours a month. Absolutely
+                        worth every penny."</p>
                     <div class="testimonial-author">
                         <div class="avatar"><i class="fas fa-user"></i></div>
                         <div>
@@ -1752,7 +1385,8 @@
         <!-- ===== COMPANY ===== -->
         <section id="company" class="reveal mb-12 sm:mb-16 scroll-mt-24 border-t border-[#1a262e] pt-10 sm:pt-14">
             <div class="max-w-3xl">
-                <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest anim-fade-up delay-1"><i
+                <span
+                    class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest anim-fade-up delay-1"><i
                         class="fas fa-building mr-1 sm:mr-2"></i>company</span>
                 <h2 class="text-responsive-h2 font-bold mt-1 sm:mt-2 leading-tight anim-slide-up delay-2">
                     <span class="royale-brand-wrapper">
@@ -1819,28 +1453,24 @@
             });
             document.addEventListener('mouseenter', () => { cursorGlow.style.opacity = '1'; });
             document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
+
             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-rotate');
             const revealObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
-                        // Add visible class to trigger animation
                         entry.target.classList.add('visible');
                     } else {
-                        // Remove visible class to reset animation (re-trigger)
-                        // This makes it animate again when you scroll back
                         entry.target.classList.remove('visible');
-                        // Force reflow to restart animation
                         void entry.target.offsetWidth;
                     }
                 });
-            }, { 
-                threshold: 0.15, 
-                rootMargin: '0px 0px -20px 0px' 
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -20px 0px'
             });
 
             revealElements.forEach(el => revealObserver.observe(el));
 
-            // Initial check for elements already in view
             setTimeout(() => {
                 revealElements.forEach(el => {
                     const rect = el.getBoundingClientRect();
@@ -1850,12 +1480,12 @@
                 });
             }, 200);
 
-            // ===== MISSION BLUR =====
             const missionSection = document.querySelector('[data-blur-section]');
             if (missionSection) {
                 const missionObserver = new IntersectionObserver((entries) => {
                     entries.forEach(entry => {
-                        entry.isIntersecting ? missionSection.classList.add('in-focus') : missionSection.classList.remove('in-focus');
+                        entry.isIntersecting ? missionSection.classList.add('in-focus') : missionSection
+                            .classList.remove('in-focus');
                     });
                 }, { threshold: 0.25, rootMargin: '0px 0px -30px 0px' });
                 missionObserver.observe(missionSection);
@@ -1865,17 +1495,16 @@
                 }, 150);
             }
 
-            // ===== HEADER SCROLL =====
             const header = document.querySelector('header');
             window.addEventListener('scroll', () => {
                 header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
             });
 
-            // ===== CURSOR GLOW ACTIVE =====
-            document.querySelectorAll('a, button, .menu-container, .impact-card, .step-item, .from-waste-card, .testimonial-card, .feature-item-card, .stats-counter-item').forEach(el => {
-                el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
-                el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
-            });
+            document.querySelectorAll('a, button, .menu-container, .impact-card, .step-item, .from-waste-card, .testimonial-card, .feature-item-card, .stats-counter-item')
+                .forEach(el => {
+                    el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
+                    el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+                });
 
             window.handleCardMove = function(card, event) {
                 const rect = card.getBoundingClientRect();
@@ -1885,9 +1514,7 @@
                 card.style.setProperty('--mouse-y', y + '%');
             };
 
-            // This triggers every time the counter section comes into view
             const counters = document.querySelectorAll('.counter-number');
-            let countersAnimated = false;
 
             const counterObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -1913,11 +1540,7 @@
                         }
 
                         requestAnimationFrame(updateCounter);
-                        // Unobserve after animation to prevent re-triggering during same session
-                        // But we want re-trigger when scrolling away and back
-                        // So we just reset and re-observe
                     } else {
-                        // Reset counter when it scrolls out of view
                         const counter = entry.target;
                         counter.textContent = '0';
                     }
