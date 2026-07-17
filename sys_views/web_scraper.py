@@ -98,6 +98,11 @@ def scrape(request):
                 'message': 'Unexpected error, please try again later'
             }, status=400)
         
+        # print the encoding of result
+        print(f"[Result Encoding] {result.encoding}")
+        # ======= DEBUG ===============
+        print(f"[Result] {result[:300]}")
+
         import json
         response_data = json.dumps({
             'success': True,
