@@ -38,6 +38,10 @@ class ScrapeURL:
             response.raise_for_status()
 
             # encoding handling
+            # print the encoding of result
+            print(f"[Result Encoding] {response.encoding}")
+            # ======= DEBUG ===============
+            print(f"[Result] {response.text[:300]}")
             response.encoding = response.apparent_encoding or 'utf-8'
             html = response.text
 
@@ -97,11 +101,6 @@ def scrape(request):
                 'success': False,
                 'message': 'Unexpected error, please try again later'
             }, status=400)
-        
-        # print the encoding of result
-        print(f"[Result Encoding] {result.encoding}")
-        # ======= DEBUG ===============
-        print(f"[Result] {result[:300]}")
 
         import json
         response_data = json.dumps({
