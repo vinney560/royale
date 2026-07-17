@@ -30,14 +30,19 @@ urlpatterns += [
     path('robots.txt', main.robots_txt, name='robots_txt'),
     path('sitemap.xml', main.sitemap_xml, name='sitemap_xml'),
 ]
+
+urlpatterns += [
+    path('terms/', main.terms, name="terms"),
+    path('privacy/', main.privacy, name="privacy"),
+]
 # --------------------------------------------
 urlpatterns += [
     path('', main.main_page, name="main_page"),
     path('profile/', main.profile_page, name="profile_page"),
     path('about/', main.about_us, name="about_us"),
+    path('contact/', contact.contact_us, name="contact"),
     path('products/', main.products, name="products"),
     path('api/products', products.more_products, name="more_products"),
-    path('contact/', contact.contact_us, name="contact"),
 ]
 
 # --------------------------------------------
@@ -55,6 +60,9 @@ urlpatterns += [
     # Web Scraper
     path('products/web-scraper/', web_scraper.web_scraper, name="web_scraper"),
     path('api/products/web/scrape/', web_scraper.scrape, name="scrape_url"),
+
+    # Song Search
+    path("products/song-search/", main.song_search, name="song_search"),
 ]
 # --------------------------------------------
 # Market Place

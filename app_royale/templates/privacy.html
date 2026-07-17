@@ -1,0 +1,683 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | Privacy Policy</title>
+    <meta name="description" content="ROYALE's privacy policy. We do not sell your data. Only essential cookies for authentication are used." />
+    <meta name="keywords" content="ROYALE, privacy policy, data privacy, cookies, GDPR, CCPA" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/privacy" />
+
+    <meta property="og:title" content="ROYALE | Privacy Policy" />
+    <meta property="og:description" content="ROYALE's privacy policy. We do not sell your data. Only essential cookies for authentication." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/privacy" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .legal-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .legal-content {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .legal-content:hover {
+            border-color: rgba(95, 208, 186, 0.12);
+        }
+
+        .legal-content h2 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: #eef2f5;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .legal-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .legal-content h2 i {
+            color: #5fd0ba;
+            font-size: 1.2rem;
+            width: 2rem;
+        }
+
+        .legal-content h3 {
+            font-size: clamp(1rem, 1.3vw, 1.1rem);
+            font-weight: 600;
+            color: #dce6ed;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .legal-content h3 i {
+            color: #5fd0ba;
+            font-size: 0.9rem;
+            width: 1.5rem;
+        }
+
+        .legal-content p {
+            color: #bcd0d8;
+            font-size: clamp(0.9rem, 1vw, 1rem);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .legal-content ul {
+            color: #bcd0d8;
+            font-size: clamp(0.9rem, 1vw, 1rem);
+            line-height: 1.8;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .legal-content ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .legal-content ul li::marker {
+            color: #5fd0ba;
+        }
+
+        .legal-content .highlight-box {
+            background: rgba(95, 208, 186, 0.04);
+            border-left: 3px solid #5fd0ba;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .legal-content .highlight-box p {
+            margin-bottom: 0;
+            color: #dce6ed;
+        }
+
+        .legal-content .highlight-box strong {
+            color: #5fd0ba;
+        }
+
+        .legal-content .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge.green {
+            background: rgba(52, 211, 153, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(52, 211, 153, 0.1);
+        }
+
+        .badge.blue {
+            background: rgba(59, 130, 246, 0.1);
+            color: #60a5fa;
+            border: 1px solid rgba(59, 130, 246, 0.1);
+        }
+
+        .badge.amber {
+            background: rgba(245, 158, 11, 0.1);
+            color: #fbbf24;
+            border: 1px solid rgba(245, 158, 11, 0.1);
+        }
+
+        .legal-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(95, 208, 186, 0.1), transparent);
+            margin: 2rem 0;
+        }
+
+        .last-updated {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .last-updated i {
+            color: #5fd0ba;
+            margin-right: 0.3rem;
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        @media (max-width: 640px) {
+            .legal-wrapper {
+                padding: 1rem;
+            }
+            .legal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .quick-nav a {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+        }
+
+        .quick-nav a:hover {
+            color: #5fd0ba;
+            border-color: rgba(95, 208, 186, 0.15);
+            background: rgba(95, 208, 186, 0.04);
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#5fd0ba;position:relative;">
+                        Privacy
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#5fd0ba; box-shadow:0 0 16px rgba(95,208,186,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== POPUP MENU ===== -->
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>Privacy</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-shield-alt text-teal-400"></i></span>
+                        Privacy
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="legal-wrapper">
+
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-emerald-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-cyan-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-teal-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-emerald-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-emerald-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-shield-alt mr-1 sm:mr-2"></i>Privacy First
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">Privacy Policy</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                We value your privacy. ROYALE does not sell your data. Only essential cookies for authentication are used.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-check-circle mr-1 sm:mr-2"></i>No Data Sale
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-cookie mr-1 sm:mr-2"></i>Essential Cookies Only
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-emerald-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-emerald-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-emerald-500/10 flex items-center justify-center text-6xl sm:text-7xl text-emerald-400/60">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>            
+
+            <!-- ===== QUICK NAV ===== -->
+            <div class="quick-nav reveal">
+                <a href="#data-we-collect">Data We Collect</a>
+                <a href="#how-we-use">How We Use It</a>
+                <a href="#cookies">Cookies</a>
+                <a href="#data-security">Data Security</a>
+                <a href="#your-rights">Your Rights</a>
+                <a href="#changes">Changes</a>
+                <a href="#contact-privacy">Contact</a>
+            </div>
+
+            <!-- ===== PRIVACY CONTENT ===== -->
+            <div class="legal-content reveal">
+                <div class="highlight-box">
+                    <p><strong>TL;DR:</strong> We do not sell your data. We only use cookies for authentication. Your privacy matters to us.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 1 -->
+                <h2 id="data-we-collect"><i class="fas fa-database"></i> Data We Collect</h2>
+                <p>ROYALE collects minimal data to provide and improve our services. We believe in data minimization — we only collect what is necessary.</p>
+
+                <h3><i class="fas fa-user"></i> Personal Information</h3>
+                <ul>
+                    <li><strong>Email address</strong> — when you sign up for notifications or create an account</li>
+                    <li><strong>Username</strong> — if you choose to create a profile</li>
+                    <li><strong>IP address</strong> — for security and to prevent abuse</li>
+                </ul>
+
+                <h3><i class="fas fa-cog"></i> Usage Data</h3>
+                <ul>
+                    <li><strong>Pages visited</strong> — to understand how users interact with our site</li>
+                    <li><strong>Features used</strong> — to improve our tools</li>
+                    <li><strong>Device information</strong> — browser, OS, screen size (for optimization)</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>We do NOT collect:</strong> Financial information, location data (unless provided by you), biometric data, or any sensitive personal information.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 2 -->
+                <h2 id="how-we-use"><i class="fas fa-tools"></i> How We Use Your Data</h2>
+                <p>Your data helps us deliver a better experience. Here is what we use it for:</p>
+
+                <ul>
+                    <li><strong>Authentication</strong> — to keep your account secure</li>
+                    <li><strong>Service improvement</strong> — to make our tools faster and more reliable</li>
+                    <li><strong>Communication</strong> — to send you important updates (only if you opt in)</li>
+                    <li><strong>Security</strong> — to prevent fraud and abuse</li>
+                    <li><strong>Analytics</strong> — to understand how our tools are used (anonymized)</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>We do NOT sell your data.</strong> We never share your information with third parties for marketing or advertising purposes.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 3 -->
+                <h2 id="cookies"><i class="fas fa-cookie-bite"></i> Cookies</h2>
+                <p>ROYALE uses cookies <strong>only for essential functionality</strong>. We do not use tracking or advertising cookies.</p>
+
+                <h3><i class="fas fa-check-circle text-green-400"></i> Essential Cookies</h3>
+                <ul>
+                    <li><strong>Session cookies</strong> — to keep you logged in</li>
+                    <li><strong>CSRF tokens</strong> — for security (protects against cross-site request forgery)</li>
+                    <li><strong>Preference cookies</strong> — to remember your settings (e.g., dark mode preference)</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>No tracking cookies.</strong> We do not use Google Analytics, Facebook Pixel, or any third-party tracking scripts that collect personal data.</p>
+                </div>
+
+                <p>You can manage your cookie preferences in your browser settings. However, disabling essential cookies may affect your ability to use certain features.</p>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 4 -->
+                <h2 id="data-security"><i class="fas fa-lock"></i> Data Security</h2>
+                <p>We take data security seriously. Here is how we protect your information:</p>
+
+                <ul>
+                    <li><strong>Encryption</strong> — all data transmitted via HTTPS (SSL/TLS)</li>
+                    <li><strong>Access control</strong> — only authorized personnel can access user data</li>
+                    <li><strong>Regular audits</strong> — we review our security practices regularly</li>
+                    <li><strong>Data minimization</strong> — we only store what is necessary</li>
+                    <li><strong>Secure storage</strong> — data is stored in secure, encrypted databases</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>We use industry-standard security measures.</strong> Your data is safe with us.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 5 -->
+                <h2 id="your-rights"><i class="fas fa-gavel"></i> Your Rights</h2>
+                <p>You have rights over your personal data. Under GDPR and CCPA, you can:</p>
+
+                <ul>
+                    <li><strong>Access</strong> — request a copy of your data</li>
+                    <li><strong>Rectify</strong> — correct inaccurate data</li>
+                    <li><strong>Delete</strong> — request deletion of your data</li>
+                    <li><strong>Restrict</strong> — limit how we use your data</li>
+                    <li><strong>Portability</strong> — transfer your data to another service</li>
+                    <li><strong>Object</strong> — opt out of certain data processing</li>
+                </ul>
+
+                <p>To exercise any of these rights, <a href="/contact/" style="color:#5fd0ba;text-decoration:none;border-bottom:1px solid rgba(95,208,186,0.2);">contact us</a> and we will respond within 30 days.</p>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 6 -->
+                <h2 id="changes"><i class="fas fa-pen"></i> Changes to This Policy</h2>
+                <p>We may update this privacy policy from time to time. We will notify you of any significant changes by:</p>
+
+                <ul>
+                    <li>Posting the new policy on this page</li>
+                    <li>Updating the "Last Updated" date below</li>
+                    <li>Sending an email notification (if you are subscribed)</li>
+                </ul>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 7 -->
+                <h2 id="contact-privacy"><i class="fas fa-envelope"></i> Contact Us</h2>
+                <p>If you have questions about this privacy policy or your data, please reach out:</p>
+
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:lyxnexus@gmail.com" style="color:#5fd0ba;text-decoration:none;border-bottom:1px solid rgba(95,208,186,0.2);">lyxnexus@gmail.com</a></li>
+                    <li><strong>Contact Form:</strong> <a href="/contact/" style="color:#5fd0ba;text-decoration:none;border-bottom:1px solid rgba(95,208,186,0.2);">Visit our contact page</a></li>
+                </ul>
+
+                <div class="last-updated">
+                    <i class="fas fa-clock"></i> Last Updated: {{ last_updated|default:"July 17, 2026" }}
+                </div>
+            </div>
+
+            <!-- ===== CTA ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-shield-alt text-emerald-400 mr-2"></i>Your privacy matters
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        We are committed to protecting your data. If you have any questions or concerns, do not hesitate to reach out.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/contact/" class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                        <a href="/terms" class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-file-contract"></i> Terms of Service
+                        </a>
+                        <a href="/" class="bg-gray-800/30 text-gray-300 border border-gray-700/30 px-4 py-2 rounded-full text-sm hover:bg-gray-800/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="#" class="hover:text-white transition text-emerald-400">Privacy</a>
+                <a href="/terms" class="hover:text-white transition text-cyan-400">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            var reveals = document.querySelectorAll('.reveal');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                        void entry.target.offsetWidth;
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .from-waste-card, .legal-content');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,652 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | Terms of Service</title>
+    <meta name="description" content="ROYALE's terms of service. Read our terms before using our tools and services." />
+    <meta name="keywords" content="ROYALE, terms of service, terms, conditions, legal" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/terms" />
+
+    <meta property="og:title" content="ROYALE | Terms of Service" />
+    <meta property="og:description" content="ROYALE's terms of service. Read our terms before using our tools and services." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/terms" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            display: inline-block;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .legal-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .legal-content {
+            background: rgba(8, 16, 20, 0.85);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .legal-content:hover {
+            border-color: rgba(95, 208, 186, 0.12);
+        }
+
+        .legal-content h2 {
+            font-size: clamp(1.5rem, 2.5vw, 2rem);
+            font-weight: 700;
+            color: #eef2f5;
+            margin-top: 2rem;
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .legal-content h2:first-child {
+            margin-top: 0;
+        }
+
+        .legal-content h2 i {
+            color: #fbbf24;
+            font-size: 1.2rem;
+            width: 2rem;
+        }
+
+        .legal-content h3 {
+            font-size: clamp(1rem, 1.3vw, 1.1rem);
+            font-weight: 600;
+            color: #dce6ed;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .legal-content h3 i {
+            color: #fbbf24;
+            font-size: 0.9rem;
+            width: 1.5rem;
+        }
+
+        .legal-content p {
+            color: #bcd0d8;
+            font-size: clamp(0.9rem, 1vw, 1rem);
+            line-height: 1.8;
+            margin-bottom: 0.8rem;
+        }
+
+        .legal-content ul {
+            color: #bcd0d8;
+            font-size: clamp(0.9rem, 1vw, 1rem);
+            line-height: 1.8;
+            padding-left: 1.5rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .legal-content ul li {
+            margin-bottom: 0.3rem;
+        }
+
+        .legal-content ul li::marker {
+            color: #fbbf24;
+        }
+
+        .legal-content .highlight-box {
+            background: rgba(251, 191, 36, 0.04);
+            border-left: 3px solid #fbbf24;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .legal-content .highlight-box p {
+            margin-bottom: 0;
+            color: #dce6ed;
+        }
+
+        .legal-content .highlight-box strong {
+            color: #fbbf24;
+        }
+
+        .legal-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.1), transparent);
+            margin: 2rem 0;
+        }
+
+        .last-updated {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .last-updated i {
+            color: #fbbf24;
+            margin-right: 0.3rem;
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .active-part {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            color: #5fd0ba;
+        }
+
+        .menu-link-product.active-part .product-icon i {
+            color: #5fd0ba !important;
+        }
+
+        @media (max-width: 640px) {
+            .legal-wrapper {
+                padding: 1rem;
+            }
+            .legal-content {
+                padding: 1.5rem;
+            }
+        }
+
+        .quick-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            padding: 1rem 0;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .quick-nav a {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.3rem 0.8rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+        }
+
+        .quick-nav a:hover {
+            color: #fbbf24;
+            border-color: rgba(251, 191, 36, 0.15);
+            background: rgba(251, 191, 36, 0.04);
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <!-- ===== HEADER ===== -->
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#fbbf24;position:relative;">
+                        Terms
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#fbbf24; box-shadow:0 0 16px rgba(251,191,36,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== POPUP MENU ===== -->
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>Terms</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title">Products</div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-file-contract text-teal-400"></i></span>
+                        Terms
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="relative z-10 pt-24 sm:pt-28">
+
+        <div class="legal-wrapper">
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-amber-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-orange-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-amber-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-amber-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-amber-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-file-contract mr-1 sm:mr-2"></i>Legal
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">Terms of Service</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                By using ROYALE, you agree to these terms. Please read them carefully before using our services.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-check-circle mr-1 sm:mr-2"></i>Free to Use
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-shield-alt mr-1 sm:mr-2"></i>Fair Use
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-amber-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-amber-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-amber-500/10 flex items-center justify-center text-6xl sm:text-7xl text-amber-400/60">
+                                    <i class="fas fa-file-contract"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Scroll</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>        
+
+            <!-- ===== QUICK NAV ===== -->
+            <div class="quick-nav reveal">
+                <a href="#acceptance">Acceptance</a>
+                <a href="#services">Services</a>
+                <a href="#user-obligations">User Obligations</a>
+                <a href="#intellectual-property">Intellectual Property</a>
+                <a href="#disclaimer">Disclaimer</a>
+                <a href="#liability">Liability</a>
+                <a href="#termination">Termination</a>
+                <a href="#contact-terms">Contact</a>
+            </div>
+
+            <!-- ===== TERMS CONTENT ===== -->
+            <div class="legal-content reveal">
+                <div class="highlight-box">
+                    <p><strong>TL;DR:</strong> ROYALE provides free tools for personal and commercial use. Do not abuse the services. We are not liable for misuse.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 1 -->
+                <h2 id="acceptance"><i class="fas fa-check-circle"></i> Acceptance of Terms</h2>
+                <p>By accessing or using ROYALE's tools and services (the "Service"), you agree to be bound by these Terms of Service. If you do not agree, please do not use our services.</p>
+                <p>We reserve the right to update these terms at any time. Continued use after changes constitutes acceptance of the new terms.</p>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 2 -->
+                <h2 id="services"><i class="fas fa-tools"></i> Services Provided</h2>
+                <p>ROYALE provides the following services (the "Services"):</p>
+
+                <ul>
+                    <li><strong>Video Downloaders</strong> — YouTube, Facebook, and Instagram video downloading tools</li>
+                    <li><strong>Web Scraper</strong> — HTML extraction and viewing tool</li>
+                    <li><strong>QR Code Generator</strong> — QR code creation tool</li>
+                    <li><strong>Learning Modules</strong> — Free programming tutorials</li>
+                    <li><strong>Uptime Monitoring</strong> — Website uptime tracking (via third-party)</li>
+                    <li><strong>Custom Scripts</strong> — Automation and custom software solutions</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>All services are provided "as is" and are free to use.</strong> We may introduce paid features in the future, but core tools will remain free.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 3 -->
+                <h2 id="user-obligations"><i class="fas fa-user-check"></i> User Obligations</h2>
+                <p>When using ROYALE, you agree to:</p>
+
+                <ul>
+                    <li><strong>Comply with laws</strong> — Use our services only for lawful purposes</li>
+                    <li><strong>Respect intellectual property</strong> — Do not use our tools to infringe on others' rights</li>
+                    <li><strong>Do not abuse the service</strong> — No excessive requests, scraping, or automated abuse</li>
+                    <li><strong>Do not reverse engineer</strong> — Do not attempt to decompile or reverse engineer our tools</li>
+                    <li><strong>Be responsible</strong> — You are responsible for how you use our tools</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Prohibited uses:</strong> Spamming, distributing malware, illegal content, harassment, or any activity that could harm ROYALE or its users.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 4 -->
+                <h2 id="intellectual-property"><i class="fas fa-copyright"></i> Intellectual Property</h2>
+                <p>All content, features, and functionality of ROYALE are owned by ROYALE and are protected by intellectual property laws.</p>
+
+                <ul>
+                    <li><strong>Brand name "ROYALE"</strong> — trademark protected</li>
+                    <li><strong>Code and design</strong> — all source code and UI design are proprietary</li>
+                    <li><strong>Content</strong> — tutorials, documentation, and written content are owned by ROYALE</li>
+                </ul>
+
+                <p>You may not copy, modify, distribute, or create derivative works of ROYALE's content without explicit permission.</p>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 5 -->
+                <h2 id="disclaimer"><i class="fas fa-exclamation-triangle"></i> Disclaimer of Warranties</h2>
+                <p>ROYALE provides its services "as is" and "as available" without any warranties of any kind.</p>
+
+                <ul>
+                    <li><strong>No guarantee of availability</strong> — services may be temporarily unavailable</li>
+                    <li><strong>No guarantee of accuracy</strong> — scraped data, QR codes, and other outputs are provided "as is"</li>
+                    <li><strong>Use at your own risk</strong> — you assume all risks associated with using our services</li>
+                </ul>
+
+                <div class="highlight-box">
+                    <p><strong>Third-party content:</strong> We may link to third-party websites. We are not responsible for their content or practices.</p>
+                </div>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 6 -->
+                <h2 id="liability"><i class="fas fa-gavel"></i> Limitation of Liability</h2>
+                <p>To the fullest extent permitted by law, ROYALE shall not be liable for:</p>
+
+                <ul>
+                    <li><strong>Indirect damages</strong> — loss of profits, data, or business opportunities</li>
+                    <li><strong>Service interruptions</strong> — downtime, errors, or bugs</li>
+                    <li><strong>Misuse of services</strong> — how users choose to use our tools</li>
+                    <li><strong>Third-party content</strong> — content from external websites linked from ROYALE</li>
+                </ul>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 7 -->
+                <h2 id="termination"><i class="fas fa-ban"></i> Termination</h2>
+                <p>We reserve the right to terminate or suspend access to our services at any time, with or without cause, and with or without notice.</p>
+
+                <p>Reasons for termination include:</p>
+                <ul>
+                    <li>Violation of these terms</li>
+                    <li>Abuse of our services</li>
+                    <li>Illegal or harmful activity</li>
+                    <li>At our sole discretion</li>
+                </ul>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 8 -->
+                <h2 id="governing-law"><i class="fas fa-globe"></i> Governing Law</h2>
+                <p>These terms shall be governed by and construed in accordance with the laws of the jurisdiction where ROYALE operates, without regard to conflict of law principles.</p>
+
+                <div class="legal-divider"></div>
+
+                <!-- Section 9 -->
+                <h2 id="contact-terms"><i class="fas fa-envelope"></i> Contact Us</h2>
+                <p>If you have questions about these terms, please reach out:</p>
+
+                <ul>
+                    <li><strong>Email:</strong> <a href="mailto:lyxnexus@gmail.com" style="color:#fbbf24;text-decoration:none;border-bottom:1px solid rgba(251,191,36,0.2);">lyxnexus@gmail.com</a></li>
+                    <li><strong>Contact Form:</strong> <a href="/contact/" style="color:#fbbf24;text-decoration:none;border-bottom:1px solid rgba(251,191,36,0.2);">Visit our contact page</a></li>
+                </ul>
+
+                <div class="last-updated">
+                    <i class="fas fa-clock"></i> Last Updated: {{ last_updated|default:"July 17, 2026" }}
+                </div>
+            </div>
+
+            <!-- ===== CTA ===== -->
+            <div class="from-waste-section max-w-4xl mx-auto reveal">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-file-contract text-amber-400 mr-2"></i>Read our Privacy Policy too
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        We take your privacy seriously. Learn how we handle your data in our Privacy Policy.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="/privacy" class="bg-emerald-900/30 text-emerald-300 border border-emerald-700/40 px-4 py-2 rounded-full text-sm hover:bg-emerald-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-shield-alt"></i> Privacy Policy
+                        </a>
+                        <a href="/contact/" class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-envelope"></i> Contact Us
+                        </a>
+                        <a href="/" class="bg-gray-800/30 text-gray-300 border border-gray-700/30 px-4 py-2 rounded-full text-sm hover:bg-gray-800/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-home"></i> Home
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+                <a href="/privacy" class="hover:text-white transition text-emerald-400">Privacy</a>
+                <a href="/terms" class="hover:text-white transition text-amber-400">Terms</a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            var cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', function(e) {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', function() {
+                cursorGlow.style.opacity = '1';
+            });
+            document.addEventListener('mouseleave', function() {
+                cursorGlow.style.opacity = '0';
+            });
+
+            var reveals = document.querySelectorAll('.reveal');
+            var observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                        void entry.target.offsetWidth;
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -20px 0px' });
+            reveals.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            setTimeout(function() {
+                reveals.forEach(function(el) {
+                    var rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) el.classList.add('visible');
+                });
+            }, 200);
+
+            var header = document.querySelector('header');
+            window.addEventListener('scroll', function() {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            var interactiveElements = document.querySelectorAll('a, button, .menu-container, .from-waste-card, .legal-content');
+            interactiveElements.forEach(function(el) {
+                el.addEventListener('mouseenter', function() {
+                    cursorGlow.classList.add('active');
+                });
+                el.addEventListener('mouseleave', function() {
+                    cursorGlow.classList.remove('active');
+                });
+            });
+
+        })();
+    </script>
+
+</body>
+
+</html>

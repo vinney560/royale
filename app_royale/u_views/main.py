@@ -70,6 +70,24 @@ def pretty_printer_src(request):
         }
     return render(request, "scr_code.html", context)
 
+@ratelimit(key=getKey, rate='20/m', block=True)
+def song_search(request):
+    return render(request, "song_search.html", {"year": year_gen()})
+# ============================================================
+# Privacy Policy & Terms of Usage
+# ============================================================
+def terms(request):
+    context = {
+        "last_updated": "July 17, 2026",
+        "year": year_gen()
+    }
+    return render(request, "terms.html", context)
+def privacy(request):
+    context = {
+        "last_updated": "July 17, 2026",
+        "year": year_gen()
+    }
+    return render(request, "privacy.html", context)
 # ============================================================
 # ROBOTS.TXT
 # ============================================================
@@ -105,6 +123,8 @@ class PageSitemap:
     PAGES = {
         '/': {'priority': '1.0', 'changefreq': 'weekly'},
         '/about/': {'priority': '0.8', 'changefreq': 'monthly'},
+        '/terms': {'priority': '0.8', 'changefreq': 'yearly'},
+        '/privacy': {'priority': '0.8', 'changefreq': 'yearly'},
         '/contact/': {'priority': '0.8', 'changefreq': 'monthly'},
         '/products/': {'priority': '0.9', 'changefreq': 'weekly'},
         '/market/place/': {'priority': '0.8', 'changefreq': 'weekly'},

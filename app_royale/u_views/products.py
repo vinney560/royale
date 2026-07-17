@@ -3,6 +3,13 @@ from django_ratelimit.decorators import ratelimit
 from sys_views.rate_limit_key import getKey
 
 
+def annotate_products(products, start_index=0):
+    return [
+        {**product, 'number': start_index + idx + 1}
+        for idx, product in enumerate(products)
+    ]
+
+
 @ratelimit(key=getKey, rate='20/m', block=True)
 def more_products(request):
     page = int(request.GET.get('page', 1))
@@ -35,6 +42,17 @@ def more_products(request):
         },
         {
             'id': 3,
+            'name': 'Instagram Downloader',
+            'description': 'Save photos, videos, and reels from Instagram. No watermark, supports multiple formats. Works with public and private accounts.',
+            'icon': 'fab fa-instagram',
+            'iconColor': 'text-pink-400',
+            'tags': ['Popular', 'No Watermark'],
+            'link': '/downloader/instagram/',
+            'featured': False,
+            'stats': {'downloads': '9K+', 'rating': '4.8'}
+        },
+        {
+            'id': 4,
             'name': 'Cloudinary Connect',
             'description': 'Learn how to connect, upload, download and delete data from your Cloudinary Project.',
             'icon': 'fas fa-database',
@@ -45,37 +63,26 @@ def more_products(request):
             'stats': {'projects': '5+', 'clients': '4+'}
         },
         {
-            'id': 4,
+            'id': 5,
             'name': 'Pretty Printer',
             'description': 'Print styled messages to the console with ANSI escape codes, and custom styles & colors for each message.',
             'icon': 'fas fa-print',
-            'iconColor': 'text-green-400',
+            'iconColor': 'text-white',
             'tags': ['Styled', 'Colors', 'Offline'],
             'link': 'pretty-printer/scr/',
             'featured': False,
             'stats': {'coloring': '100%', 'styles': 'Instant'}
         },
         {
-            'id': 5,
-            'name': 'X Video Downloader',
-            'description': 'Download videos from X with ease. Supports HD quality, works with any tweet containing videos. Simple paste and download.',
-            'icon': 'fab fa-twitter',
-            'iconColor': 'text-sky-400',
-            'tags': ['New', 'HD Quality'],
-            'link': '#',
-            'featured': False,
-            'stats': {'downloads': '5K+', 'rating': '4.6'}
-        },
-        {
             'id': 6,
-            'name': 'Instagram Downloader',
-            'description': 'Save photos, videos, and reels from Instagram. No watermark, supports multiple formats. Works with public and private accounts.',
-            'icon': 'fab fa-instagram',
-            'iconColor': 'text-pink-400',
-            'tags': ['Popular', 'No Watermark'],
-            'link': '/downloader/instagram/',
+            'name': 'Song Search',
+            'description': 'Search for any song using sound recognition technology. Download the song in high quality.',
+            'icon': 'fab fa-spotify',
+            'iconColor': 'text-green-400',
+            'tags': ['All', 'Music'],
+            'link': 'song-search/',
             'featured': False,
-            'stats': {'downloads': '9K+', 'rating': '4.8'}
+            'stats': {'usage': '5K+'}
         },
         {
             'id': 7,
@@ -205,7 +212,7 @@ def more_products(request):
     has_more = end < len(all_products)
 
     response = {
-        'products': products_page,
+        'products': annotate_products(products_page, start),
         'has_more': has_more,
         'page': page,
         'total': len(all_products),
