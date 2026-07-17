@@ -279,6 +279,9 @@ class FacebookVideoDownloader:
             
             if 'login' in final_url or 'facebook.com/login' in final_url:
                 mobile_headers = get_mobile_headers()
+                # ======= DEBUG ===============
+                print(f"[Mobile Headers] {mobile_headers}")
+
                 response = requests.get(url, headers=mobile_headers, timeout=10, allow_redirects=True)
                 final_url = response.url
             
@@ -736,14 +739,13 @@ class FacebookVideoDownloader:
 # Initialize downloader
 downloader = FacebookVideoDownloader()
 
-@ratelimit(key=getKey, rate='20/m', block=True)
+@csrf_exempt
 def facebook_v_downloader(request):
     """Render the Facebook video downloader page"""
     return render(request, 'fb_vid_downloader.html')
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@ratelimit(key=getKey, rate='20/m', block=True)
 def extract_metadata(request):
     """Extract metadata from Facebook video URL"""
     try:
@@ -803,7 +805,6 @@ def extract_metadata(request):
 
 @csrf_exempt
 @require_http_methods(["POST"])
-@ratelimit(key=getKey, rate='20/m', block=True)
 def direct_download(request):
     """Download video directly"""
     try:
