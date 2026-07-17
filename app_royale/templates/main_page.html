@@ -1208,6 +1208,24 @@
             transform: translateY(-4px);
         }
 
+        @media (max-width: 768px) {
+            .step-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+                margin-left: 0 !important;
+            }
+            .step-item .step-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            .step-item .step-content {
+                padding-top: 0;
+            }
+        }        
+
         @media (max-width: 640px) {
             .anim-stagger>* {
                 animation-delay: 0.05s !important;
