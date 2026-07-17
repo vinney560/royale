@@ -48,10 +48,6 @@
     <script src="{% static 'js/loading.js' %}" async></script>
 
     <style>
-        /* ============================================================
-           PAGE-SPECIFIC STYLES
-           ============================================================ */
-
         .text-gradient-shimmer {
             background: linear-gradient(120deg, #a0f0e0, #68d4c0, #3ab0a0, #68d4c0, #a0f0e0);
             background-size: 200% auto;
@@ -142,81 +138,68 @@
             100% { opacity: 0.4; filter: blur(20px); }
         }
 
-        .reveal {
+        .anim-item {
             opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
         }
 
-        .reveal.visible {
+        .anim-item.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        .reveal-left {
+        .anim-item-left {
             opacity: 0;
             transform: translateX(-50px);
-            transition: opacity 0.9s ease, transform 0.9s ease;
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
         }
 
-        .reveal-left.visible {
+        .anim-item-left.visible {
             opacity: 1;
             transform: translateX(0);
         }
 
-        .reveal-right {
+        .anim-item-right {
             opacity: 0;
             transform: translateX(50px);
-            transition: opacity 0.9s ease, transform 0.9s ease;
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
         }
 
-        .reveal-right.visible {
+        .anim-item-right.visible {
             opacity: 1;
             transform: translateX(0);
         }
 
-        .reveal-scale {
+        .anim-item-scale {
             opacity: 0;
-            transform: scale(0.9);
-            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+            transform: scale(0.85);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
-        .reveal-scale.visible {
+        .anim-item-scale.visible {
             opacity: 1;
             transform: scale(1);
         }
 
-        .reveal-rotate {
+        .anim-item-rotate {
             opacity: 0;
-            transform: rotate(-5deg) scale(0.95);
-            transition: opacity 0.9s cubic-bezier(0.2, 0.9, 0.3, 1), transform 0.9s cubic-bezier(0.2, 0.9, 0.3, 1);
+            transform: rotate(-3deg) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
         }
 
-        .reveal-rotate.visible {
+        .anim-item-rotate.visible {
             opacity: 1;
             transform: rotate(0deg) scale(1);
         }
 
-        .anim-float {
-            animation: floatSlow 7s ease-in-out infinite;
-        }
-
-        .anim-scale-pulse {
-            animation: scalePulse 3s ease-in-out infinite;
-        }
-
-        @keyframes scalePulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-
-        .anim-stagger>*:nth-child(1) { animation-delay: 0.05s; }
-        .anim-stagger>*:nth-child(2) { animation-delay: 0.15s; }
-        .anim-stagger>*:nth-child(3) { animation-delay: 0.25s; }
-        .anim-stagger>*:nth-child(4) { animation-delay: 0.35s; }
-        .anim-stagger>*:nth-child(5) { animation-delay: 0.45s; }
-        .anim-stagger>*:nth-child(6) { animation-delay: 0.55s; }
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.15s; }
+        .stagger-3 { transition-delay: 0.25s; }
+        .stagger-4 { transition-delay: 0.35s; }
+        .stagger-5 { transition-delay: 0.45s; }
+        .stagger-6 { transition-delay: 0.55s; }
+        .stagger-7 { transition-delay: 0.65s; }
 
         .anim-fade-up {
             opacity: 0;
@@ -243,7 +226,20 @@
         .delay-3 { animation-delay: 0.45s; }
         .delay-4 { animation-delay: 0.65s; }
         .delay-5 { animation-delay: 0.85s; }
-        .delay-6 { animation-delay: 0.85s; }
+
+        .anim-float {
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+
+        .anim-scale-pulse {
+            animation: scalePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes scalePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
 
         .mission-blur-section {
             transition: filter 0.8s ease, opacity 0.8s ease;
@@ -255,10 +251,6 @@
             filter: blur(0px);
             opacity: 1;
         }
-
-        /* ============================================================
-           STEPS / TOOLS SECTION
-           ============================================================ */
 
         .steps-container {
             display: flex;
@@ -274,6 +266,7 @@
             align-items: flex-start;
             gap: 2rem;
             width: 100%;
+            padding: 0 1rem;
             transition: all 0.4s ease;
         }
 
@@ -321,42 +314,105 @@
             line-height: 1.6;
         }
 
-        .step-item:nth-child(1) { margin-left: 0; }
-        .step-item:nth-child(2) { margin-left: 4rem; }
-        .step-item:nth-child(3) { margin-left: 8rem; }
-        .step-item:nth-child(4) { margin-left: 12rem; }
-        .step-item:nth-child(5) { margin-left: 8rem; }
-        .step-item:nth-child(6) { margin-left: 4rem; }
-        .step-item:nth-child(7) { margin-left: 0; }
+        .step-item:nth-child(odd) {
+            transform: translateX(0);
+        }
+        .step-item:nth-child(even) {
+            transform: translateX(4rem);
+        }
+        .step-item:nth-child(3) {
+            transform: translateX(8rem);
+        }
+        .step-item:nth-child(4) {
+            transform: translateX(12rem);
+        }
+        .step-item:nth-child(5) {
+            transform: translateX(8rem);
+        }
+        .step-item:nth-child(6) {
+            transform: translateX(4rem);
+        }
+        .step-item:nth-child(7) {
+            transform: translateX(0);
+        }
+
+        .features-list {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin-top: 2rem;
+            width: 100%;
+        }
 
         @media (max-width: 768px) {
-            .step-item {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-                gap: 1rem;
-                margin-left: 0 !important;
-            }
-            .step-item .step-icon {
-                width: 70px;
-                height: 70px;
-                font-size: 2rem;
-            }
-            .step-item .step-content {
-                padding-top: 0;
-                width: 100%;
+            .features-list {
+                grid-template-columns: 1fr;
             }
         }
 
-        /* ============================================================
-           IMPACT CARDS
-           ============================================================ */
+        .feature-item-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1.2rem;
+            background: rgba(8, 16, 20, 0.4);
+            border-radius: 1rem;
+            border: 1px solid rgba(60, 130, 120, 0.04);
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .feature-item-card:hover {
+            border-color: rgba(95, 208, 186, 0.1);
+            background: rgba(12, 28, 32, 0.6);
+            transform: translateX(4px);
+        }
+
+        .feature-item-card .feature-icon-box {
+            width: 44px;
+            height: 44px;
+            border-radius: 0.75rem;
+            background: rgba(95, 208, 186, 0.06);
+            border: 1px solid rgba(95, 208, 186, 0.08);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #5fd0ba;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .feature-item-card:hover .feature-icon-box {
+            background: rgba(95, 208, 186, 0.12);
+            border-color: rgba(95, 208, 186, 0.15);
+            transform: scale(1.05);
+        }
+
+        .feature-item-card .feature-text {
+            min-width: 0;
+            flex: 1;
+        }
+
+        .feature-item-card .feature-text h4 {
+            color: #eef2f5;
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.1rem;
+        }
+
+        .feature-item-card .feature-text p {
+            color: #7a9aa8;
+            font-size: 0.8rem;
+            line-height: 1.5;
+        }
 
         .impact-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 2rem;
+            width: 100%;
         }
 
         @media (max-width: 1024px) {
@@ -381,10 +437,11 @@
             transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
             overflow: hidden;
             cursor: default;
-            min-height: 240px;
+            min-height: 220px;
             display: flex;
             flex-direction: column;
             justify-content: center;
+            width: 100%;
         }
 
         .impact-card::before {
@@ -453,18 +510,20 @@
             align-items: flex-start;
             justify-content: space-between;
             margin-bottom: 1rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
         }
 
         .impact-card .impact-icon-wrap {
-            width: 56px;
-            height: 56px;
+            width: 52px;
+            height: 52px;
             border-radius: 1rem;
             background: rgba(95, 208, 186, 0.06);
             border: 1px solid rgba(95, 208, 186, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.6rem;
+            font-size: 1.4rem;
             color: #5fd0ba;
             transition: all 0.4s ease;
             flex-shrink: 0;
@@ -477,11 +536,11 @@
         }
 
         .impact-card .impact-badge {
-            font-size: 0.6rem;
+            font-size: 0.55rem;
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            padding: 0.2rem 0.8rem;
+            padding: 0.2rem 0.7rem;
             border-radius: 2rem;
             border: 1px solid rgba(95, 208, 186, 0.08);
             color: #5a7a85;
@@ -496,12 +555,12 @@
         }
 
         .impact-card .impact-number {
-            font-size: clamp(2.8rem, 5vw, 4.2rem);
+            font-size: clamp(2.5rem, 4.5vw, 3.8rem);
             font-weight: 900;
             color: #eef2f5;
             line-height: 1;
             letter-spacing: -0.02em;
-            margin-bottom: 0.3rem;
+            margin-bottom: 0.2rem;
         }
 
         .impact-card .impact-number .accent {
@@ -517,19 +576,19 @@
 
         .impact-card .impact-label {
             color: #bcd0d8;
-            font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+            font-size: clamp(0.9rem, 1vw, 1rem);
             font-weight: 400;
             line-height: 1.5;
-            margin-bottom: 0.8rem;
+            margin-bottom: 0.6rem;
         }
 
         .impact-card .impact-stats {
             display: flex;
             align-items: center;
-            gap: 1.2rem;
+            gap: 1rem;
             flex-wrap: wrap;
             margin-top: auto;
-            padding-top: 0.8rem;
+            padding-top: 0.6rem;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
@@ -537,26 +596,26 @@
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #5a7a85;
         }
 
         .impact-card .impact-stats .stat-chip i {
             color: #5fd0ba;
-            font-size: 0.5rem;
+            font-size: 0.4rem;
         }
 
         .impact-card .impact-stats .trend {
             display: inline-flex;
             align-items: center;
             gap: 0.3rem;
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             font-weight: 600;
             color: #34d399;
             background: rgba(52, 211, 153, 0.06);
             border: 1px solid rgba(52, 211, 153, 0.08);
             border-radius: 100px;
-            padding: 0.1rem 0.6rem;
+            padding: 0.1rem 0.5rem;
             transition: all 0.3s ease;
         }
 
@@ -565,7 +624,7 @@
         }
 
         .impact-card .impact-stats .trend i {
-            font-size: 0.5rem;
+            font-size: 0.45rem;
         }
 
         .impact-card.featured {
@@ -582,22 +641,12 @@
             border-color: rgba(95, 208, 186, 0.12);
         }
 
-        @media (max-width: 640px) {
-            .impact-card {
-                padding: 1.5rem;
-                min-height: 200px;
-            }
-        }
-
-        /* ============================================================
-           TESTIMONIALS
-           ============================================================ */
-
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 1.5rem;
             margin-top: 2rem;
+            width: 100%;
         }
 
         @media (max-width: 1024px) {
@@ -616,8 +665,9 @@
             background: rgba(8, 16, 20, 0.7);
             border: 1px solid rgba(60, 130, 120, 0.06);
             border-radius: 1.2rem;
-            padding: 1.8rem;
+            padding: 1.5rem;
             transition: all 0.4s ease;
+            width: 100%;
         }
 
         .testimonial-card:hover {
@@ -628,14 +678,14 @@
 
         .testimonial-card .testimonial-stars {
             color: #fbbf24;
-            font-size: 0.8rem;
-            margin-bottom: 0.8rem;
+            font-size: 0.75rem;
+            margin-bottom: 0.6rem;
             letter-spacing: 2px;
         }
 
         .testimonial-card .testimonial-text {
             color: #bcd0d8;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             line-height: 1.7;
             font-style: italic;
         }
@@ -644,44 +694,42 @@
             display: flex;
             align-items: center;
             gap: 0.8rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
+            margin-top: 0.8rem;
+            padding-top: 0.8rem;
             border-top: 1px solid rgba(255, 255, 255, 0.03);
         }
 
         .testimonial-card .testimonial-author .avatar {
-            width: 40px;
-            height: 40px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             background: rgba(95, 208, 186, 0.06);
             border: 1px solid rgba(95, 208, 186, 0.08);
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: #5fd0ba;
+            flex-shrink: 0;
         }
 
         .testimonial-card .testimonial-author .name {
             font-weight: 600;
             color: #eef2f5;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
         }
 
         .testimonial-card .testimonial-author .role {
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             color: #5a7a85;
         }
-
-        /* ============================================================
-           STATS COUNTERS
-           ============================================================ */
 
         .stats-counter-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
             margin-top: 2rem;
+            width: 100%;
         }
 
         @media (max-width: 768px) {
@@ -698,11 +746,12 @@
 
         .stats-counter-item {
             text-align: center;
-            padding: 1.5rem;
+            padding: 1.2rem;
             background: rgba(8, 16, 20, 0.6);
             border-radius: 1rem;
             border: 1px solid rgba(60, 130, 120, 0.04);
             transition: all 0.4s ease;
+            width: 100%;
         }
 
         .stats-counter-item:hover {
@@ -711,7 +760,7 @@
         }
 
         .stats-counter-item .counter-number {
-            font-size: clamp(2.5rem, 4vw, 3.5rem);
+            font-size: clamp(2.2rem, 3.5vw, 3.2rem);
             font-weight: 900;
             color: #5fd0ba;
             line-height: 1;
@@ -719,95 +768,24 @@
 
         .stats-counter-item .counter-label {
             color: #5a7a85;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-top: 0.3rem;
+            margin-top: 0.2rem;
         }
 
         .stats-counter-item .counter-icon {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: #5fd0ba;
             opacity: 0.2;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
-
-        /* ============================================================
-           FEATURES
-           ============================================================ */
-
-        .features-list {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        @media (max-width: 768px) {
-            .features-list {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .feature-item-card {
-            display: flex;
-            align-items: flex-start;
-            gap: 1rem;
-            padding: 1.2rem;
-            background: rgba(8, 16, 20, 0.4);
-            border-radius: 1rem;
-            border: 1px solid rgba(60, 130, 120, 0.04);
-            transition: all 0.4s ease;
-        }
-
-        .feature-item-card:hover {
-            border-color: rgba(95, 208, 186, 0.1);
-            background: rgba(12, 28, 32, 0.6);
-            transform: translateX(4px);
-        }
-
-        .feature-item-card .feature-icon-box {
-            width: 44px;
-            height: 44px;
-            border-radius: 0.75rem;
-            background: rgba(95, 208, 186, 0.06);
-            border: 1px solid rgba(95, 208, 186, 0.08);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #5fd0ba;
-            flex-shrink: 0;
-            transition: all 0.3s ease;
-        }
-
-        .feature-item-card:hover .feature-icon-box {
-            background: rgba(95, 208, 186, 0.12);
-            border-color: rgba(95, 208, 186, 0.15);
-            transform: scale(1.05);
-        }
-
-        .feature-item-card .feature-text h4 {
-            color: #eef2f5;
-            font-size: 0.95rem;
-            font-weight: 600;
-            margin-bottom: 0.1rem;
-        }
-
-        .feature-item-card .feature-text p {
-            color: #7a9aa8;
-            font-size: 0.8rem;
-            line-height: 1.5;
-        }
-
-        /* ============================================================
-           CTA / FROM WASTE
-           ============================================================ */
 
         .from-waste-section {
             margin-top: clamp(3rem, 8vw, 6rem);
             padding-top: clamp(1rem, 2vw, 2rem);
             border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 100%;
         }
 
         .from-waste-section .from-waste-card {
@@ -816,6 +794,7 @@
             border-radius: 1.5rem;
             padding: clamp(1.5rem, 3vw, 2.5rem);
             transition: all 0.4s ease;
+            width: 100%;
         }
 
         .from-waste-section .from-waste-card:hover {
@@ -823,16 +802,13 @@
             transform: translateY(-4px);
         }
 
-        /* ============================================================
-           SHIMMER DIVIDER
-           ============================================================ */
-
         .shimmer-divider {
             height: 1px;
             background: linear-gradient(90deg, transparent, rgba(95, 208, 186, 0.15), transparent);
             margin: 2rem 0;
             animation: shimmerBg 3s linear infinite;
             background-size: 200% auto;
+            width: 100%;
         }
 
         @keyframes shimmerBg {
@@ -840,12 +816,80 @@
             100% { background-position: 200% center; }
         }
 
-        /* ============================================================
-           RESPONSIVE OVERFLOW FIX
-           ============================================================ */
+        @media (max-width: 768px) {
+            .step-item {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1rem;
+                transform: translateX(0) !important;
+                padding: 0;
+            }
+            .step-item .step-icon {
+                width: 70px;
+                height: 70px;
+                font-size: 2rem;
+            }
+            .step-item .step-content {
+                padding-top: 0;
+                width: 100%;
+            }
+            .step-item .step-content h3 {
+                font-size: 1.2rem;
+            }
+            .step-item .step-content p {
+                font-size: 0.9rem;
+            }
+
+            .features-list {
+                grid-template-columns: 1fr;
+            }
+            .feature-item-card {
+                padding: 1rem;
+            }
+            .feature-item-card:hover {
+                transform: translateX(0);
+            }
+
+            .impact-card {
+                padding: 1.2rem;
+                min-height: 180px;
+            }
+            .impact-card .impact-top {
+                flex-wrap: wrap;
+            }
+
+            .testimonial-card {
+                padding: 1.2rem;
+            }
+
+            .stats-counter-item {
+                padding: 1rem;
+            }
+
+            .from-waste-section .from-waste-card {
+                padding: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .stats-counter-grid {
+                grid-template-columns: 1fr;
+            }
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+            .impact-grid {
+                grid-template-columns: 1fr;
+            }
+            .impact-card {
+                min-height: 160px;
+            }
+        }
 
         main {
             overflow-x: hidden;
+            width: 100%;
         }
 
         .max-w-6xl {
@@ -858,13 +902,9 @@
             height: auto;
         }
 
-        /* Fix any hidden overflow */
-        .relative {
-            overflow: visible;
-        }
-
-        .overflow-hidden {
-            overflow: hidden !important;
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
         }
     </style>
 </head>
@@ -1090,28 +1130,28 @@
 
         <!-- ===== STATS COUNTER SECTION ===== -->
         <section class="mb-16 sm:mb-24">
-            <div class="text-center mb-6 reveal">
+            <div class="text-center mb-6">
                 <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i
                         class="fas fa-chart-simple mr-1"></i>by the numbers</span>
                 <h2 class="text-responsive-h2 font-bold mt-1">ROYALE in <span class="text-gradient">numbers</span></h2>
             </div>
             <div class="stats-counter-grid">
-                <div class="stats-counter-item reveal-scale delay-1">
+                <div class="stats-counter-item anim-item-scale stagger-1">
                     <div class="counter-icon"><i class="fas fa-download"></i></div>
                     <div class="counter-number" data-count="1250">0</div>
                     <div class="counter-label">Total Downloads</div>
                 </div>
-                <div class="stats-counter-item reveal-scale delay-2">
+                <div class="stats-counter-item anim-item-scale stagger-2">
                     <div class="counter-icon"><i class="fas fa-users"></i></div>
                     <div class="counter-number" data-count="247">0</div>
                     <div class="counter-label">Active Users</div>
                 </div>
-                <div class="stats-counter-item reveal-scale delay-3">
+                <div class="stats-counter-item anim-item-scale stagger-3">
                     <div class="counter-icon"><i class="fas fa-code"></i></div>
                     <div class="counter-number" data-count="215">0</div>
                     <div class="counter-label">Custom Scripts</div>
                 </div>
-                <div class="stats-counter-item reveal-scale delay-4">
+                <div class="stats-counter-item anim-item-scale stagger-4">
                     <div class="counter-icon"><i class="fas fa-heart"></i></div>
                     <div class="counter-number" data-count="98">0</div>
                     <div class="counter-label">Satisfaction Rate %</div>
@@ -1121,7 +1161,7 @@
 
         <!-- ===== HOW IT WORKS ===== -->
         <section id="how-it-works" class="mb-16 sm:mb-24 scroll-mt-24">
-            <div class="text-center mb-10 sm:mb-14 reveal">
+            <div class="text-center mb-10 sm:mb-14">
                 <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest"><i
                         class="fas fa-microchip mr-1 sm:mr-2"></i>what we build</span>
                 <h2 class="text-responsive-h2 font-bold mt-1 sm:mt-2">Our Tools</h2>
@@ -1130,7 +1170,7 @@
                 </p>
             </div>
             <div class="steps-container">
-                <div class="step-item reveal-left delay-1">
+                <div class="step-item anim-item-left stagger-1">
                     <div class="step-icon text-emerald-400">
                         <a href="https://v6.www-y2mate.com/" target="_blank"><i class="fab fa-youtube"></i></a>
                     </div>
@@ -1139,7 +1179,7 @@
                         <p>Download videos, playlists, and audio in high quality. Supports 4K and multiple formats.</p>
                     </div>
                 </div>
-                <div class="step-item reveal delay-2">
+                <div class="step-item anim-item-right stagger-2">
                     <div class="step-icon text-cyan-400">
                         <a href="/downloader/fb/"><i class="fab fa-facebook"></i></a>
                     </div>
@@ -1148,7 +1188,7 @@
                         <p>Save videos and reels in HD with no watermark. Works on public and private posts.</p>
                     </div>
                 </div>
-                <div class="step-item reveal-right delay-3">
+                <div class="step-item anim-item-left stagger-3">
                     <div class="step-icon text-purple-400">
                         <a href="https://uptimerobot.com/"><i class="fas fa-heartbeat"></i></a>
                     </div>
@@ -1158,7 +1198,7 @@
                             response times.</p>
                     </div>
                 </div>
-                <div class="step-item reveal delay-4">
+                <div class="step-item anim-item-right stagger-4">
                     <div class="step-icon text-orange-400">
                         <a href="/products/qr/"><i class="fas fa-qrcode"></i></a>
                     </div>
@@ -1167,7 +1207,7 @@
                         <p>Generate QR codes for your content.</p>
                     </div>
                 </div>
-                <div class="step-item reveal-left delay-5">
+                <div class="step-item anim-item-left stagger-5">
                     <div class="step-icon text-green-500">
                         <a href="/market/place/"><i class="fas fa-store"></i></a>
                     </div>
@@ -1176,7 +1216,7 @@
                         <p>Check-out enterprice softwares.</p>
                     </div>
                 </div>
-                <div class="step-item reveal delay-5">
+                <div class="step-item anim-item-right stagger-6">
                     <div class="step-icon text-white">
                         <a href="/learn/"><i class="fas fa-graduation-cap"></i></a>
                     </div>
@@ -1185,7 +1225,7 @@
                         <p>Choose you path and start right away. No Fluff! Pure content.</p>
                     </div>
                 </div>
-                <div class="step-item reveal-right delay-7">
+                <div class="step-item anim-item-left stagger-7">
                     <div class="step-icon text-teal-400">
                         <a href="/products/"><i class="fas fa-cubes"></i></a>
                     </div>
@@ -1201,34 +1241,34 @@
 
         <!-- ===== FEATURES SECTION ===== -->
         <section class="mb-16 sm:mb-24">
-            <div class="text-center mb-10 reveal">
+            <div class="text-center mb-10">
                 <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i
                         class="fas fa-star mr-1"></i>why royale</span>
                 <h2 class="text-responsive-h2 font-bold mt-1">Built with <span class="text-gradient">purpose</span></h2>
             </div>
             <div class="features-list">
-                <div class="feature-item-card reveal-left delay-1">
+                <div class="feature-item-card anim-item-left stagger-1">
                     <div class="feature-icon-box"><i class="fas fa-bolt"></i></div>
                     <div class="feature-text">
                         <h4>Lightning Fast</h4>
                         <p>Optimized for speed. No bloat, no unnecessary code.</p>
                     </div>
                 </div>
-                <div class="feature-item-card reveal-right delay-2">
+                <div class="feature-item-card anim-item-right stagger-2">
                     <div class="feature-icon-box"><i class="fas fa-shield-alt"></i></div>
                     <div class="feature-text">
                         <h4>Privacy First</h4>
                         <p>No tracking, no logs, no data harvesting. Your privacy matters.</p>
                     </div>
                 </div>
-                <div class="feature-item-card reveal-left delay-3">
+                <div class="feature-item-card anim-item-left stagger-3">
                     <div class="feature-icon-box"><i class="fas fa-code"></i></div>
                     <div class="feature-text">
                         <h4>Clean Code</h4>
                         <p>Efficient, maintainable, and built to last. Quality over quantity.</p>
                     </div>
                 </div>
-                <div class="feature-item-card reveal-right delay-4">
+                <div class="feature-item-card anim-item-right stagger-4">
                     <div class="feature-icon-box"><i class="fas fa-headset"></i></div>
                     <div class="feature-text">
                         <h4>24/7 Support</h4>
@@ -1242,7 +1282,7 @@
 
         <!-- ===== IMPACT ===== -->
         <section id="impact" class="mb-16 sm:mb-24 scroll-mt-24">
-            <div class="text-center mb-10 sm:mb-14 reveal">
+            <div class="text-center mb-10 sm:mb-14">
                 <span class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest"><i
                         class="fas fa-chart-line mr-1 sm:mr-2"></i>our impact</span>
                 <h2 class="text-responsive-h2 font-bold mt-1 sm:mt-2">Real numbers from <span class="text-gradient">real
@@ -1254,7 +1294,7 @@
 
             <div class="impact-grid">
                 <!-- Card 1 -->
-                <div class="impact-card reveal-left delay-1"
+                <div class="impact-card anim-item-scale stagger-1"
                     onmousemove="handleCardMove(this, event)">
                     <div class="impact-glow-spot"></div>
                     <div class="impact-glow-spot"></div>
@@ -1271,7 +1311,7 @@
                 </div>
 
                 <!-- Card 2 - Featured -->
-                <div class="impact-card featured reveal delay-2"
+                <div class="impact-card featured anim-item-scale stagger-2"
                     onmousemove="handleCardMove(this, event)">
                     <div class="impact-glow-spot"></div>
                     <div class="impact-glow-spot"></div>
@@ -1291,7 +1331,7 @@
                 </div>
 
                 <!-- Card 3 -->
-                <div class="impact-card reveal-right delay-3"
+                <div class="impact-card anim-item-scale stagger-3"
                     onmousemove="handleCardMove(this, event)">
                     <div class="impact-glow-spot"></div>
                     <div class="impact-glow-spot"></div>
@@ -1311,13 +1351,13 @@
 
         <!-- ===== TESTIMONIALS ===== -->
         <section id="testimonials" class="mb-16 sm:mb-24 scroll-mt-24">
-            <div class="text-center mb-10 reveal">
+            <div class="text-center mb-10">
                 <span class="text-sm font-semibold text-emerald-400 uppercase tracking-widest"><i
                         class="fas fa-quote-left mr-1"></i>testimonials</span>
                 <h2 class="text-responsive-h2 font-bold mt-1">What our <span class="text-gradient">users say</span></h2>
             </div>
             <div class="testimonial-grid">
-                <div class="testimonial-card reveal-rotate delay-1">
+                <div class="testimonial-card anim-item-rotate stagger-1">
                     <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                             class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <p class="testimonial-text">"ROYALE's Facebook downloader is the best I've ever used. Fast, clean,
@@ -1330,7 +1370,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card reveal-rotate delay-2">
+                <div class="testimonial-card anim-item-rotate stagger-2">
                     <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                             class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <p class="testimonial-text">"The uptime monitoring tools have been a game changer for our business.
@@ -1343,7 +1383,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="testimonial-card reveal-rotate delay-3">
+                <div class="testimonial-card anim-item-rotate stagger-3">
                     <div class="testimonial-stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i
                             class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
                     <p class="testimonial-text">"Custom scripts from ROYALE saved our team 40+ hours a month. Absolutely
@@ -1360,7 +1400,7 @@
         </section>
 
         <!-- ===== CTA ===== -->
-        <div class="from-waste-section max-w-4xl mx-auto reveal">
+        <div class="from-waste-section max-w-4xl mx-auto anim-item">
             <div class="from-waste-card">
                 <h4 class="font-bold text-lg sm:text-xl text-white/90"><i
                         class="fas fa-rocket text-emerald-400 mr-2"></i>ready to level up your workflow?</h4>
@@ -1383,7 +1423,7 @@
         </div>
 
         <!-- ===== COMPANY ===== -->
-        <section id="company" class="reveal mb-12 sm:mb-16 scroll-mt-24 border-t border-[#1a262e] pt-10 sm:pt-14">
+        <section id="company" class="mb-12 sm:mb-16 scroll-mt-24 border-t border-[#1a262e] pt-10 sm:pt-14">
             <div class="max-w-3xl">
                 <span
                     class="text-sm sm:text-base font-semibold text-emerald-400 uppercase tracking-widest anim-fade-up delay-1"><i
@@ -1404,7 +1444,7 @@
                     downloaders to uptime monitors and custom business scripts — we write code that solves real
                     problems.
                 </p>
-                <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-stagger">
+                <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4">
                     <span
                         class="bg-emerald-900/20 border border-emerald-700/30 text-emerald-200 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base hover:bg-emerald-900/40 transition anim-float"><i
                             class="fab fa-youtube mr-1 sm:mr-2"></i>YT Downloader</span>
@@ -1446,6 +1486,8 @@
     <script src="{% static 'js/menu.js' %}"></script>
     <script>
         (function() {
+
+            // ===== CURSOR GLOW =====
             const cursorGlow = document.getElementById('cursor-glow');
             document.addEventListener('mousemove', (e) => {
                 cursorGlow.style.left = e.clientX + 'px';
@@ -1454,13 +1496,20 @@
             document.addEventListener('mouseenter', () => { cursorGlow.style.opacity = '1'; });
             document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
 
-            const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale, .reveal-rotate');
-            const revealObserver = new IntersectionObserver((entries) => {
+            // ===== RE-TRIGGERABLE ANIMATIONS =====
+            // This is the key: every time an element scrolls in/out, it re-triggers
+            const animElements = document.querySelectorAll('.anim-item, .anim-item-left, .anim-item-right, .anim-item-scale, .anim-item-rotate');
+
+            const animObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        // Add visible class to trigger animation
                         entry.target.classList.add('visible');
                     } else {
+                        // Remove visible class to reset animation
+                        // This makes it animate again when you scroll back
                         entry.target.classList.remove('visible');
+                        // Force reflow to restart animation
                         void entry.target.offsetWidth;
                     }
                 });
@@ -1469,10 +1518,11 @@
                 rootMargin: '0px 0px -20px 0px'
             });
 
-            revealElements.forEach(el => revealObserver.observe(el));
+            animElements.forEach(el => animObserver.observe(el));
 
+            // Initial check for elements already in view
             setTimeout(() => {
-                revealElements.forEach(el => {
+                animElements.forEach(el => {
                     const rect = el.getBoundingClientRect();
                     if (rect.top < window.innerHeight * 0.85) {
                         el.classList.add('visible');
@@ -1480,6 +1530,7 @@
                 });
             }, 200);
 
+            // ===== MISSION BLUR =====
             const missionSection = document.querySelector('[data-blur-section]');
             if (missionSection) {
                 const missionObserver = new IntersectionObserver((entries) => {
@@ -1495,17 +1546,20 @@
                 }, 150);
             }
 
+            // ===== HEADER SCROLL =====
             const header = document.querySelector('header');
             window.addEventListener('scroll', () => {
                 header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
             });
 
+            // ===== CURSOR GLOW ACTIVE =====
             document.querySelectorAll('a, button, .menu-container, .impact-card, .step-item, .from-waste-card, .testimonial-card, .feature-item-card, .stats-counter-item')
                 .forEach(el => {
                     el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
                     el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
                 });
 
+            // ===== IMPACT CARD MOUSE TRACKING =====
             window.handleCardMove = function(card, event) {
                 const rect = card.getBoundingClientRect();
                 const x = ((event.clientX - rect.left) / rect.width) * 100;
@@ -1514,6 +1568,7 @@
                 card.style.setProperty('--mouse-y', y + '%');
             };
 
+            // ===== COUNTER ANIMATION =====
             const counters = document.querySelectorAll('.counter-number');
 
             const counterObserver = new IntersectionObserver((entries) => {
@@ -1541,6 +1596,7 @@
 
                         requestAnimationFrame(updateCounter);
                     } else {
+                        // Reset counter when it scrolls out of view
                         const counter = entry.target;
                         counter.textContent = '0';
                     }
