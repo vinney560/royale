@@ -1,0 +1,1912 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>ROYALE | ViuLive</title>
+    <meta name="description" content="Watch live TV channels with ViuLive. Free streaming of your favorite channels." />
+    <meta name="keywords" content="ViuLive, live TV, streaming, channels, ROYALE" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://royale.de5.net/viulive/" />
+
+    <meta property="og:title" content="ROYALE | ViuLive" />
+    <meta property="og:description" content="Watch live TV channels with ViuLive. Free streaming of your favorite channels." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://royale.de5.net/viulive/" />
+    <meta property="og:image" content="https://royale.de5.net/static/uploads/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <link rel="icon" type="image/png" href="/static/uploads/favicon.png" />
+    <link rel="apple-touch-icon" href="/static/uploads/favicon.png" />
+
+    <script src="{% static 'css/tailwind.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}" />
+
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.googleapis.com" crossorigin />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" media="print" onload="this.media='all'" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+
+    <noscript>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+        <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700&display=swap" rel="stylesheet" />
+    </noscript>
+
+    <script src="{% static 'js/loading.js' %}" async></script>
+
+    <style>
+
+        .text-gradient-shimmer {
+            background: linear-gradient(120deg, #fca5a5, #f87171, #ef4444, #f87171, #fca5a5);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: shimmer 6s linear infinite;
+            font-size: clamp(1.6rem, 3.5vw, 3.5rem);
+            font-weight: 900;
+            display: inline-block;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
+            max-width: 100%;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .text-responsive-h2 {
+            font-size: clamp(2.2rem, 5vw, 3.2rem);
+        }
+
+        .text-responsive-body {
+            font-size: clamp(1.05rem, 1.5vw, 1.2rem);
+        }
+
+        .text-responsive-hero {
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+        }
+
+        .scroll-indicator {
+            width: 1.5px;
+            height: 40px;
+            background: linear-gradient(to bottom, #5fd0ba, transparent);
+            margin: 0 auto;
+            animation: pulseScroll 2.4s infinite;
+        }
+
+        @keyframes pulseScroll {
+            0% { opacity: 0.3; transform: scaleY(0.6); }
+            50% { opacity: 1; transform: scaleY(1); }
+            100% { opacity: 0.3; transform: scaleY(0.6); }
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, #a0f0e0, #68d4c0, #3ab0a0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .blob-1 {
+            animation: floatSlow 10s ease-in-out infinite;
+        }
+
+        .blob-2 {
+            animation: floatSlow 14s ease-in-out infinite reverse;
+        }
+
+        .anim-pulse-glow {
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes floatSlow {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-18px) rotate(1deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+
+        @keyframes pulseGlow {
+            0% { opacity: 0.4; filter: blur(20px); }
+            50% { opacity: 0.9; filter: blur(30px); }
+            100% { opacity: 0.4; filter: blur(20px); }
+        }
+
+        .anim-item {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .anim-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .anim-item-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .anim-item-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .anim-item-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+        }
+
+        .anim-item-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .anim-item-scale {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .anim-item-scale.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .stagger-1 { transition-delay: 0.05s; }
+        .stagger-2 { transition-delay: 0.10s; }
+        .stagger-3 { transition-delay: 0.15s; }
+        .stagger-4 { transition-delay: 0.20s; }
+        .stagger-5 { transition-delay: 0.25s; }
+        .stagger-6 { transition-delay: 0.30s; }
+        .stagger-7 { transition-delay: 0.35s; }
+        .stagger-8 { transition-delay: 0.40s; }
+
+        .anim-fade-up {
+            opacity: 0;
+            animation: fadeUp 0.9s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeUp {
+            0% { opacity: 0; transform: translateY(40px) scale(0.96); }
+            100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .anim-slide-up {
+            opacity: 0;
+            animation: slideUp 0.8s cubic-bezier(0.2, 0.9, 0.4, 1) forwards;
+        }
+
+        @keyframes slideUp {
+            0% { opacity: 0; transform: translateY(60px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.25s; }
+        .delay-3 { animation-delay: 0.45s; }
+        .delay-4 { animation-delay: 0.65s; }
+        .delay-5 { animation-delay: 0.85s; }
+
+        .anim-float {
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+
+        .viulive-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        @media (max-width: 768px) {
+            .channels-grid {
+                grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+                gap: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .channels-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .channels-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .channel-card {
+            position: relative;
+            border-radius: 1.5rem;
+            overflow: hidden;
+            aspect-ratio: 16 / 9;
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
+            transition: all 0.5s cubic-bezier(0.2, 0.9, 0.4, 1);
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.06);
+        }
+
+        .channel-card .card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.4, 1);
+            transform: scale(1);
+        }
+
+        .channel-card:hover .card-bg {
+            transform: scale(1.08);
+        }
+
+        .channel-card .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg,
+                rgba(7, 10, 12, 0.1) 0%,
+                rgba(7, 10, 12, 0.3) 40%,
+                rgba(7, 10, 12, 0.85) 85%,
+                rgba(7, 10, 12, 0.95) 100%
+            );
+            transition: all 0.5s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 1.5rem;
+        }
+
+        .channel-card:hover .card-overlay {
+            background: linear-gradient(180deg,
+                rgba(7, 10, 12, 0.05) 0%,
+                rgba(7, 10, 12, 0.15) 30%,
+                rgba(7, 10, 12, 0.7) 75%,
+                rgba(7, 10, 12, 0.9) 100%
+            );
+        }
+
+        .channel-card .card-top {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            right: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .channel-card .channel-number {
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.2);
+            font-weight: 700;
+            font-family: monospace;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.2rem 0.6rem;
+            border-radius: 0.5rem;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .channel-card .channel-badge {
+            font-size: 0.55rem;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            padding: 0.2rem 0.7rem;
+            border-radius: 2rem;
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            font-weight: 600;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .channel-card .channel-info {
+            position: relative;
+            z-index: 2;
+        }
+
+        .channel-card .channel-name {
+            color: #eef2f5;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            line-height: 1.3;
+        }
+
+        .channel-card .channel-group {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            text-shadow: 0 1px 8px rgba(0, 0, 0, 0.4);
+        }
+
+        .channel-card .play-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 0.6rem;
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.08);
+            transition: all 0.3s ease;
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            width: fit-content;
+        }
+
+        .channel-card:hover .play-btn {
+            border-color: rgba(239, 68, 68, 0.3);
+            color: #fff;
+            background: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 30px rgba(239, 68, 68, 0.1);
+        }
+
+        .channel-card .card-glow {
+            position: absolute;
+            inset: 0;
+            border-radius: 1.5rem;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), transparent 50%, rgba(239, 68, 68, 0.05));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+        }
+
+        .channel-card:hover {
+            border-color: rgba(239, 68, 68, 0.2);
+            transform: translateY(-6px) scale(1.01);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(239, 68, 68, 0.06);
+        }
+
+        .controls-bar {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        @media (min-width: 640px) {
+            .controls-bar {
+                flex-direction: row;
+                align-items: center;
+            }
+        }
+
+        .controls-bar .title-section h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #eef2f5;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .controls-bar .title-section h2 i {
+            color: #ef4444;
+        }
+
+        .controls-bar .title-section .count {
+            color: #5a7a85;
+            font-size: 0.85rem;
+            font-weight: 400;
+            margin-left: 0.5rem;
+        }
+
+        .controls-bar .title-section p {
+            color: #5a7a85;
+            font-size: 0.85rem;
+        }
+
+        .controls-bar .controls-right {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .controls-bar .search-result-info {
+            font-size: 0.75rem;
+            color: #2d8f7a;
+            display: none;
+        }
+
+        .controls-bar .search-result-info.visible {
+            display: inline;
+        }
+
+        .search-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 2rem;
+            padding: 0.3rem 0.3rem 0.3rem 1rem;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            max-width: 350px;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.04);
+        }
+
+        .search-wrapper i {
+            color: #5a7a85;
+            font-size: 0.8rem;
+        }
+
+        .search-wrapper input {
+            flex: 1;
+            background: transparent;
+            border: none;
+            padding: 0.5rem 0;
+            color: #e4edf2;
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            min-width: 80px;
+        }
+
+        .search-wrapper input::placeholder {
+            color: #5a7a85;
+        }
+
+        .search-wrapper .search-btn {
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            border: none;
+            border-radius: 2rem;
+            padding: 0.4rem 1.2rem;
+            color: #070a0c;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .search-wrapper .search-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 16px rgba(239, 68, 68, 0.3);
+        }
+
+        .search-wrapper .search-clear {
+            background: none;
+            border: none;
+            color: #5a7a85;
+            cursor: pointer;
+            padding: 0.2rem 0.4rem;
+            font-size: 0.6rem;
+            display: none;
+            transition: color 0.3s ease;
+        }
+
+        .search-wrapper .search-clear:hover {
+            color: #ef4444;
+        }
+
+        .search-wrapper .search-clear.visible {
+            display: block;
+        }
+
+        .group-filter-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            min-width: 120px;
+        }
+
+        .group-filter-wrapper select {
+            background: rgba(8, 16, 20, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.08);
+            border-radius: 2rem;
+            padding: 0.4rem 1rem;
+            color: #e4edf2;
+            font-size: 0.8rem;
+            font-family: inherit;
+            outline: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 100px;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%235a7a85' d='M6 8L1 3h10z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 0.8rem center;
+            padding-right: 2.2rem;
+        }
+
+        .group-filter-wrapper select:focus {
+            border-color: rgba(239, 68, 68, 0.2);
+            box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.04);
+        }
+
+        .group-filter-wrapper select option {
+            background: #070a0c;
+            color: #e4edf2;
+        }
+
+        .group-filter-wrapper .group-label {
+            font-size: 0.7rem;
+            color: #5a7a85;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            display: none;
+        }
+
+        @media (min-width: 640px) {
+            .group-filter-wrapper .group-label {
+                display: block;
+            }
+        }
+
+        .highlight-match {
+            color: #5fd0ba;
+            font-weight: 700;
+            background: rgba(95, 208, 186, 0.08);
+            padding: 0 0.2rem;
+            border-radius: 0.2rem;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: 2.5rem;
+            flex-wrap: wrap;
+        }
+
+        .pagination-wrapper .page-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 44px;
+            height: 44px;
+            padding: 0 1rem;
+            border-radius: 0.75rem;
+            border: 1px solid rgba(60, 130, 120, 0.06);
+            background: transparent;
+            color: #9bb0bb;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .pagination-wrapper .page-btn:hover {
+            border-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.04);
+        }
+
+        .pagination-wrapper .page-btn.active {
+            border-color: rgba(239, 68, 68, 0.2);
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.06);
+        }
+
+        .pagination-wrapper .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .pagination-wrapper .page-info {
+            color: #5a7a85;
+            font-size: 0.85rem;
+            padding: 0 0.5rem;
+        }
+
+        .pagination-wrapper .filter-info {
+            color: #2d8f7a;
+            font-size: 0.75rem;
+            margin-left: 0.5rem;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(239, 68, 68, 0.1);
+            border-top-color: #ef4444;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            display: none;
+            text-align: center;
+            padding: 4rem 0;
+        }
+
+        .loading-overlay.active {
+            display: block;
+        }
+
+        .error-message {
+            display: none;
+            text-align: center;
+            padding: 3rem 0;
+        }
+
+        .error-message.active {
+            display: block;
+        }
+
+        .error-message .error-icon {
+            font-size: 4rem;
+            color: #ef4444;
+            opacity: 0.3;
+            margin-bottom: 1rem;
+        }
+
+        .error-message h3 {
+            color: #eef2f5;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .error-message p {
+            color: #9bb0bb;
+        }
+
+        .error-message .retry-btn {
+            margin-top: 1rem;
+            padding: 0.6rem 2rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            background: transparent;
+            color: #f87171;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .error-message .retry-btn:hover {
+            background: rgba(239, 68, 68, 0.06);
+            border-color: rgba(239, 68, 68, 0.25);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 0;
+            color: #5a7a85;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            opacity: 0.3;
+        }
+
+        .skeleton {
+            background: rgba(8, 16, 20, 0.6);
+            border-radius: 1.5rem;
+            aspect-ratio: 16 / 9;
+            animation: pulseSkeleton 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseSkeleton {
+            0%,
+            100% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+        }
+
+        .context-section {
+            z-index: 100;
+            width: 100%;
+            margin-top: 50px;
+            padding: 4rem 0.85rem;
+            position: relative;
+            overflow: hidden;
+            background: rgba(7, 10, 12, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .context-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(239, 68, 68, 0.06), transparent 70%),
+                        radial-gradient(ellipse at 80% 50%, rgba(95, 208, 186, 0.06), transparent 70%);
+            pointer-events: none;
+        }
+
+        .context-section .context-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .context-section .context-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .context-section .context-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .context-section .context-grid {
+                grid-template-columns: 1fr;
+            }
+            .context-section {
+                padding: 2.5rem 1rem;
+            }
+        }
+
+        .context-card {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 1.5rem;
+            padding: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .context-card:hover {
+            background: rgba(255, 255, 255, 0.04);
+            border-color: rgba(239, 68, 68, 0.1);
+            transform: translateY(-4px);
+        }
+
+        .context-card .context-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .context-card h4 {
+            color: #eef2f5;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .context-card p {
+            color: #9bb0bb;
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .context-card .context-tag {
+            display: inline-block;
+            margin-top: 0.8rem;
+            padding: 0.2rem 0.8rem;
+            border-radius: 2rem;
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(239, 68, 68, 0.1);
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.06);
+        }
+
+        .context-stats {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-top: 2.5rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+        }
+
+        @media (max-width: 640px) {
+            .context-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 1rem;
+            }
+        }
+
+        .context-stats .stat-item {
+            text-align: center;
+        }
+
+        .context-stats .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #f87171, #ef4444);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .context-stats .stat-label {
+            color: #5a7a85;
+            font-size: 0.8rem;
+            margin-top: 0.2rem;
+        }
+
+        .context-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 1.5rem;
+        }
+
+        .context-categories .cat-tag {
+            padding: 0.3rem 1rem;
+            border-radius: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: #9bb0bb;
+            font-size: 0.75rem;
+            transition: all 0.3s ease;
+        }
+
+        .context-categories .cat-tag:hover {
+            border-color: rgba(239, 68, 68, 0.15);
+            color: #f87171;
+            background: rgba(239, 68, 68, 0.04);
+        }
+
+        .context-categories .cat-tag i {
+            margin-right: 0.3rem;
+            font-size: 0.6rem;
+            color: #f87171;
+        }
+
+        .scroll-blur-section {
+            transition: backdrop-filter 0.3s ease;
+        }
+
+        .scroll-blur-section.scrolled {
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            background: rgba(7, 10, 12, 0.85);
+        }
+
+        .group-divider {
+            margin: 2rem 0 1rem 0;
+            padding: 0.5rem 0 0.8rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .group-divider h3 {
+            color: #eef2f5;
+            font-size: 1.2rem;
+            font-weight: 700;
+            letter-spacing: 0.02em;
+        }
+
+        .group-divider .group-count {
+            color: #5a7a85;
+            font-size: 0.75rem;
+            font-weight: 400;
+        }
+
+        .group-divider .group-line {
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0.05), transparent);
+        }
+
+        .from-waste-section {
+            margin-top: clamp(3rem, 8vw, 6rem);
+            padding-top: clamp(1rem, 2vw, 2rem);
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            width: 100%;
+        }
+
+        .from-waste-card {
+            background: rgba(10, 30, 34, 0.6);
+            border: 1px solid rgba(60, 130, 120, 0.2);
+            border-radius: 1.5rem;
+            padding: clamp(1.5rem, 3vw, 2.5rem);
+            transition: all 0.4s ease;
+            width: 100%;
+        }
+
+        .from-waste-card:hover {
+            border-color: rgba(95, 208, 186, 0.4);
+            transform: translateY(-4px);
+        }
+
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: rgba(12, 22, 28, 0.95);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(239, 68, 68, 0.15);
+            border-radius: 1rem;
+            padding: 1rem 1.5rem;
+            color: #e4edf2;
+            font-size: 0.9rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            display: none;
+            align-items: center;
+            gap: 0.8rem;
+            z-index: 100;
+            animation: slideUpToast 0.4s ease;
+            max-width: 400px;
+        }
+
+        .toast.visible {
+            display: flex;
+        }
+
+        .toast i {
+            font-size: 1.2rem;
+        }
+
+        .toast.success i {
+            color: #34d399;
+        }
+
+        .toast.error i {
+            color: #ef4444;
+        }
+
+        .toast.info i {
+            color: #f87171;
+        }
+
+        @keyframes slideUpToast {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .viulive-wrapper {
+                padding: 1rem;
+            }
+            .search-wrapper {
+                max-width: 100%;
+                min-width: 150px;
+            }
+            .controls-bar {
+                flex-direction: column;
+                align-items: stretch;
+                gap: 0.8rem;
+            }
+            .controls-bar .controls-right {
+                flex-wrap: wrap;
+            }
+            .group-filter-wrapper {
+                min-width: 100px;
+            }
+            .group-filter-wrapper select {
+                width: 100%;
+            }
+            .channel-card .channel-name {
+                font-size: 0.9rem;
+            }
+            .channel-card .card-overlay {
+                padding: 1rem;
+            }
+            .pagination-wrapper .page-btn {
+                min-width: 38px;
+                height: 38px;
+                font-size: 0.8rem;
+                padding: 0 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .channels-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .channel-card {
+                border-radius: 1rem;
+                aspect-ratio: 16 / 10;
+            }
+            .channel-card .card-overlay {
+                padding: 0.8rem;
+            }
+            .channel-card .channel-name {
+                font-size: 0.75rem;
+            }
+            .channel-card .channel-group {
+                font-size: 0.55rem;
+            }
+            .channel-card .play-btn {
+                font-size: 0.5rem;
+                padding: 0.15rem 0.6rem;
+                margin-top: 0.3rem;
+            }
+            .channel-card .channel-number {
+                font-size: 0.5rem;
+                padding: 0.1rem 0.4rem;
+            }
+            .channel-card .channel-badge {
+                font-size: 0.45rem;
+                padding: 0.1rem 0.5rem;
+            }
+            .controls-bar .title-section h2 {
+                font-size: 1.2rem;
+            }
+            .pagination-wrapper .page-btn {
+                min-width: 32px;
+                height: 32px;
+                font-size: 0.7rem;
+                padding: 0 0.6rem;
+            }
+        }
+
+        @media (max-width: 380px) {
+            .channels-grid {
+                grid-template-columns: 1fr;
+            }
+            .channel-card {
+                aspect-ratio: 16 / 9;
+            }
+        }
+
+        main {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        .max-w-6xl {
+            max-width: 72rem;
+            width: 100%;
+        }
+
+        img,
+        video,
+        iframe,
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+
+        * {
+            max-width: 100%;
+            box-sizing: border-box;
+        }
+    </style>
+</head>
+
+<body>
+
+    <canvas id="particles-canvas"></canvas>
+    <div id="cursor-glow"></div>
+
+    <header class="fixed top-0 left-0 w-full z-50 bg-[#070a0c]/80 backdrop-blur-xl border-b border-[#1a262e]/70 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-2 sm:px-1 py-3 sm:py-4 flex items-center justify-between">
+            <a href="/" class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center no-underline">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.4rem, 3vw, 2.2rem);">ROYALE</span>
+            </a>
+            <div class="flex items-center gap-2 sm:gap-4">
+                <nav class="hidden md:flex gap-4 lg:gap-8 text-sm font-medium">
+                    <a href="/#mission" class="nav-link anim-fade-up delay-2">Mission</a>
+                    <a href="/#how-it-works" class="nav-link anim-fade-up delay-3">Technology</a>
+                    <a href="/#impact" class="nav-link anim-fade-up delay-4">Impact</a>
+                    <a href="/#company" class="nav-link anim-fade-up delay-5">Company</a>
+                    <a href="#" class="nav-link active anim-fade-up delay-5" style="color:#f87171;position:relative;">
+                        ViuLive
+                        <span style="position:absolute; bottom:-4px; left:0; width:100%; height:2px; background:#ef4444; box-shadow:0 0 16px rgba(239,68,68,0.2); border-radius:2px;"></span>
+                    </a>
+                </nav>
+                <button id="menuToggle" class="menu-container anim-fade-up delay-3">
+                    <i class="fas fa-bars menu-icon"></i>
+                    <span class="menu-label-text">Menu</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div id="menuOverlay" class="menu-overlay">
+        <div id="menuPopupWrapper" class="menu-popup-wrapper">
+            <div id="menuPopup" class="menu-popup">
+                <button id="popupCloseBtn" class="popup-close-btn" aria-label="Close menu"><i class="fas fa-times"></i></button>
+
+                <div class="menu-section-title menu-link-main">Navigation</div>
+                <div class="menu-grid-single menu-link-main">
+                    <a href="/#mission" class="menu-link-nav" data-menu-item>Mission</a>
+                    <a href="/#how-it-works" class="menu-link-nav" data-menu-item>Technology</a>
+                    <a href="/#impact" class="menu-link-nav" data-menu-item>Impact</a>
+                    <a href="/#company" class="menu-link-nav" data-menu-item>Company</a>
+                    <a href="/about/" class="menu-link-nav" data-menu-item>About Us</a>
+                    <a href="#" class="menu-link-nav active" data-menu-item>ViuLive</a>
+                </div>
+
+                <div class="menu-divider-full menu-link-main"></div>
+
+                <div class="menu-section-title"></div>
+                <div class="menu-grid">
+                    <a href="/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-arrow-left text-red-400"></i></span>
+                        Back
+                    </a>
+                    <a href="/products/tv/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-futbol text-white"></i></span>
+                        ViuLive Sports
+                        <span class="product-badge">Not 24/7</span>
+                    </a>
+                </div>
+                <div class="menu-section-title">Products</div>  
+                    <div class="menu-grid">
+                    <a href="https://v6.www-y2mate.com/" target="_blank" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-youtube text-red-400"></i></span>
+                        YT DL
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/products/qr/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-qrcode text-indigo-400"></i></span>
+                        QR Gen
+                        <span class="product-badge">Popular</span>
+                    </a>
+                    <a href="/downloader/fb/" class="menu-link-product" data-menu-item>
+                        <span class="product-icon"><i class="fab fa-facebook text-blue-400"></i></span>
+                        FB DL
+                        <span class="product-badge">RISING</span>
+                    </a>
+                    <a href="#" class="menu-link-product active-part" data-menu-item>
+                        <span class="product-icon"><i class="fas fa-tv text-red-400"></i></span>
+                        ViuLive
+                    </a>
+                </div>
+
+                <div class="menu-divider-full"></div>
+
+                <div class="menu-section-title">Connect</div>
+                <div class="menu-grid">
+                    <a href="/about/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-info-circle text-cyan-400"></i></span>
+                        About Us
+                    </a>
+                    <a href="/contact/" class="menu-link-connect" data-menu-item>
+                        <span class="connect-icon"><i class="fas fa-envelope text-emerald-400"></i></span>
+                        Contact Us
+                    </a>
+                </div>
+
+                <div class="menu-footer-icons">
+                    <span><i class="fas fa-circle text-emerald-500 text-xs"></i>Scripts</span>
+                    <span><i class="fas fa-circle text-teal-500 text-xs"></i>Downloaders</span>
+                    <span><i class="fas fa-circle text-cyan-500 text-xs"></i>Uptime</span>
+                    <span><i class="fas fa-circle text-amber-500 text-xs"></i>Custom</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main class="max-w-6xl mx-auto px-2 sm:px-1 pt-24 sm:pt-28 pb-12 sm:pb-16 relative z-10">
+
+        <div class="viulive-wrapper">
+
+            <section class="relative rounded-2xl sm:rounded-3xl overflow-hidden min-h-[60vh] sm:min-h-[70vh] flex items-center border border-[#1f2e36]/60 p-4 sm:p-6 md:p-12 mb-12 sm:mb-20 bg-[#0b1216]/50 backdrop-blur-sm">
+                <div class="absolute -right-16 -top-16 w-56 sm:w-80 h-56 sm:h-80 bg-red-600/20 rounded-full blur-3xl blob-1"></div>
+                <div class="absolute -left-16 bottom-10 w-48 sm:w-72 h-48 sm:h-72 bg-orange-600/15 rounded-full blur-3xl blob-2"></div>
+                <div class="absolute right-6 sm:right-10 bottom-0 w-32 sm:w-48 h-32 sm:h-48 bg-red-500/10 rounded-full blur-2xl anim-pulse-glow"></div>
+
+                <div class="relative z-10 w-full">
+                    <div class="hero-grid">
+                        <div>
+                            <span class="inline-block bg-[#1a2f32] text-red-300 text-[0.7rem] sm:text-xs font-semibold uppercase tracking-widest px-3 sm:px-4 py-1 sm:py-1.5 rounded-full border border-red-800/40 mb-3 sm:mb-5 anim-fade-up delay-1">
+                                <i class="fas fa-tv mr-1 sm:mr-2"></i>Live TV
+                            </span>
+                            <h1 class="text-responsive-hero font-extrabold leading-[1.1] tracking-tight anim-fade-up delay-2">
+                                <span class="royale-brand-wrapper">
+                                    <span class="brand-letter">R</span>
+                                    <span class="brand-letter">O</span>
+                                    <span class="brand-letter">Y</span>
+                                    <span class="brand-letter">A</span>
+                                    <span class="brand-letter">L</span>
+                                    <span class="brand-letter">E</span>
+                                </span><br />
+                                <span class="text-gradient-shimmer">ViuLive</span>
+                            </h1>
+                            <p class="text-responsive-body text-gray-300 mt-4 sm:mt-6 max-w-xl leading-relaxed anim-fade-up delay-3">
+                                Watch live TV channels from around the world. Free streaming, no sign-up required.
+                            </p>
+                            <div class="mt-6 sm:mt-8 flex flex-wrap gap-2 sm:gap-4 anim-fade-up delay-4">
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-play mr-1 sm:mr-2"></i>Live Streaming
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-globe mr-1 sm:mr-2"></i>Worldwide
+                                </span>
+                                <span class="bg-white/5 border border-white/10 px-3 sm:px-5 py-1.5 sm:py-2 rounded-full text-sm sm:text-base font-medium backdrop-blur-sm hover:bg-white/10 transition">
+                                    <i class="fas fa-wifi mr-1 sm:mr-2"></i>Free
+                                </span>
+                            </div>
+                        </div>
+                        <div class="hidden md:flex justify-center items-center anim-fade-up delay-3">
+                            <div class="relative w-48 h-48 sm:w-64 sm:h-64">
+                                <div class="absolute inset-0 rounded-full border-2 border-red-500/20 animate-ping"></div>
+                                <div class="absolute inset-4 rounded-full border-2 border-red-400/30 animate-pulse"></div>
+                                <div class="absolute inset-8 rounded-full bg-red-500/10 flex items-center justify-center text-6xl sm:text-7xl text-red-400/60">
+                                    <i class="fas fa-tv"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 sm:mt-12 flex items-center gap-3 text-gray-500 text-[0.7rem] sm:text-xs uppercase tracking-widest anim-fade-up delay-5">
+                        <span>Browse channels</span>
+                        <span class="w-8 sm:w-12 h-[1px] bg-gray-600"></span>
+                        <span class="scroll-indicator"></span>
+                    </div>
+                </div>
+            </section>
+
+            <div>
+
+                <div class="controls-bar">
+                    <div class="title-section">
+                        <h2>
+                            <i class="fas fa-satellite-dish"></i>
+                            Live Channels
+                            <span class="count" id="channelCount">Loading...</span>
+                        </h2>
+                        <p>Click any channel to start watching</p>
+                    </div>
+                    <div class="controls-right">
+                        <div class="group-filter-wrapper">
+                            <span class="group-label"><i class="fas fa-filter"></i> Group</span>
+                            <select id="groupFilter">
+                                <option value="">All Groups</option>
+                            </select>
+                        </div>
+                        <div class="search-wrapper">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="searchInput" placeholder="Search channels..." />
+                            <button class="search-clear" id="searchClear" title="Clear search">
+                                <i class="fas fa-times"></i>
+                            </button>
+                            <button class="search-btn" id="searchBtn">
+                                <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                        <span class="search-result-info" id="searchResultInfo"></span>
+                    </div>
+                </div>
+
+                <div id="loadingOverlay" class="loading-overlay active">
+                    <div class="loading-spinner mx-auto mb-4"></div>
+                    <p class="text-gray-400">Loading channels...</p>
+                </div>
+
+                <div id="errorMessage" class="error-message">
+                    <div class="error-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                    <h3>Failed to Load Channels</h3>
+                    <p id="errorText">Unable to fetch channel list. Please try again.</p>
+                    <button class="retry-btn" onclick="loadChannels()"><i class="fas fa-redo mr-2"></i>Retry</button>
+                </div>
+
+                <div id="channelsContainer">
+                    <div class="channels-grid" id="channelsGrid"></div>
+                    <div id="noResults" class="no-results" style="display:none;">
+                        <i class="fas fa-search"></i>
+                        <p>No channels found matching your search.</p>
+                    </div>
+                </div>
+
+                <div id="paginationWrapper" class="pagination-wrapper"></div>
+            </div>
+
+            <div class="context-section scroll-blur-section" id="contextSection">
+                <div class="context-inner">
+                    <div class="anim-item">
+                        <h2 class="text-responsive-h2 font-bold text-white/90">
+                            <i class="fas fa-tv text-red-400 mr-2"></i>
+                            Free Live TV Channels
+                        </h2>
+                        <p class="text-gray-300 text-lg mt-2 max-w-2xl">
+                            Watch your favorite channels from around the world. Completely free, no registration required.
+                        </p>
+                    </div>
+
+                    <div class="context-grid">
+                        <div class="context-card anim-item stagger-1">
+                            <span class="context-icon"><i class="fas fa-check-circle text-emerald-400"></i></span>
+                            <h4>Verified Working Channels</h4>
+                            <p>All channels are tested and confirmed working. We regularly check and update our channel list to ensure reliability.</p>
+                            <span class="context-tag"><i class="fas fa-bolt mr-1"></i> 100% Working</span>
+                        </div>
+                        <div class="context-card anim-item stagger-2">
+                            <span class="context-icon"><i class="fas fa-film text-red-400"></i></span>
+                            <h4>Multiple Categories</h4>
+                            <p>Browse by genre: News, Sports, Movies, Music, Kids, Documentary, Entertainment, and many more.</p>
+                            <span class="context-tag"><i class="fas fa-tags mr-1"></i> 20+ Categories</span>
+                        </div>
+                        <div class="context-card anim-item stagger-3">
+                            <span class="context-icon"><i class="fas fa-play-circle text-red-400"></i></span>
+                            <h4>Live & Reliable</h4>
+                            <p>All channels are live and continuously updated. Watch your favorite shows as they air.</p>
+                            <span class="context-tag"><i class="fas fa-bolt mr-1"></i> Always Live</span>
+                        </div>
+                        <div class="context-card anim-item stagger-3">
+                            <span class="context-icon"><i class="fas fa-sync-alt text-cyan-400"></i></span>
+                            <h4>Regular Updates</h4>
+                            <p>We constantly update our channel list with new working streams. If a channel goes down, we find a working replacement.</p>
+                            <span class="context-tag"><i class="fas fa-clock mr-1"></i> Daily Updates</span>
+                        </div>
+                    </div>
+
+                    <div class="context-stats">
+                        <div class="stat-item anim-item stagger-4">
+                            <div class="stat-number" id="statChannels">500+</div>
+                            <div class="stat-label">Total Channels</div>
+                        </div>
+                        <div class="stat-item anim-item stagger-5">
+                            <div class="stat-number">24/7</div>
+                            <div class="stat-label">Live Streaming</div>
+                        </div>
+                        <div class="stat-item anim-item stagger-6">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Free Access</div>
+                        </div>
+                        <div class="stat-item anim-item stagger-7">
+                            <div class="stat-number">No Sign-up</div>
+                            <div class="stat-label">Instant Watch</div>
+                        </div>
+                    </div>
+
+                    <div class="context-categories" id="categoryTags">
+                        <span class="cat-tag"><i class="fas fa-circle"></i> News</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Sports</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Movies</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Music</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Kids</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Documentary</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Entertainment</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Lifestyle</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Travel</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Science</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> History</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Nature</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Comedy</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Drama</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Reality</span>
+                        <span class="cat-tag"><i class="fas fa-circle"></i> Animation</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===== GROUP DIVIDER TITLES (will be populated by JS) ===== -->
+            <div id="groupDividers"></div>
+
+            <div class="from-waste-section max-w-4xl mx-auto anim-item">
+                <div class="from-waste-card">
+                    <h4 class="font-bold text-lg sm:text-xl text-white/90">
+                        <i class="fas fa-tv text-red-400 mr-2"></i>Enjoy free live TV
+                    </h4>
+                    <p class="text-gray-300 text-sm sm:text-base mt-2 sm:mt-3 leading-relaxed">
+                        Watch your favorite channels for free. No registration required. Just click and enjoy.
+                    </p>
+                    <div class="mt-4 sm:mt-5 flex flex-wrap gap-2">
+                        <a href="#channelsGrid" class="bg-red-900/30 text-red-300 border border-red-700/40 px-4 py-2 rounded-full text-sm hover:bg-red-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-play"></i> Start Watching
+                        </a>
+                        <a href="/products/" class="bg-cyan-900/30 text-cyan-300 border border-cyan-700/40 px-4 py-2 rounded-full text-sm hover:bg-cyan-900/50 transition inline-flex items-center gap-2">
+                            <i class="fas fa-cubes"></i> Products
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <footer class="border-t border-[#1a262e] bg-[#070a0c]/90 backdrop-blur-sm relative z-10 mt-8">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 py-6 sm:py-8 flex flex-col sm:flex-row justify-between items-center text-sm sm:text-base text-gray-400">
+            <span class="text-xl sm:text-2xl font-bold tracking-tight text-white/90 anim-fade-up delay-1 flex items-center">
+                <img src="/static/uploads/favicon.png" alt="ROYALE" class="w-8 h-8 sm:w-9 sm:h-9 object-contain rounded-full mr-2" />
+                <span class="brand-inline" style="font-size:clamp(1.2rem,2.5vw,1.8rem);">ROYALE</span>
+            </span>
+            <div class="flex gap-4 sm:gap-6">
+                <span class="hover:text-white transition"><i class="far fa-copyright mr-1"></i>{{ year }}</span>
+                <a href="/terms" class="hover:text-white transition"><i class="fas fa-file-contract mr-1"></i>Terms</a>
+                <a href="/privacy" class="hover:text-white transition"><i class="fas fa-shield-alt mr-1"></i>Privacy</a>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-code mr-1"></i>Scripts</span>
+                <span class="hover:text-white transition cursor-default"><i class="fas fa-download mr-1"></i>Downloaders</span>
+            </div>
+        </div>
+    </footer>
+
+    <div id="toast" class="toast">
+        <i class="fas fa-check-circle"></i>
+        <span id="toastMessage">Channel loaded!</span>
+    </div>
+
+    <script src="{% static 'js/bg_particle.js' %}"></script>
+    <script src="{% static 'js/menu.js' %}"></script>
+
+    <script>
+        (function() {
+
+            const channelsGrid = document.getElementById('channelsGrid');
+            const loadingOverlay = document.getElementById('loadingOverlay');
+            const errorMessage = document.getElementById('errorMessage');
+            const errorText = document.getElementById('errorText');
+            const paginationWrapper = document.getElementById('paginationWrapper');
+            const searchInput = document.getElementById('searchInput');
+            const searchBtn = document.getElementById('searchBtn');
+            const searchClear = document.getElementById('searchClear');
+            const searchResultInfo = document.getElementById('searchResultInfo');
+            const channelCount = document.getElementById('channelCount');
+            const noResults = document.getElementById('noResults');
+            const groupFilter = document.getElementById('groupFilter');
+            const contextSection = document.getElementById('contextSection');
+
+            let currentPage = 1;
+            let totalPages = 1;
+            let totalChannels = 0;
+            let perPage = 50;
+            let searchTimeout = null;
+            let currentGroup = '';
+            let currentSearch = '';
+            let allChannels = [];
+            let groups = [];
+
+            function handleScrollBlur() {
+                if (!contextSection) return;
+                const rect = contextSection.getBoundingClientRect();
+                const viewportHeight = window.innerHeight;
+                const scrollPercent = 1 - (rect.top / viewportHeight);
+                
+                if (scrollPercent > 0.1) {
+                    contextSection.classList.add('scrolled');
+                } else {
+                    contextSection.classList.remove('scrolled');
+                }
+            }
+
+            window.addEventListener('scroll', handleScrollBlur);
+            window.addEventListener('resize', handleScrollBlur);
+
+            function showToast(message, type) {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toastMessage');
+                type = type || 'info';
+                toast.className = 'toast ' + type + ' visible';
+                toastMessage.textContent = message;
+                const icon = toast.querySelector('i');
+                if (type === 'success') icon.className = 'fas fa-check-circle';
+                else if (type === 'error') icon.className = 'fas fa-exclamation-circle';
+                else icon.className = 'fas fa-info-circle';
+                clearTimeout(toast._timeout);
+                toast._timeout = setTimeout(() => {
+                    toast.classList.remove('visible');
+                }, 5000);
+            }
+
+            function highlightText(text, query) {
+                if (!query || !text) return text;
+                const regex = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+                return text.replace(regex, '<span class="highlight-match">$1</span>');
+            }
+
+            function loadGroups() {
+                fetch('/api/viulive/channels/groups/', {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success && data.data?.groups) {
+                        groups = data.data.groups;
+                        groupFilter.innerHTML = '<option value="">All Groups</option>';
+                        groups.forEach(group => {
+                            const option = document.createElement('option');
+                            option.value = group;
+                            option.textContent = group;
+                            groupFilter.appendChild(option);
+                        });
+                    }
+                })
+                .catch(error => console.error('Error loading groups:', error));
+            }
+
+            window.loadChannels = function(page) {
+                page = page || 1;
+                currentPage = page;
+
+                const query = searchInput.value.trim();
+                const group = groupFilter.value;
+
+                currentSearch = query;
+                currentGroup = group;
+
+                loadingOverlay.classList.add('active');
+                errorMessage.classList.remove('active');
+                noResults.style.display = 'none';
+                channelsGrid.innerHTML = '';
+                searchResultInfo.classList.remove('visible');
+                searchResultInfo.textContent = '';
+
+                for (let i = 0; i < 6; i++) {
+                    const skeleton = document.createElement('div');
+                    skeleton.className = 'skeleton';
+                    skeleton.style.animationDelay = (i * 0.1) + 's';
+                    channelsGrid.appendChild(skeleton);
+                }
+
+                let url = '/api/viulive/channels/?page=' + page + '&per_page=' + perPage;
+
+                if (group) {
+                    url += '&group=' + encodeURIComponent(group);
+                }
+
+                if (query) {
+                    url += '&search=' + encodeURIComponent(query);
+                }
+
+                fetch(url, {
+                    method: 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    loadingOverlay.classList.remove('active');
+
+                    if (!data.success) {
+                        errorText.textContent = data.message || 'Failed to load channels';
+                        errorMessage.classList.add('active');
+                        return;
+                    }
+
+                    const channels = data.data?.channels || [];
+                    const pagination = data.data?.pagination || {};
+
+                    allChannels = channels;
+                    totalChannels = pagination.total_channels || 0;
+                    totalPages = pagination.total_pages || 1;
+                    currentPage = pagination.current_page || 1;
+
+                    document.getElementById('statChannels').textContent = totalChannels + '+';
+
+                    let infoParts = [];
+                    if (query) infoParts.push('"' + query + '"');
+                    if (group) infoParts.push('Group: ' + group);
+                    if (infoParts.length > 0) {
+                        searchResultInfo.textContent = 'Found ' + totalChannels + ' result(s) for ' + infoParts.join(' ');
+                        searchResultInfo.classList.add('visible');
+                    }
+
+                    channelCount.textContent = totalChannels + ' channels';
+
+                    if (channels.length === 0) {
+                        noResults.style.display = 'block';
+                        paginationWrapper.innerHTML = '';
+                        return;
+                    }
+
+                    renderChannelsWithGroups(channels, query);
+                    renderPagination();
+
+                    setTimeout(() => {
+                        document.querySelectorAll('.channel-card.anim-item-scale').forEach(el => {
+                            el.classList.add('visible');
+                        });
+                    }, 100);
+                })
+                .catch(error => {
+                    loadingOverlay.classList.remove('active');
+                    errorText.textContent = error.message || 'Network error. Please try again.';
+                    errorMessage.classList.add('active');
+                    console.error('Error loading channels:', error);
+                });
+            };
+
+            function renderChannelsWithGroups(channels, query) {
+                channelsGrid.innerHTML = '';
+
+                const grouped = {};
+                channels.forEach(channel => {
+                    const group = channel['group-title'] || 'Uncategorized';
+                    if (!grouped[group]) {
+                        grouped[group] = [];
+                    }
+                    grouped[group].push(channel);
+                });
+
+                const sortedGroups = Object.keys(grouped).sort();
+
+                let index = 0;
+                sortedGroups.forEach(groupName => {
+                    const groupChannels = grouped[groupName];
+                    
+                    const divider = document.createElement('div');
+                    divider.className = 'group-divider anim-item';
+                    divider.innerHTML = `
+                        <h3><i class="fas fa-folder-open text-red-400 mr-2"></i>${groupName}</h3>
+                        <span class="group-count">${groupChannels.length} channels</span>
+                        <span class="group-line"></span>
+                    `;
+                    channelsGrid.appendChild(divider);
+
+                    groupChannels.forEach(channel => {
+                        const logoUrl = channel.logo || 'https://royale.de5.net/static/uploads/og-image.png';
+                        const displayName = query ? highlightText(channel.name || 'Viu', query) : (channel.name || 'Viu');
+
+                        const card = document.createElement('a');
+                        card.href = '#';
+                        card.className = 'channel-card anim-item-scale stagger-' + ((index % 8) + 1);
+                        card.setAttribute('data-channel-id', channel.id);
+                        card.setAttribute('data-channel-name', channel.name || 'Viu');
+
+                        card.innerHTML = `
+                            <div class="card-bg" style="background-image: url('${logoUrl}');"></div>
+                            <div class="card-glow"></div>
+                            <div class="card-overlay">
+                                <div class="card-top">
+                                    <span class="channel-number">#${String(index + 1).padStart(3, '0')}</span>
+                                    <span class="channel-badge"><i class="fas fa-play"></i> Live</span>
+                                </div>
+                                <div class="channel-info">
+                                    <div class="channel-name">${displayName}</div>
+                                    <div class="channel-group">${channel['group-title'] || 'Viu'}</div>
+                                    <span class="play-btn"><i class="fas fa-play"></i> Watch Now</span>
+                                </div>
+                            </div>
+                        `;
+
+                        card.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            const channelId = this.dataset.channelId;
+                            const channelName = this.dataset.channelName;
+
+                            showToast('Loading ' + channelName + '...', 'info');
+
+                            fetch('/api/viulive/channel/' + channelId + '/url/', {
+                                method: 'GET',
+                                headers: { 'Content-Type': 'application/json' }
+                            })
+                            .then(response => response.json())
+                            .then(data => {
+                                if (!data.success) {
+                                    showToast(data.message || 'Failed to load channel', 'error');
+                                    return;
+                                }
+                                const channelData = data.data?.channel;
+                                if (!channelData || !channelData.url) {
+                                    showToast('Channel URL not available', 'error');
+                                    return;
+                                }
+                                window.location.href = '/viulive/watching/' + channelId + '/';
+                            })
+                            .catch(error => {
+                                showToast('Error loading channel', 'error');
+                                console.error('Error fetching channel URL:', error);
+                            });
+                        });
+
+                        channelsGrid.appendChild(card);
+                        index++;
+                    });
+                });
+
+                setTimeout(() => {
+                    document.querySelectorAll('.group-divider.anim-item').forEach(el => {
+                        el.classList.add('visible');
+                    });
+                }, 50);
+            }
+
+            function renderPagination() {
+                if (totalPages <= 1) {
+                    paginationWrapper.innerHTML = '';
+                    return;
+                }
+
+                let html = '';
+
+                html += `<button class="page-btn" onclick="goToPage(${currentPage - 1})" ${currentPage <= 1 ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-left"></i>
+                </button>`;
+
+                let startPage = Math.max(1, currentPage - 2);
+                let endPage = Math.min(totalPages, currentPage + 2);
+
+                if (startPage > 1) {
+                    html += `<button class="page-btn" onclick="goToPage(1)">1</button>`;
+                    if (startPage > 2) {
+                        html += `<span class="page-info">...</span>`;
+                    }
+                }
+
+                for (let i = startPage; i <= endPage; i++) {
+                    html += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="goToPage(${i})">${i}</button>`;
+                }
+
+                if (endPage < totalPages) {
+                    if (endPage < totalPages - 1) {
+                        html += `<span class="page-info">...</span>`;
+                    }
+                    html += `<button class="page-btn" onclick="goToPage(${totalPages})">${totalPages}</button>`;
+                }
+
+                html += `<button class="page-btn" onclick="goToPage(${currentPage + 1})" ${currentPage >= totalPages ? 'disabled' : ''}>
+                    <i class="fas fa-chevron-right"></i>
+                </button>`;
+
+                html += `<span class="page-info">${currentPage} / ${totalPages}</span>`;
+
+                let filterParts = [];
+                if (currentSearch) filterParts.push('🔍 "' + currentSearch + '"');
+                if (currentGroup) filterParts.push('📁 ' + currentGroup);
+                if (filterParts.length > 0) {
+                    html += `<span class="filter-info">${filterParts.join(' • ')}</span>`;
+                }
+
+                paginationWrapper.innerHTML = html;
+            }
+
+            window.goToPage = function(page) {
+                if (page < 1 || page > totalPages || page === currentPage) return;
+                loadChannels(page);
+                document.querySelector('.controls-bar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            };
+
+            function performSearch() {
+                const query = searchInput.value.trim();
+                if (query) {
+                    searchClear.classList.add('visible');
+                } else {
+                    searchClear.classList.remove('visible');
+                }
+                clearTimeout(searchTimeout);
+                searchTimeout = setTimeout(() => {
+                    loadChannels(1);
+                }, 400);
+            }
+
+            function clearSearch() {
+                searchInput.value = '';
+                searchClear.classList.remove('visible');
+                searchResultInfo.classList.remove('visible');
+                searchResultInfo.textContent = '';
+                loadChannels(1);
+                searchInput.focus();
+            }
+
+            searchInput.addEventListener('input', performSearch);
+
+            searchInput.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    clearTimeout(searchTimeout);
+                    loadChannels(1);
+                }
+                if (e.key === 'Escape') {
+                    clearSearch();
+                    searchInput.blur();
+                }
+            });
+
+            searchBtn.addEventListener('click', () => {
+                clearTimeout(searchTimeout);
+                loadChannels(1);
+            });
+
+            searchClear.addEventListener('click', clearSearch);
+
+            groupFilter.addEventListener('change', () => {
+                loadChannels(1);
+            });
+
+            document.addEventListener('keydown', (e) => {
+                if (e.ctrlKey && e.key === 'f') {
+                    e.preventDefault();
+                    searchInput.focus();
+                    searchInput.select();
+                }
+            });
+
+            const cursorGlow = document.getElementById('cursor-glow');
+            document.addEventListener('mousemove', (e) => {
+                cursorGlow.style.left = e.clientX + 'px';
+                cursorGlow.style.top = e.clientY + 'px';
+            });
+            document.addEventListener('mouseenter', () => { cursorGlow.style.opacity = '1'; });
+            document.addEventListener('mouseleave', () => { cursorGlow.style.opacity = '0'; });
+
+            const animElements = document.querySelectorAll('.anim-item, .anim-item-left, .anim-item-right, .anim-item-scale');
+            const animObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    } else {
+                        entry.target.classList.remove('visible');
+                        void entry.target.offsetWidth;
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+            animElements.forEach(el => animObserver.observe(el));
+
+            setTimeout(() => {
+                animElements.forEach(el => {
+                    const rect = el.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.85) {
+                        el.classList.add('visible');
+                    }
+                });
+            }, 200);
+
+            const header = document.querySelector('header');
+            window.addEventListener('scroll', () => {
+                header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
+            });
+
+            document.querySelectorAll('a, button, .menu-container, .channel-card, .from-waste-card, .search-wrapper, .group-filter-wrapper, .context-card')
+                .forEach(el => {
+                    el.addEventListener('mouseenter', () => cursorGlow.classList.add('active'));
+                    el.addEventListener('mouseleave', () => cursorGlow.classList.remove('active'));
+                });
+
+            loadGroups();
+            loadChannels(1);
+
+        })();
+    </script>
+
+</body>
+
+</html>

@@ -101,3 +101,20 @@ urlpatterns += [
 
 ]
 # ============================================
+
+# ================ Viu Live ==================
+from app_viulive.views import (
+    viulive_home, get_channels, get_channel_url, watching, 
+    search_channel, get_channel_groups
+)
+# --------------------------------------------
+# In urls.py
+urlpatterns += [
+    path("viulive/", viulive_home, name="viulive_home"),
+    path("api/viulive/channels/", get_channels, name="get_channels"),
+    path("api/viulive/channels/groups/", get_channel_groups, name="get_channel_groups"),
+    path("api/viulive/channels/search/", search_channel, name="search_channels"),
+    path("api/viulive/channel/<str:channel_id>/url/", get_channel_url, name="get_channel_url"),
+    path("viulive/watching/<str:channel_id>/", watching, name="watch_channel"),
+]
+# ============================================

@@ -25,7 +25,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app_royale.apps.AppRoyaleConfig'
+    # New apps
+    'app_royale.apps.AppRoyaleConfig',
+    'app_viulive.apps.AppViuliveConfig',
 ]
 
 MIDDLEWARE = [

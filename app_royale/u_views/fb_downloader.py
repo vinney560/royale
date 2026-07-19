@@ -14,18 +14,6 @@ from bs4 import BeautifulSoup
 from fake_useragent import UserAgent
 
 # ============================================================
-# FACEBOOK-SCRAPER IMPORTS
-# ============================================================
-
-try:
-    from facebook_scraper import get_post, set_cookies, set_user_agent, get_page_info
-    FACEBOOK_SCRAPER_AVAILABLE = True
-    print("[FacebookDownloader] facebook-scraper loaded successfully")
-except ImportError as e:
-    print(f"[FacebookDownloader] facebook-scraper not available: {e}")
-    FACEBOOK_SCRAPER_AVAILABLE = False
-
-# ============================================================
 # FAKE USER-AGENT
 # ============================================================
 
@@ -64,24 +52,6 @@ class FacebookVideoDownloader:
         self.cache_timeout = 300
         self.lock = threading.Lock()
         
-        # Configure facebook-scraper
-        if FACEBOOK_SCRAPER_AVAILABLE:
-            try:
-                # Set custom user-agent for facebook-scraper
-                set_user_agent(ua.random)
-                
-                # Set cookies
-                set_cookies({
-                    'locale': 'en_US',
-                    'sb': 'random_string',
-                    'datr': 'random_string',
-                    'c_user': '1000',
-                    'xs': 'random_string',
-                })
-                print("[FacebookDownloader] facebook-scraper configured")
-            except Exception as e:
-                print(f"[FacebookDownloader] Error configuring facebook-scraper: {e}")
-    
     def is_valid_facebook_url(self, url):
         try:
             parsed = urlparse(url)
@@ -141,44 +111,8 @@ class FacebookVideoDownloader:
         
         try:
             print(f"Processing URL: {url}")
-            
             # ============================================================
-            # TRY FACEBOOK-SCRAPER FIRST
-            # ============================================================
-            
-            if FACEBOOK_SCRAPER_AVAILABLE:
-                try:
-                    # Try with get_page_info first
-                    try:
-                        page_info = get_page_info(url)
-                        if page_info:
-                            print(f"[facebook-scraper] get_page_info succeeded")
-                            metadata = self._parse_page_info(page_info, url)
-                            with self.lock:
-                                self.cache[cache_key] = (metadata, current_time)
-                            return metadata
-                    except Exception as e:
-                        print(f"[facebook-scraper] get_page_info failed: {e}")
-                    
-                    # Extract video ID and try get_post
-                    video_id = self.extract_video_id(url)
-                    if video_id:
-                        try:
-                            post = get_post(video_id, options={"comments": False})
-                            if post and post.get('video'):
-                                print(f"[facebook-scraper] get_post succeeded for ID: {video_id}")
-                                metadata = self._parse_post_data(post, url)
-                                with self.lock:
-                                    self.cache[cache_key] = (metadata, current_time)
-                                return metadata
-                        except Exception as e:
-                            print(f"[facebook-scraper] get_post failed: {e}")
-                            
-                except Exception as e:
-                    print(f"[facebook-scraper] Error: {e}")
-            
-            # ============================================================
-            # FALLBACK: MANUAL EXTRACTION
+            # MANUAL EXTRACTION
             # ============================================================
             
             print("Trying manual extraction...")
@@ -659,15 +593,7 @@ class FacebookVideoDownloader:
         
         return f"fb_{title_clean}_{timestamp}.mp4"
 
-# ============================================================
-# INITIALIZE DOWNLOADER
-# ============================================================
-
 downloader = FacebookVideoDownloader()
-
-# ============================================================
-# VIEWS
-# ============================================================
 
 @csrf_exempt
 def facebook_v_downloader(request):
