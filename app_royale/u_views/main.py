@@ -121,29 +121,46 @@ class PageSitemap:
     """Define page priority and changefreq for each URL"""
     
     PAGES = {
+        # Main pages
         '/': {'priority': '1.0', 'changefreq': 'weekly'},
         '/about/': {'priority': '0.8', 'changefreq': 'monthly'},
-        '/terms': {'priority': '0.8', 'changefreq': 'yearly'},
-        '/privacy': {'priority': '0.8', 'changefreq': 'yearly'},
         '/contact/': {'priority': '0.8', 'changefreq': 'monthly'},
+        '/profile/': {'priority': '0.5', 'changefreq': 'monthly'},
+
+        # Legal pages
+        '/terms/': {'priority': '0.8', 'changefreq': 'yearly'},
+        '/privacy/': {'priority': '0.8', 'changefreq': 'yearly'},
+
+        # Products
         '/products/': {'priority': '0.9', 'changefreq': 'weekly'},
-        '/market/place/': {'priority': '0.8', 'changefreq': 'weekly'},
-        '/market/softwares/hotspot/': {'priority': '0.7', 'changefreq': 'weekly'},
-        '/products/web-scraper/': {'priority': '0.7', 'changefreq': 'weekly'},
-        '/downloader/fb/': {'priority': '0.8', 'changefreq': 'weekly'},
         '/products/qr/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/products/qr/scr/': {'priority': '0.5', 'changefreq': 'monthly'},
         '/products/qr/api-keys/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/products/pretty-printer/scr/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/products/web-scraper/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/products/song-search/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/products/tv/': {'priority': '0.7', 'changefreq': 'weekly'},
+
+        # Market
+        '/market/place/': {'priority': '0.8', 'changefreq': 'weekly'},
+        '/market/softwares/hotspot/': {'priority': '0.7', 'changefreq': 'weekly'},
+
+        # Downloaders
+        '/downloader/fb/': {'priority': '0.8', 'changefreq': 'weekly'},
+        '/downloader/instagram/': {'priority': '0.8', 'changefreq': 'weekly'},
+
+        # Learning
         '/learn/': {'priority': '0.7', 'changefreq': 'weekly'},
-        '/profile/': {'priority': '0.5', 'changefreq': 'monthly'},
         '/learn/c/': {'priority': '0.6', 'changefreq': 'monthly'},
         '/learn/html/': {'priority': '0.6', 'changefreq': 'monthly'},
-        '/learn/flowchart/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/learn/flowchart/': {'priority': '0.6', 'changefreq': 'monthly'},
+
+        # Viu Live
         '/viulive/': {'priority': '1.0', 'changefreq': 'weekly'},
-        '/products/song-search/': {'priority': '0.7', 'changefreq': 'weekly'},
-        '/products/pretty-printer/scr/': {'priority': '0.5', 'changefreq': 'monthly'},  # Fixed typo
-        '/products/tv/': {'priority': '0.7', 'changefreq': 'weekly'},
-        '/downloader/instagram/': {'priority': '0.8', 'changefreq': 'weekly'},
+
+        # Special files
+        '/robots.txt': {'priority': '0.1', 'changefreq': 'yearly'},
+        '/sitemap.xml': {'priority': '0.1', 'changefreq': 'yearly'},
     }    
 
     @classmethod
