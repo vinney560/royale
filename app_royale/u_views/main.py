@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from datetime import datetime
 from app_royale.year_gen import year_gen
@@ -74,7 +74,7 @@ def pretty_printer_src(request):
 def song_search(request):
     return render(request, "song_search.html", {"year": year_gen()})
 # ============================================================
-# Privacy Policy & Terms of Usage
+# Privacy Policy & Terms of Usage & Favicon
 # ============================================================
 def terms(request):
     context = {
@@ -88,6 +88,9 @@ def privacy(request):
         "year": year_gen()
     }
     return render(request, "privacy.html", context)
+
+def favivon(request):
+    return redirect(request, "/static/favicon.png", content_type="image/x-icon")
 # ============================================================
 # ROBOTS.TXT
 # ============================================================
@@ -107,8 +110,7 @@ def robots_txt(request):
         "Allow: /static/js/",
         "Allow: /static/uploads/",
         "",
-        "Sitemap: https://royale.de5.net/sitemap.xml",
-        "Crawl-delay: 1",
+        "Sitemap: https://royale.de5.net/sitemap.xml"
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 

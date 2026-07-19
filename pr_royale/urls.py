@@ -38,6 +38,7 @@ urlpatterns += [
 # --------------------------------------------
 urlpatterns += [
     path('', main.main_page, name="main_page"),
+    path('/favicon.ico', main.favivon, name="favicon_ico"),
     path('profile/', main.profile_page, name="profile_page"),
     path('about/', main.about_us, name="about_us"),
     path('contact/', contact.contact_us, name="contact"),
