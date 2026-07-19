@@ -128,8 +128,8 @@ class PageSitemap:
         '/profile/': {'priority': '0.5', 'changefreq': 'monthly'},
 
         # Legal pages
-        '/terms': {'priority': '0.8', 'changefreq': 'yearly'},
-        '/privacy': {'priority': '0.8', 'changefreq': 'yearly'},
+        '/terms/': {'priority': '0.8', 'changefreq': 'yearly'},
+        '/privacy/': {'priority': '0.8', 'changefreq': 'yearly'},
 
         # Products
         '/products/': {'priority': '0.9', 'changefreq': 'weekly'},
