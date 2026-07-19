@@ -132,13 +132,19 @@ class PageSitemap:
         '/products/web-scraper/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/downloader/fb/': {'priority': '0.8', 'changefreq': 'weekly'},
         '/products/qr/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/products/qr/scr/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/products/qr/api-keys/': {'priority': '0.5', 'changefreq': 'monthly'},
         '/learn/': {'priority': '0.7', 'changefreq': 'weekly'},
         '/profile/': {'priority': '0.5', 'changefreq': 'monthly'},
         '/learn/c/': {'priority': '0.6', 'changefreq': 'monthly'},
         '/learn/html/': {'priority': '0.6', 'changefreq': 'monthly'},
-        '/learn/assembly/': {'priority': '0.5', 'changefreq': 'monthly'},
-        '/products/qr/api-keys/': {'priority': '0.5', 'changefreq': 'monthly'},
-    }
+        '/learn/flowchart/': {'priority': '0.5', 'changefreq': 'monthly'},
+        '/viulive/': {'priority': '1.0', 'changefreq': 'weekly'},
+        '/products/song-search/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/products/pretty-printer/scr/': {'priority': '0.5', 'changefreq': 'monthly'},  # Fixed typo
+        '/products/tv/': {'priority': '0.7', 'changefreq': 'weekly'},
+        '/downloader/instagram/': {'priority': '0.8', 'changefreq': 'weekly'},
+    }    
 
     @classmethod
     def get_all_urls(cls):
