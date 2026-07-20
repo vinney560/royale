@@ -1085,6 +1085,96 @@
                 justify-content: center;
             }
         }
+
+        #rotation-hint {
+            display: none;
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        #rotation-hint .rotate-icon {
+            animation: rotatePhone 2s ease-in-out infinite;
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            color: #ef4444;
+        }
+
+        #rotation-hint h2 {
+            font-size: 1.5rem;
+            color: #eef2f5;
+            margin-bottom: 0.5rem;
+        }
+
+        #rotation-hint p {
+            color: #9bb0bb;
+            max-width: 320px;
+            line-height: 1.6;
+        }
+
+        #rotation-hint .dismiss-btn {
+            margin-top: 1.5rem;
+            padding: 0.6rem 2rem;
+            border-radius: 2rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        #rotation-hint .dismiss-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        @keyframes rotatePhone {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(90deg); }
+        }
+
+        @media (max-width: 768px) {
+            #player-container {
+                width: 100vw;
+                height: 100vh;
+                height: calc(var(--vh, 1vh) * 100);
+                max-height: 100vh;
+                overflow: hidden;
+                position: relative;
+            }
+        
+            #player-container video,
+            #player-container iframe {
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: contain;
+            }
+        
+            #player-container:-webkit-full-screen {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        
+            #player-container:-moz-full-screen {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        
+            #player-container:fullscreen {
+                width: 100% !important;
+                height: 100% !important;
+            }
+        }        
     </style>
 </head>
 
@@ -1109,7 +1199,9 @@
 
         <div id="channel-info-overlay">
             <span class="live-dot"></span>
-            <span class="channel-name" id="channelName">{{ channel_name|slice:":10" }}{% if channel_name|length > 10%}...{% endif %}</span>
+            <span class="channel-name" id="channelName">
+                {{ channel_name|slice:":10" }}{% if channel_name|length > 10%}...{% endif %}
+            </span>
             <span class="channel-group" id="channelGroup">{{ channel_group }}</span>
         </div>
 
@@ -1182,6 +1274,14 @@
         <div id="toast"><i class="fas fa-check-circle"></i><span id="toastMessage">Ready</span></div>
     </div>
 
+    <div id="rotation-hint" style="display:none;">
+        <div class="rotate-icon"><i class="fas fa-rotate"></i></div>
+        <h2>Please Rotate Your Phone</h2>
+        <p>For the best viewing experience, please rotate your device to landscape mode.</p>
+        <button class="dismiss-btn" onclick="document.getElementById('rotation-hint').style.display='none'">
+            Dismiss
+        </button>
+    </div>
     <script>
         // ============================================================
         // POPUP COMPONENT
@@ -2122,14 +2222,14 @@
                     e.target.closest('#mobileMenuBtn');
                 if (Popup.isOpen() && !isClickOnPopup && !isClickOnChannelBtn) { Popup.close(); }
             });
-            
+
             document.getElementById('channelPopup').addEventListener('mousemove', function () { Popup.resetTimer(); });
-            document.getElementById('channelPopup').addEventListener('touchstart', function () { Popup.resetTimer(); });            
-            
+            document.getElementById('channelPopup').addEventListener('touchstart', function () { Popup.resetTimer(); });
+
             // ============================================================
             // POPUP AUTO-HIDE
             // ============================================================
-            (function() {
+            (function () {
                 var popup = document.getElementById('channelPopup');
                 var timerDisplay = document.getElementById('autoHideTimer');
                 var searchInput = document.getElementById('searchInput');
@@ -2142,14 +2242,14 @@
                 var searchKeepAlive = null;
                 var scrollKeepAlive = null;
                 var scrollStopTimer = null;
-                
+
                 function startSearchKeepAlive() {
                     clearInterval(searchKeepAlive);
                     searchKeepAlive = null;
-                    
+
                     if (timerDisplay) timerDisplay.textContent = '∞';
-                    
-                    searchKeepAlive = setInterval(function() {
+
+                    searchKeepAlive = setInterval(function () {
                         if (Popup.isOpen() && hasSearchText) {
                             Popup.resetTimer();
                             if (timerDisplay) timerDisplay.textContent = '∞';
@@ -2159,7 +2259,7 @@
                         }
                     }, 2000);
                 }
-                
+
                 function stopSearchKeepAlive() {
                     clearInterval(searchKeepAlive);
                     searchKeepAlive = null;
@@ -2167,16 +2267,16 @@
                         Popup.resetTimer();
                     }
                 }
-                
+
                 function startScrollKeepAlive() {
                     isScrolling = true;
                     clearInterval(scrollKeepAlive);
                     scrollKeepAlive = null;
                     clearTimeout(scrollStopTimer);
-                    
+
                     if (timerDisplay) timerDisplay.textContent = '∞';
-                    
-                    scrollKeepAlive = setInterval(function() {
+
+                    scrollKeepAlive = setInterval(function () {
                         if (Popup.isOpen() && isScrolling) {
                             Popup.resetTimer();
                             if (timerDisplay) timerDisplay.textContent = '∞';
@@ -2186,14 +2286,14 @@
                         }
                     }, 2000);
                 }
-                
+
                 function stopScrollKeepAlive() {
                     isScrolling = false;
                     clearInterval(scrollKeepAlive);
                     scrollKeepAlive = null;
-                    
+
                     clearTimeout(scrollStopTimer);
-                    scrollStopTimer = setTimeout(function() {
+                    scrollStopTimer = setTimeout(function () {
                         if (Popup.isOpen() && !isScrolling && !hasSearchText) {
                             Popup.resetTimer();
                             if (timerDisplay) {
@@ -2202,11 +2302,11 @@
                         }
                     }, 10000);
                 }
-                
+
                 function checkSearch() {
                     if (!searchInput) return;
                     hasSearchText = searchInput.value.trim().length > 0;
-                    
+
                     if (searchClear) {
                         if (hasSearchText) {
                             searchClear.classList.add('visible');
@@ -2214,7 +2314,7 @@
                             searchClear.classList.remove('visible');
                         }
                     }
-                    
+
                     if (Popup.isOpen()) {
                         if (hasSearchText) {
                             startSearchKeepAlive();
@@ -2226,58 +2326,58 @@
                         }
                     }
                 }
-                
-                popup.addEventListener('mousemove', function() {
+
+                popup.addEventListener('mousemove', function () {
                     if (!Popup.isOpen() || hasSearchText || isScrolling) return;
                     clearTimeout(moveTimer);
-                    moveTimer = setTimeout(function() {
+                    moveTimer = setTimeout(function () {
                         Popup.resetTimer();
                     }, 100);
                 });
-                
-                popup.addEventListener('touchstart', function() {
+
+                popup.addEventListener('touchstart', function () {
                     if (Popup.isOpen() && !hasSearchText && !isScrolling) {
                         Popup.resetTimer();
                     }
                 }, { passive: true });
-                
-                popup.addEventListener('click', function() {
+
+                popup.addEventListener('click', function () {
                     if (Popup.isOpen() && !hasSearchText && !isScrolling) {
                         Popup.resetTimer();
                     }
                 });
-                
+
                 // --- SCROLL EVENTS ---
                 if (popupBody) {
-                    popupBody.addEventListener('scroll', function() {
+                    popupBody.addEventListener('scroll', function () {
                         if (!Popup.isOpen()) return;
-                        
+
                         startScrollKeepAlive();
-                        
+
                         Popup.resetTimer();
                         if (timerDisplay) timerDisplay.textContent = '∞';
-                        
+
                         clearTimeout(scrollStopTimer);
                     }, { passive: true });
-                    
-                    popupBody.addEventListener('scrollend', function() {
+
+                    popupBody.addEventListener('scrollend', function () {
                         if (Popup.isOpen()) {
                             stopScrollKeepAlive();
                         }
                     }, { passive: true });
-                    
+
                     var lastScrollTop = 0;
                     var scrollCheckInterval = null;
-                    
-                    popupBody.addEventListener('scroll', function() {
+
+                    popupBody.addEventListener('scroll', function () {
                         var scrollTop = popupBody.scrollTop;
                         if (scrollTop !== lastScrollTop) {
                             lastScrollTop = scrollTop;
                             clearTimeout(scrollStopTimer);
                         }
                     }, { passive: true });
-                    
-                    setInterval(function() {
+
+                    setInterval(function () {
                         if (!Popup.isOpen()) return;
                         if (isScrolling) {
                             // Check if scroll position changed in the last 500ms
@@ -2285,10 +2385,10 @@
                         }
                     }, 500);
                 }
-                
+
                 if (searchInput) {
                     searchInput.addEventListener('input', checkSearch);
-                    searchInput.addEventListener('focus', function() {
+                    searchInput.addEventListener('focus', function () {
                         if (Popup.isOpen()) {
                             hasSearchText = searchInput.value.trim().length > 0;
                             if (hasSearchText) {
@@ -2296,16 +2396,16 @@
                             }
                         }
                     });
-                    searchInput.addEventListener('blur', function() {
+                    searchInput.addEventListener('blur', function () {
                         if (Popup.isOpen() && !hasSearchText && !isScrolling) {
                             stopSearchKeepAlive();
                             Popup.resetTimer();
                         }
                     });
                 }
-                
+
                 if (searchClear) {
-                    searchClear.addEventListener('click', function() {
+                    searchClear.addEventListener('click', function () {
                         if (searchInput) {
                             searchInput.value = '';
                             searchInput.dispatchEvent(new Event('input'));
@@ -2313,9 +2413,9 @@
                         }
                     });
                 }
-                
+
                 var origClose = Popup.close;
-                Popup.close = function() {
+                Popup.close = function () {
                     clearInterval(searchKeepAlive);
                     searchKeepAlive = null;
                     clearInterval(scrollKeepAlive);
@@ -2326,7 +2426,7 @@
                     origClose.call(Popup);
                 };
             })();
-            
+
             document.addEventListener('fullscreenchange', function () {
                 fullscreenIcon.className = !!document.fullscreenElement ? 'fas fa-compress' : 'fas fa-expand';
             });
@@ -2384,12 +2484,12 @@
         })();
     </script>
     <script>
-        (function() {
+        (function () {
             let hasLogs = false;
 
             ['log', 'warn', 'error', 'info'].forEach(method => {
                 const original = console[method];
-                console[method] = function(...args) {
+                console[method] = function (...args) {
                     hasLogs = true;
                     original.apply(console, args);
                 };
@@ -2403,7 +2503,241 @@
                 } else {
                     console.log("👋 Hi! Just checking up on you 😉!");
                 }
-            }, 10_000);
+            }, 5000);
+        })();        
+    </script>
+    <script>
+        // ============================================================
+        // VIEWPORT HEIGHT FIX FOR MOBILE
+        // ============================================================
+        (function() {
+            function setVH() {
+                var vh = window.innerHeight * 0.01;
+                document.documentElement.style.setProperty('--vh', vh + 'px');
+            }
+            setVH();
+            window.addEventListener('resize', setVH);
+            window.addEventListener('orientationchange', function() {
+                setTimeout(setVH, 300);
+            });
+        })();
+    </script>
+    
+    <script>
+        (function() {
+            'use strict';
+            var isMobile = window.innerWidth < 768 || /Android|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+            var fullscreenAttempts = 0;
+            var maxAttempts = 3;
+        
+            function getContainer() {
+                return document.getElementById('player-container');
+            }
+        
+            function isPortrait() {
+                return window.innerHeight > window.innerWidth;
+            }
+        
+            function enterFullscreen() {
+                var container = getContainer();
+                if (!container) return false;
+            
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    var requestFS = container.requestFullscreen || 
+                        container.webkitRequestFullscreen || 
+                        container.mozRequestFullScreen || 
+                        container.msRequestFullscreen;
+                    
+                    if (requestFS) {
+                        requestFS.call(container).then(function() {
+                            console.log('✅ Fullscreen entered');
+                            fullscreenAttempts = 0;
+                        }).catch(function(err) {
+                            console.log('Fullscreen error:', err);
+                            return false;
+                        });
+                        return true;
+                    }
+                }
+                return false;
+            }
+        
+            function forceFullscreenWithRetry() {
+                if (!isMobile) return;
+                if (fullscreenAttempts >= maxAttempts) return;
+            
+                if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+                    if (enterFullscreen()) {
+                        fullscreenAttempts++;
+                        setTimeout(forceFullscreenWithRetry, 1000);
+                    }
+                } else {
+                    fullscreenAttempts = 0;
+                }
+            }
+        
+            function exitFullscreen() {
+                if (document.fullscreenElement) {
+                    document.exitFullscreen().catch(function() {});
+                } else if (document.webkitFullscreenElement) {
+                    document.webkitExitFullscreen().catch(function() {});
+                }
+            }
+        
+            function lockLandscape() {
+                if (!isMobile) return;
+                if (screen.orientation && screen.orientation.lock) {
+                    screen.orientation.lock('landscape').then(function() {
+                        console.log('✅ Landscape locked');
+                    }).catch(function(err) {
+                        console.log('Orientation lock error:', err);
+                    });
+                    return;
+                }
+                if (isIOS) {
+                    forceFullscreenWithRetry();
+                    showRotationHint();
+                }
+            }
+        
+            function unlockOrientation() {
+                if (!isMobile) return;
+                if (screen.orientation && screen.orientation.unlock) {
+                    screen.orientation.unlock();
+                } else if (screen.unlockOrientation) {
+                    screen.unlockOrientation();
+                }
+            }
+        
+            function showRotationHint() {
+                var hint = document.getElementById('rotation-hint');
+                if (hint) {
+                    hint.style.display = 'flex';
+                    return;
+                }
+                hint = document.createElement('div');
+                hint.id = 'rotation-hint';
+                hint.innerHTML = `<div style="position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.95);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;font-family:system-ui,sans-serif;padding:2rem;backdrop-filter:blur(20px);"><div style="animation:rotatePhone 2s ease-in-out infinite;font-size:4rem;margin-bottom:1.5rem;display:inline-block;color:#ef4444;"><i class="fas fa-rotate"></i></div><h2 style="font-size:1.5rem;margin-bottom:0.5rem;">Please Rotate Your Phone</h2><p style="color:#9bb0bb;text-align:center;max-width:320px;line-height:1.6;">For the best viewing experience, please rotate your device to landscape mode.</p><button id="dismissRotationBtn" style="margin-top:1.5rem;padding:0.6rem 2rem;border-radius:2rem;border:1px solid rgba(255,255,255,0.1);background:rgba(255,255,255,0.05);color:#fff;font-size:0.9rem;cursor:pointer;font-family:inherit;transition:all 0.3s ease;">Dismiss</button></div><style>@keyframes rotatePhone{0%,100%{transform:rotate(0deg)}50%{transform:rotate(90deg)}}</style>`;
+                document.body.appendChild(hint);
+                var dismissBtn = document.getElementById('dismissRotationBtn');
+                if (dismissBtn) {
+                    dismissBtn.addEventListener('click', function() {
+                        var h = document.getElementById('rotation-hint');
+                        if (h) h.style.display = 'none';
+                    });
+                }
+                hint.style.display = 'flex';
+            }
+        
+            function hideRotationHint() {
+                var hint = document.getElementById('rotation-hint');
+                if (hint) hint.style.display = 'none';
+            }
+        
+            function handleOrientation() {
+                if (!isMobile) return;
+                if (isPortrait()) {
+                    lockLandscape();
+                    showRotationHint();
+                } else {
+                    hideRotationHint();
+                    setTimeout(forceFullscreenWithRetry, 300);
+                }
+            }
+        
+            function setupAutoTrigger() {
+                if (!isMobile) return;
+                var triggered = false;
+            
+                function trigger() {
+                    if (triggered) return;
+                    triggered = true;
+                    console.log('🎯 User interaction - triggering fullscreen');
+                
+                    lockLandscape();
+                    forceFullscreenWithRetry();
+                
+                    if (isPortrait()) {
+                        showRotationHint();
+                        setTimeout(function() {
+                            if (!isPortrait()) {
+                                forceFullscreenWithRetry();
+                                hideRotationHint();
+                            }
+                        }, 1000);
+                    }
+                }
+            
+                document.addEventListener('click', trigger);
+                document.addEventListener('touchstart', trigger, { passive: true });
+                document.addEventListener('keydown', trigger);
+            }
+        
+            function init() {
+                if (!isMobile) return;
+                console.log('📱 Mobile mode active');
+            
+                lockLandscape();
+            
+                // Wait for user interaction
+                setupAutoTrigger();
+            
+                window.addEventListener('orientationchange', function() {
+                    setTimeout(handleOrientation, 400);
+                });
+            
+                window.addEventListener('resize', function() {
+                    if (isMobile) {
+                        handleOrientation();
+                    }
+                });
+            
+                document.addEventListener('visibilitychange', function() {
+                    if (!document.hidden && isMobile) {
+                        setTimeout(function() {
+                            lockLandscape();
+                            forceFullscreenWithRetry();
+                        }, 500);
+                    }
+                });
+            
+                document.addEventListener('fullscreenchange', function() {
+                    if (!document.fullscreenElement && !document.webkitFullscreenElement && isMobile) {
+                        console.log('🔄 Fullscreen exited, re-triggering');
+                        setTimeout(forceFullscreenWithRetry, 500);
+                    }
+                });
+            
+                document.addEventListener('webkitfullscreenchange', function() {
+                    if (!document.webkitFullscreenElement && isMobile) {
+                        setTimeout(forceFullscreenWithRetry, 500);
+                    }
+                });
+            
+                setTimeout(handleOrientation, 800);
+            
+                setInterval(function() {
+                    if (isMobile && isPortrait()) {
+                        lockLandscape();
+                        showRotationHint();
+                    } else {
+                        hideRotationHint();
+                    }
+                }, 3000);
+            }
+        
+            window.enterFullscreen = enterFullscreen;
+            window.exitFullscreen = exitFullscreen;
+            window.lockLandscape = lockLandscape;
+            window.unlockOrientation = unlockOrientation;
+            window.forceFullscreenWithRetry = forceFullscreenWithRetry;
+        
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', init);
+            } else {
+                init();
+            }
         })();
     </script>    
 </body>
