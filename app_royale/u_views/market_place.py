@@ -2,6 +2,8 @@ from django.shortcuts import render
 from app_royale.year_gen import year_gen
 from django_ratelimit.decorators import ratelimit
 from sys_views.rate_limit_key import getKey
+import random
+from datetime import datetime
 
 
 @ratelimit(key=getKey, rate='20/m', block=True)
@@ -29,6 +31,7 @@ def market_place(request):
                 'features': ['10 Users', 'Stable', 'Small Office', 'Hotspot'],
                 'premium': False,
                 'info_url': '/market/softwares/hotspot/',
+                'buy_url': '/market/purchased/'
             },
             {
                 'name': 'Wi-Fi Hotspot Premium',
@@ -41,6 +44,7 @@ def market_place(request):
                 'features': ['255 Users', 'Zero Lag', 'Enterprise', 'Priority Support'],
                 'premium': True,
                 'info_url': '/market/softwares/hotspot/',
+                'buy_url': '/market/purchased/'
             },
         ]
     }
@@ -49,3 +53,11 @@ def market_place(request):
 @ratelimit(key=getKey, rate='20/m', block=True)
 def softwares_toSale_hotspot(request):
     return render(request, 'softwares_hotspot.html', {'year': year_gen()})
+
+def after_purchase(request):
+    context = {
+        'year': year_gen(),
+        'order_id': random.randint(0000, 9999),
+        'timestamp': datetime.now().strftime("%d-%m-%Y %H:%M:%S")
+    }
+    return render(request, 'after_purchase.html', context)

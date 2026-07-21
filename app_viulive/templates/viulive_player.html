@@ -2530,25 +2530,25 @@
             var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
             var fullscreenAttempts = 0;
             var maxAttempts = 3;
-        
+
             function getContainer() {
                 return document.getElementById('player-container');
             }
-        
+
             function isPortrait() {
                 return window.innerHeight > window.innerWidth;
             }
-        
+
             function enterFullscreen() {
                 var container = getContainer();
                 if (!container) return false;
-            
+
                 if (!document.fullscreenElement && !document.webkitFullscreenElement) {
                     var requestFS = container.requestFullscreen || 
                         container.webkitRequestFullscreen || 
                         container.mozRequestFullScreen || 
                         container.msRequestFullscreen;
-                    
+
                     if (requestFS) {
                         requestFS.call(container).then(function() {
                             console.log('✅ Fullscreen entered');
@@ -2562,11 +2562,11 @@
                 }
                 return false;
             }
-        
+
             function forceFullscreenWithRetry() {
                 if (!isMobile) return;
                 if (fullscreenAttempts >= maxAttempts) return;
-            
+
                 if (!document.fullscreenElement && !document.webkitFullscreenElement) {
                     if (enterFullscreen()) {
                         fullscreenAttempts++;
@@ -2576,7 +2576,7 @@
                     fullscreenAttempts = 0;
                 }
             }
-        
+
             function exitFullscreen() {
                 if (document.fullscreenElement) {
                     document.exitFullscreen().catch(function() {});
@@ -2584,7 +2584,7 @@
                     document.webkitExitFullscreen().catch(function() {});
                 }
             }
-        
+
             function lockLandscape() {
                 if (!isMobile) return;
                 if (screen.orientation && screen.orientation.lock) {
@@ -2600,7 +2600,7 @@
                     showRotationHint();
                 }
             }
-        
+
             function unlockOrientation() {
                 if (!isMobile) return;
                 if (screen.orientation && screen.orientation.unlock) {
@@ -2609,7 +2609,7 @@
                     screen.unlockOrientation();
                 }
             }
-        
+
             function showRotationHint() {
                 var hint = document.getElementById('rotation-hint');
                 if (hint) {
@@ -2629,12 +2629,12 @@
                 }
                 hint.style.display = 'flex';
             }
-        
+
             function hideRotationHint() {
                 var hint = document.getElementById('rotation-hint');
                 if (hint) hint.style.display = 'none';
             }
-        
+
             function handleOrientation() {
                 if (!isMobile) return;
                 if (isPortrait()) {
@@ -2645,19 +2645,18 @@
                     setTimeout(forceFullscreenWithRetry, 300);
                 }
             }
-        
+
             function setupAutoTrigger() {
                 if (!isMobile) return;
                 var triggered = false;
-            
+
                 function trigger() {
                     if (triggered) return;
                     triggered = true;
-                    console.log('🎯 User interaction - triggering fullscreen');
-                
+
                     lockLandscape();
                     forceFullscreenWithRetry();
-                
+
                     if (isPortrait()) {
                         showRotationHint();
                         setTimeout(function() {
@@ -2668,31 +2667,31 @@
                         }, 1000);
                     }
                 }
-            
+
                 document.addEventListener('click', trigger);
                 document.addEventListener('touchstart', trigger, { passive: true });
                 document.addEventListener('keydown', trigger);
             }
-        
+
             function init() {
                 if (!isMobile) return;
-                console.log('📱 Mobile mode active');
-            
+                console.log('Mobile mode active');
+
                 lockLandscape();
-            
+
                 // Wait for user interaction
                 setupAutoTrigger();
-            
+
                 window.addEventListener('orientationchange', function() {
                     setTimeout(handleOrientation, 400);
                 });
-            
+
                 window.addEventListener('resize', function() {
                     if (isMobile) {
                         handleOrientation();
                     }
                 });
-            
+
                 document.addEventListener('visibilitychange', function() {
                     if (!document.hidden && isMobile) {
                         setTimeout(function() {
@@ -2701,22 +2700,22 @@
                         }, 500);
                     }
                 });
-            
+
                 document.addEventListener('fullscreenchange', function() {
                     if (!document.fullscreenElement && !document.webkitFullscreenElement && isMobile) {
-                        console.log('🔄 Fullscreen exited, re-triggering');
+                        console.log('Fullscreen exited, re-triggering');
                         setTimeout(forceFullscreenWithRetry, 500);
                     }
                 });
-            
+
                 document.addEventListener('webkitfullscreenchange', function() {
                     if (!document.webkitFullscreenElement && isMobile) {
                         setTimeout(forceFullscreenWithRetry, 500);
                     }
                 });
-            
+
                 setTimeout(handleOrientation, 800);
-            
+
                 setInterval(function() {
                     if (isMobile && isPortrait()) {
                         lockLandscape();
@@ -2726,13 +2725,13 @@
                     }
                 }, 3000);
             }
-        
+
             window.enterFullscreen = enterFullscreen;
             window.exitFullscreen = exitFullscreen;
             window.lockLandscape = lockLandscape;
             window.unlockOrientation = unlockOrientation;
             window.forceFullscreenWithRetry = forceFullscreenWithRetry;
-        
+
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', init);
             } else {

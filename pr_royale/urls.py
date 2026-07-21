@@ -72,6 +72,7 @@ urlpatterns += [
 
     # Wi-Fi Hotspot
     path('market/softwares/hotspot/', market_place.softwares_toSale_hotspot, name="softwares_forSale"),
+    path('market/purchased/', market_place.after_purchase, name="after_purchase"),
 
 ]
 # --------------------------------------------

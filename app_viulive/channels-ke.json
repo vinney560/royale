@@ -488,11 +488,207 @@
         "group-title": "Sports",
         "country": "Australia"
     },
+    "cbs-sports-hq": {
+        "name": "CBS Sports HQ",
+        "url": "https://stitcher-ipv4.pluto.tv/v2/stitch/embed/hls/channel/5e9f2c05172a0f0007db4786/master.m3u8?deviceType=samsung-tvplus&deviceMake=samsung&deviceModel=samsung&deviceVersion=unknown&appVersion=unknown&deviceLat=0&deviceLon=0&deviceDNT=%7BTARGETOPT%7D&deviceId=%7BPSID%7D&advertisingId=%7BPSID%7D&us_privacy=%7BUS_PRIVACY%7D&samsung_app_domain=%7BAPP_DOMAIN%7D&samsung_app_name=%7BAPP_NAME%7D&profileLimit=&profileFloor=&embedPartner=samsung-tvplus&masterJWTPassthrough=1&authToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImI2YzVkMmFlLTIzODgtNDg3Ny1hMTM1LTFiN2RhZDJkYjMxYSIsInR5cCI6IkpXVCJ9.eyJwYXJ0bmVyIjoic2Ftc3VuZ3R2cGx1cyIsImZlYXR1cmVzIjp7Im11bHRpUG9kQWRzIjp7ImNvaG9ydCI6IiIsImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckhsc05nIjp7ImRlbXV4ZWRBdWRpbyI6ImRpc2FibGVkIn0sInN0aXRjaGVySGxzTmdWbGwiOnsiZW5hYmxlZCI6dHJ1ZX0sInN0aXRjaGVyUGFydG5lclNob3dTbGF0ZSI6eyJlbmFibGVkIjp0cnVlfX0sImlzcyI6InNlcnZpY2UtcGFydG5lci1hdXRoLnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6YzJGdGMzVnVaM1IyY0d4MWN3PT0iLCJhdWQiOiIqLnBsdXRvLnR2IiwiZXhwIjoxNzg0Njc2NDQ5LCJpYXQiOjE3ODQ1OTAwNDksImp0aSI6IjRkZjEzMTNkLTJkNmQtNDk5Ny05OTgxLWQ5YTYxZjIxMjgzNyJ9.tmtiQmifDmVLwizRznXsYZikA-sScoJ_9By-zGYNhIU",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "pk-sports": {
+        "name": "PK Sports",
+        "url": "https://lbgo.bozztv.com/ssh101/ssh101/pksportshd/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "Pakistan"
+    },
+    "ftf-sports": {
+        "name": "FTF Sports",
+        "url": "https://a-cdn.klowdtv.com/live2/ftf_720p/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "tigo-sports-plus": {
+        "name": "Tigo Sports+",
+        "url": "http://45.170.130.224:8000/play/a04i/index.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "Paraguay"
+    },
+    "fox-sports": {
+        "name": "FOX Sports",
+        "url": "https://stitcher-ipv4.pluto.tv/v2/stitch/embed/hls/channel/5a74b8e1e22a61737979c6bf/master.m3u8?deviceType=samsung-tvplus&deviceMake=samsung&deviceModel=samsung&deviceVersion=unknown&appVersion=unknown&deviceLat=0&deviceLon=0&deviceDNT=%7BTARGETOPT%7D&deviceId=%7BPSID%7D&advertisingId=%7BPSID%7D&us_privacy=%7BUS_PRIVACY%7D&samsung_app_domain=%7BAPP_DOMAIN%7D&samsung_app_name=%7BAPP_NAME%7D&profileLimit=&profileFloor=&embedPartner=samsung-tvplus&masterJWTPassthrough=1&authToken=eyJhbGciOiJIUzI1NiIsImtpZCI6ImI2YzVkMmFlLTIzODgtNDg3Ny1hMTM1LTFiN2RhZDJkYjMxYSIsInR5cCI6IkpXVCJ9.eyJwYXJ0bmVyIjoic2Ftc3VuZ3R2cGx1cyIsImZlYXR1cmVzIjp7Im11bHRpUG9kQWRzIjp7ImNvaG9ydCI6IiIsImVuYWJsZWQiOnRydWV9LCJzdGl0Y2hlckhsc05nIjp7ImRlbXV4ZWRBdWRpbyI6ImRpc2FibGVkIn0sInN0aXRjaGVySGxzTmdWbGwiOnsiZW5hYmxlZCI6dHJ1ZX0sInN0aXRjaGVyUGFydG5lclNob3dTbGF0ZSI6eyJlbmFibGVkIjp0cnVlfX0sImlzcyI6InNlcnZpY2UtcGFydG5lci1hdXRoLnBsdXRvLnR2Iiwic3ViIjoicHJpOnYxOnBsdXRvOmRldmljZXM6YzJGdGMzVnVaM1IyY0d4MWN3PT0iLCJhdWQiOiIqLnBsdXRvLnR2IiwiZXhwIjoxNzg0Njc2NDQ5LCJpYXQiOjE3ODQ1OTAwNDksImp0aSI6IjRkZjEzMTNkLTJkNmQtNDk5Ny05OTgxLWQ5YTYxZjIxMjgzNyJ9.tmtiQmifDmVLwizRznXsYZikA-sScoJ_9By-zGYNhIU",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "bein-xtra-sports": {
+        "name": "BeIN Xtra Sports",
+        "url": "https://bein-beinxtrasports-firetv.amagi.tv/playlist.m3u8",
+        "url-2": "https://d9ssxzmclhfo4.cloudfront.net/bein_sports.m3u8",
+        "url-3": "https://aegis-cloudfront-1.tubi.video/651ee7d3-e75b-4748-be86-422d43ff24b6/playlist.m3u8",
+        "url-4": "https://bein-xtra-xumo.amagi.tv/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "bein-sports-a1": {
+        "name": "BeIN Sports 1",
+        "url": "http://40.160.24.52:443/BEIN_SPORTS_HD/index.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "bleav-football": {
+        "name": "Bleav Football",
+        "url": "https://linear-493.frequency.stream/dist/glewedtv/493/hls/master/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "tyc-sports": {
+        "name": "TyC Sports",
+        "url": "https://amg26268-amg26268c14-freelivesports-emea-10267.playouts.now.amagi.tv/ts-us-e2-n2/playlist/amg26268-sportsstudio-tycsports-freelivesportsemea/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "Argentina"
+    },
+    "africa-24-sport": {
+        "name": "Africa 24 Sport",
+        "url": "https://africa24.vedge.infomaniak.com/livecast/ik:africa24sport/manifest.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "France"
+    },
+    "cbs-sports-network": {
+        "name": "CBS Sports Network",
+        "url": "https://gpuserver3.tier1streams.com/CBS_SPORTS_NETWORK/index.m3u8",
+        "logo": "",
+        "access": "paid",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "dd-sports": {
+        "name": "DD Sports",
+        "url": "https://d3qs3d2rkhfqrt.cloudfront.net/out/v1/b17adfe543354fdd8d189b110617cddd/index.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "India"
+    },
+    "espnu": {
+        "name": "ESPNU",
+        "url": "https://gpuserver3.tier1streams.com/ESPN_U/index.m3u8",
+        "logo": "",
+        "access": "paid",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "fifa-plus": {
+        "name": "FIFA+",
+        "url": "https://d2w9q46ikgrcwx.cloudfront.net/v1/sysdata_s_p_a_fifa_7/samsungheadend_us/latest/main/hls/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "UK"
+    },
+    "fox-soccer-plus": {
+        "name": "Fox Soccer Plus",
+        "url": "https://gpuserver3.tier1streams.com/FOX_SOCCER_PLUS/index.m3u8",
+        "logo": "",
+        "access": "paid",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "fox-sports-1": {
+        "name": "Fox Sports 1",
+        "url": "http://85.237.89.160:9590/usa-s/FOX-SPORTS-1/index.m3u8",
+        "logo": "",
+        "access": "paid",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "nbc-sports-now": {
+        "name": "NBC Sports NOW",
+        "url": "https://xumo-xumoent-vc-122-sjv70.fast.nbcuni.com/live/master.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "racer-network": {
+        "name": "Racer Network",
+        "url": "https://gpuserver3.tier1streams.com/MAV_TV/index.m3u8",
+        "logo": "",
+        "access": "paid",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "racer-select": {
+        "name": "Racer Select",
+        "url": "https://amg00378-amg00378c4-freelivesports-emea-5637.playouts.now.amagi.tv/playlist.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "USA"
+    },
+    "real-madrid-tv-english": {
+        "name": "Real Madrid TV English",
+        "url": "https://rmtv.akamaized.net/hls/live/2043154/rmtv-en-web/bitrate_3.m3u8",
+        "logo": "",
+        "access": "free",
+        "group-title": "Sports",
+        "country": "Spain"
+    },
+    "sky-racing-1": {
+        "name": "Sky Racing 1",
+        "url": "https://636ffd31f0e12.streamlock.net/RacingStream1/RacingStream1/playlist.m3u8",
+        "logo": "",
+        "access": "paid",
+        "group-title": "Sports",
+        "country": "Australia"
+    },
     "wild-nature": {
         "name": "Wild Nature",
         "url": "https://dhiy0zcig7ty1.cloudfront.net/scheduler/scheduleMaster/491.m3u8",
         "access": "",
         "group-title": "Nature"
+    },
+    "natgeo-animals": {
+        "name": "NatGeo Animals",
+        "url": "channel_id=UCDPk9MG2RexnOMGTD-YnSnA",
+        "url-2": "https://www.youtube.com/embed/7ByKk5NPsRw",
+        "url-3": "https://www.youtube.com/embed/MiQe9ob9aDc",
+        "access": "",
+        "group-title": "Nature",
+        "logo": "https://wallpapercave.com/wp/wp8223612.png"
+    },
+    "natgeo": {
+        "name": "NatGeo",
+        "url": "channel_id=UCpVm7bg6pXKo1Pr6k5kxG9A",
+        "url-2": "https://www.youtube.com/embed/eVty8-fUGJY",
+        "access": "",
+        "group-title": "Science",
+        "logo": "https://wallpapercave.com/wp/wp8223158.jpg"
+    },
+    "discovery": {
+        "name": "Discovery Science",
+        "url": "channel_id=UCqOoboPm3uhY_YXhvhmL-WA",
+        "url-2": "https://www.youtube.com/embed/OnI-uUxJZuE",
+        "access": "",
+        "group-title": "Science",
+        "logo": "https://logos-world.net/wp-content/uploads/2022/01/Discovery-Channel-Symbol.png"
     },
     "real-wild": {
         "name": "Real Wild",
