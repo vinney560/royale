@@ -31,7 +31,7 @@ def market_place(request):
                 'features': ['10 Users', 'Stable', 'Small Office', 'Hotspot'],
                 'premium': False,
                 'info_url': '/market/softwares/hotspot/',
-                'buy_url': '/market/purchased/'
+                'buy_url': 'https://paystack.com/buy/wi-fi-hotspot'
             },
             {
                 'name': 'Wi-Fi Hotspot Premium',
@@ -44,7 +44,7 @@ def market_place(request):
                 'features': ['255 Users', 'Zero Lag', 'Enterprise', 'Priority Support'],
                 'premium': True,
                 'info_url': '/market/softwares/hotspot/',
-                'buy_url': '/market/purchased/'
+                'buy_url': 'https://paystack.com/buy/wi-fi-hotspot-premium'
             },
         ]
     }
