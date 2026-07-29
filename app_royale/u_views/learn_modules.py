@@ -44,13 +44,20 @@ def modules_to_learn(request):
             },
             {
                 'id': 5,
+                'name': 'Learn Data Structure & Algorithm',
+                'url': '/learn/data-structure/',
+                'icon': 'fas fa-code',
+                'lessons': 10,
+            },
+            {
+                'id': 6,
                 'name': 'Learn Python',
                 'url': '/learn/python/',
                 'icon': 'devicon-python-plain',
                 'lessons': 0,
             },
             {
-                'id': 6,
+                'id': 7,
                 'name': 'Learn JavaScript',
                 'url': '/learn/javascript/',
                 'icon': 'devicon-javascript-plain',
@@ -264,6 +271,77 @@ def learn_flowchart(request):
                 'id': 7,
                 'title': 'Basic Examples',
                 'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1784188962/1784110229036_gacfv0.jpg',
+                'type': 'image',
+            },
+        ],
+    }
+    return render(request, "learn-lang.html", context)
+
+@ratelimit(key=getKey, rate='20/m', block=True)
+def learn_data_structure(request):
+    context = {
+        'year': year_gen(),
+        'icon': 'fas fa-code',
+        'module': 'Data Structure',
+        'notes': [
+            {
+                'id': 1,
+                'title': 'Introduction',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344458/1785342790070_jqaqlb.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 2,
+                'title': 'Array',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344502/1785342786919_uycav7.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 3,
+                'title': 'Linked Lists',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344537/1785342783427_mdxwdb.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 4,
+                'title': 'Stacks & Queues',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344603/1785342779131_jd5jel.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 5,
+                'title': 'Graphs & Trees',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344695/1785342772988_xldanc.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 6,
+                'title': 'Tree Traversal 1',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344778/1785342770287_v22f8m.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 7,
+                'title': 'Tree Traversal 2',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344809/1785342764624_jlkopj.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 8,
+                'title': 'Evaluating Computational Solutions',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344846/1785342761945_brvlts.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 9,
+                'title': 'Time & Space Complexity',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344878/1785342758120_kddqpz.jpg',
+                'type': 'image',
+            },
+            {
+                'id': 10,
+                'title': 'Big O Notations',
+                'content_url': 'https://res.cloudinary.com/drma0p4cg/image/upload/v1785344908/1785342755175_olu7ze.jpg',
                 'type': 'image',
             },
         ],

@@ -100,6 +100,7 @@ urlpatterns += [
     path('learn/c/', learn_modules.learn_c, name='learn_c'),
     path('learn/html/', learn_modules.learn_html, name='learn_html'),
     path('learn/flowchart/', learn_modules.learn_flowchart, name='learn_flowchart'),
+    path('learn/data-structure/', learn_modules.learn_data_structure, name='learn_data_structure'),
 
 ]
 # ============================================
