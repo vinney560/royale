@@ -110,7 +110,7 @@ def robots_txt(request):
         "Allow: /static/js/",
         "Allow: /static/uploads/",
         "",
-        "Sitemap: https://royale.de5.net/sitemap.xml"
+        "Sitemap: https://lyxmab.de5.net/sitemap.xml"
     ]
     return HttpResponse("\n".join(lines), content_type="text/plain")
 
@@ -179,7 +179,7 @@ class PageSitemap:
 
 def sitemap_xml(request):
     today = datetime.now().strftime('%Y-%m-%d')
-    domain = 'https://royale.de5.net'
+    domain = 'https://lyxmab.de5.net'
     
     xml_lines = [
         '<?xml version="1.0" encoding="UTF-8"?>',
