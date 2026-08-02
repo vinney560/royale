@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import JsonResponse
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.conf import settings
-from app_royale.year_gen import year_gen
+from app_lyxmab.year_gen import year_gen
 from sys_views.pretty_printer import print_error
 from sys_views.get_yt_v_id import get_live_video_id
 import os, json
@@ -29,7 +29,7 @@ if CHANNELS_DATA:
             "id": ch_id,
             "name": ch_data.get("name", "Viu"),
             "group-title": ch_data.get("group-title", "Viu"),
-            "logo": ch_data.get("logo", "https://royale.de5.net/static/uploads/og-image.png"),
+            "logo": ch_data.get("logo", "https://lyxmab.de5.net/static/uploads/og-image.png"),
         }
         
         # Add all URL fields dynamically
@@ -58,7 +58,7 @@ def watching(request, channel_id):
         'year': year,
         'channel_id': channel_id,
         'channel_name': channel_data.get('name', 'Viu'),
-        'channel_logo': channel_data.get('logo', 'https://royale.de5.net/static/uploads/og-image.png'),
+        'channel_logo': channel_data.get('logo', 'https://lyxmab.de5.net/static/uploads/og-image.png'),
         'channel_group': channel_data.get('group-title', 'Viu'),
     }
     
@@ -308,7 +308,7 @@ def get_channel_url(request, channel_id):
                     "name": channel_data.get("name", "Viu"),
                     "url": stream_url,
                     "group-title": channel_data.get("group-title", "Viu"),
-                    "logo": channel_data.get("logo", "https://royale.de5.net/static/uploads/og-image.png")
+                    "logo": channel_data.get("logo", "https://lyxmab.de5.net/static/uploads/og-image.png")
                 }
             }
         })
@@ -329,8 +329,8 @@ def is_request_from_our_domain(request):
     origin = request.META.get('HTTP_ORIGIN', '')
     
     allowed_domains = [
-        'royale.de5.net',
-        'www.royale.de5.net',
+        'lyxmab.de5.net',
+        'www.lyxmab.de5.net',
         'royole.vercel.app',
     ]
     

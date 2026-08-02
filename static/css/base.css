@@ -1,5 +1,5 @@
 /* ============================================================
-   BASE.CSS - ROYALE Core Styles
+   BASE.CSS - lyxmab Core Styles
    Shared across ALL pages
    ============================================================ */
 
@@ -69,13 +69,13 @@ main, header, footer { position: relative; z-index: 2; }
 }
 
 /* ===== COMPANY NAME / BRAND ===== */
-.royale-brand-wrapper {
+.lyxmab-brand-wrapper {
     display: inline-block;
     position: relative;
     margin-bottom: 20px;
 }
 
-.royale-brand-wrapper .brand-letter {
+.lyxmab-brand-wrapper .brand-letter {
     display: inline-block;
     font-family: 'Playfair Display', serif;
     font-weight: 900;
@@ -94,14 +94,14 @@ main, header, footer { position: relative; z-index: 2; }
     /*padding: 0 0.8rem;*/
 }
 
-.royale-brand-wrapper .brand-letter:nth-child(1) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards; }
-.royale-brand-wrapper .brand-letter:nth-child(2) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s forwards; }
-.royale-brand-wrapper .brand-letter:nth-child(3) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.19s forwards; }
-.royale-brand-wrapper .brand-letter:nth-child(4) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.26s forwards; }
-.royale-brand-wrapper .brand-letter:nth-child(5) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.33s forwards; }
-.royale-brand-wrapper .brand-letter:nth-child(6) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.40s forwards; }
+.lyxmab-brand-wrapper .brand-letter:nth-child(1) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards; }
+.lyxmab-brand-wrapper .brand-letter:nth-child(2) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.12s forwards; }
+.lyxmab-brand-wrapper .brand-letter:nth-child(3) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.19s forwards; }
+.lyxmab-brand-wrapper .brand-letter:nth-child(4) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.26s forwards; }
+.lyxmab-brand-wrapper .brand-letter:nth-child(5) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.33s forwards; }
+.lyxmab-brand-wrapper .brand-letter:nth-child(6) { animation: shimmer 8s linear infinite, glowPulse 4s ease-in-out infinite, letterPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) 0.40s forwards; }
 
-.royale-brand-wrapper:hover .brand-letter {
+.lyxmab-brand-wrapper:hover .brand-letter {
     transform: scale(1.05);
 }
 

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse, StreamingHttpResponse
-from app_royale.year_gen import year_gen
+from app_lyxmab.year_gen import year_gen
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse

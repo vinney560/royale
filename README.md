@@ -85,7 +85,7 @@ A modern Django-powered web application showcasing a suite of professional digit
 
 ```
 pr_royale/
-├── app_royale/                 # Main application
+├── app_lyxmab/                 # Main application
 │   ├── u_views/               # User-facing views
 │   │   ├── main.py           # Main page views
 │   │   ├── products.py       # Products API and views
@@ -167,7 +167,7 @@ The project includes a `vercel.json` configuration file for easy deployment to V
 ## 🔧 Development
 
 ### Adding New Products
-Edit `app_royale/u_views/products.py` and add new items to the `all_products` list with the following structure:
+Edit `app_lyxmab/u_views/products.py` and add new items to the `all_products` list with the following structure:
 ```python
 {
     'id': <unique_id>,
@@ -183,8 +183,8 @@ Edit `app_royale/u_views/products.py` and add new items to the `all_products` li
 ```
 
 ### Adding New Pages
-1. Create a new view in `app_royale/u_views/`
-2. Add a template in `app_royale/templates/`
+1. Create a new view in `app_lyxmab/u_views/`
+2. Add a template in `app_lyxmab/templates/`
 3. Update the URL patterns in `pr_royale/urls.py`
 
 ## 📝 License

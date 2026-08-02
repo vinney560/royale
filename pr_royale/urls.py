@@ -4,7 +4,7 @@ from django.urls import path
 # =============================================
 # HTTP ERROR HANDLERS
 from django.conf.urls import handler404, handler500, handler403
-from app_royale.http_error_handlers.all_handlers import (
+from app_lyxmab.http_error_handlers.all_handlers import (
     handler_404_request, handler_500_request, handler_403_request
     )
 
@@ -18,7 +18,7 @@ urlpatterns = [
 ]
 # ================= U_VIEW ===================
 # u_ -> User views
-from app_royale.u_views import (
+from app_lyxmab.u_views import (
     main, contact, products, qr_gen, learn_modules, 
     market_place, fb_downloader, insta_downloader
 )

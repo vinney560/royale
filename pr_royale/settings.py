@@ -14,8 +14,8 @@ DEBUG = config("DEBUG", cast=bool, default=False)
 
 ALLOWED_HOSTS = ["*"]
 
-haddler404 = "app_royale.http_error_handlers.all_handlers.handler_404_request"
-haddler500 = "app_royale.http_error_handlers.all_handlers.handler_500_request"
+haddler404 = "app_lyxmab.http_error_handlers.all_handlers.handler_404_request"
+haddler500 = "app_lyxmab.http_error_handlers.all_handlers.handler_500_request"
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     # New apps
-    'app_royale.apps.AppRoyaleConfig',
+    'app_lyxmab.apps.AppLyxmabConfig',
     'app_viulive.apps.AppViuliveConfig',
 ]
 
@@ -64,7 +64,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # Context for anonymous_user. |> usage (anonymous_user.username, id...)
-                'app_royale.anonymous_user_context.anonymous_user',
+                'app_lyxmab.anonymous_user_context.anonymous_user',
             ],
         },
     },
@@ -156,7 +156,7 @@ CACHES = {
 # Rate Limit
 # https://warehouse.python.org/project/ratelimit/
 RATELIMIT_USE_CACHE = 'ratelimit'
-RATELIMIT_VIEW = "app_royale.http_error_handlers.all_handlers.handler_429_request"
+RATELIMIT_VIEW = "app_lyxmab.http_error_handlers.all_handlers.handler_429_request"
 RATELIMIT_ENABLE = True
 
 # Password validation
