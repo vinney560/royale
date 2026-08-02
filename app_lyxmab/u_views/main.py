@@ -28,12 +28,12 @@ def qr_code_gen(request):
 @ratelimit(key=getKey, rate='20/m', block=True)
 def qr_api_keys(request):
     api_keys = [
-        'RoyaleIe56Wx1NZg5wZOde8legJEvaMS5SCU',
-        'Royalemx964pT50XIZuylUDmzAYvIuD4QguR',
-        'Royales2fePluzZFFGyzGuYJ2wsJNUOyHLE0',
-        'RoyaleYNkzLRh9KavZgujPoJHC4c1vrXXfLq',
-        'RoyaleR7j2rV1MgiBmT5lTxxWaQSIe8nxU0a',
-        'RoyaleSSJXKi4U1qHHDopnrDSzx0RWOulLYF',
+        'lyxmab_Ie56Wx1NZg5wZOde8legJEvaMS5SCU',
+        'lyxmab_mx964pT50XIZuylUDmzAYvIuD4QguR',
+        'lyxmab_s2fePluzZFFGyzGuYJ2wsJNUOyHLE0',
+        'lyxmab_YNkzLRh9KavZgujPoJHC4c1vrXXfLq',
+        'lyxmab_R7j2rV1MgiBmT5lTxxWaQSIe8nxU0a',
+        'lyxmab_SSJXKi4U1qHHDopnrDSzx0RWOulLYF',
     ]
     return render(request, "qr_api_keys.html", {"year": year_gen(), "api_keys": api_keys})
 

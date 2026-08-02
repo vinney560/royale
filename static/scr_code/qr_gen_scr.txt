@@ -64,7 +64,7 @@ class QRGenerator:
         # Auto-generate filename if not provided
         if filename is None:
             timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            filename = f"royale-qr_code_{timestamp}.png"
+            filename = f"lyxmab-qr_code_{timestamp}.png"
         
         # Create the QR code
         qr = qrcode.QRCode(

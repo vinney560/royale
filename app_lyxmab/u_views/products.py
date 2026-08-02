@@ -174,7 +174,7 @@ def more_products(request):
         },
         {
             'id': 15,
-            'name': 'Royale Tv',
+            'name': 'LyxMab Tv',
             'description': 'Enjoy seemless Football streaming, No lag! Fewer ads.',
             'icon': 'fas fa-tv',
             'iconColor': 'text-teal-400',
