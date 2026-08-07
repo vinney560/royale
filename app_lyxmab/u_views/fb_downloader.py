@@ -240,7 +240,7 @@ class FacebookDownloader:
             
         except Exception as e:
             print_error(f"Hybrid extraction error: {e}")
-            return {'error': f'Error extracting metadata: {str(e)}'}
+            return {'error': 'Failed to extract metadata. Please try again later.'}
     
     # ============================================================
     # HELPER EXTRACTION METHODS
@@ -479,7 +479,7 @@ def extract_metadata(request):
         print_error(f"Extract metadata error: {e}")
         return JsonResponse({
             'success': False,
-            'error': str(e)
+            'error': "Failed to extract metadata. Please try again later."
         }, status=500)
 
 @csrf_exempt
@@ -552,13 +552,13 @@ def direct_download(request):
         print_error(f"Network error during download: {e}")
         return JsonResponse({
             'success': False,
-            'error': f'Network error: {str(e)}'
+            'error': "Poor internet connection. Check your internet connection and try again."
         }, status=500)
     except Exception as e:
         print_error(f"Download error: {e}")
         return JsonResponse({
             'success': False,
-            'error': f'Download failed: {str(e)}'
+            'error': "Failed to download video. Please try again later."
         }, status=500)
 
 def test_endpoint(request):
