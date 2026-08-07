@@ -526,6 +526,7 @@ def direct_download(request):
         filename = downloader.generate_filename(metadata)
         
         # Stream video to browser
+        mobile_headers = MOBILE_HEADERS.copy()
         video_response = requests.get(video_url, headers=mobile_headers.copy(), stream=True, timeout=60)
         video_response.raise_for_status()
         
