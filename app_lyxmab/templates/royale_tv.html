@@ -700,18 +700,18 @@
 
     <script>
         (function() {
-
+        
             // ============================================================
             // STATE
             // ============================================================
-
+        
             var matches = [];
             var currentMatch = null;
             var currentSource = null;
             var currentStreams = [];
             var currentFilter = 'all';
             var currentStep = 1;
-
+        
             var elements = {
                 matchesContainer: document.getElementById('matchesContainer'),
                 sourcesContainer: document.getElementById('sourcesContainer'),
@@ -731,20 +731,51 @@
                 backToMatches: document.getElementById('backToMatches'),
                 backToSources: document.getElementById('backToSources'),
             };
-
+        
+            // ============================================================
+            // HELPER: Safe get team name
+            // ============================================================
+        
+            function getTeamName(match, type) {
+                // Try to get from teams object
+                if (match.teams && match.teams[type] && match.teams[type].name) {
+                    return match.teams[type].name;
+                }
+                
+                // Try to parse from title (format: "Team A vs Team B")
+                if (match.title) {
+                    var parts = match.title.split(' vs ');
+                    if (parts.length === 2) {
+                        return type === 'home' ? parts[0].trim() : parts[1].trim();
+                    }
+                }
+                
+                // Fallback
+                return type === 'home' ? 'Home Team' : 'Away Team';
+            }
+        
+            function getTeamInitial(match, type) {
+                var name = getTeamName(match, type);
+                return name.charAt(0) || '?';
+            }
+        
             // ============================================================
             // FETCH MATCHES
             // ============================================================
-
+        
             function fetchMatches() {
                 showLoading(elements.matchesContainer);
-
+            
                 fetch('https://streamed.pk/api/matches/football')
                     .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
                         return response.json();
                     })
                     .then(function(data) {
-                        matches = data;
+                        // Ensure data is an array
+                        matches = Array.isArray(data) ? data : [];
                         updateStats();
                         renderMatches();
                     })
@@ -755,23 +786,28 @@
                                 <i class="fas fa-exclamation-triangle text-red-500 text-4xl mb-4"></i>
                                 <h3 class="text-white font-bold text-lg">Connection Error</h3>
                                 <p class="text-slate-400 text-sm">Failed to load matches. Please try again.</p>
-                                <button onclick="fetchMatches(this)" class="mt-4 stream-btn" style="width:auto;padding:0.5rem 2rem;" id="retryBtn">
-                                    <i class="fas fa-redo" id="retryIcon"></i> <span id="retryText">Retry</span>
-                                </button>                                
+                                <button onclick="window.retryFetch()" class="mt-4 stream-btn" style="width:auto;padding:0.5rem 2rem;">
+                                    <i class="fas fa-redo"></i> Retry
+                                </button>
                             </div>
                         `;
                     });
             }
-
+        
+            // Expose retry function globally
+            window.retryFetch = function() {
+                fetchMatches();
+            };
+        
             // ============================================================
             // RENDER MATCHES
             // ============================================================
-
+        
             function renderMatches() {
                 var container = elements.matchesContainer;
                 var filtered = getFilteredMatches();
-
-                if (filtered.length === 0) {
+            
+                if (!filtered || filtered.length === 0) {
                     container.innerHTML = `
                         <div class="col-span-3 text-center py-12">
                             <i class="fas fa-filter text-slate-600 text-4xl mb-4"></i>
@@ -781,45 +817,50 @@
                     `;
                     return;
                 }
-
+            
                 var now = Date.now();
-
+            
                 container.innerHTML = filtered.map(function(match) {
-                    var matchDate = new Date(match.date).getTime();
+                    var matchDate = match.date ? new Date(match.date).getTime() : 0;
                     var isLive = matchDate <= now && matchDate > now - 10800000;
-                    var homeTeam = (match.teams && match.teams.home && match.teams.home.name) ||
-                        (match.title ? match.title.split(' vs ')[0] : 'Team A');
-                    var awayTeam = (match.teams && match.teams.away && match.teams.away.name) ||
-                        (match.title ? match.title.split(' vs ')[1] : 'Team B');
-
+                    
+                    var homeTeam = getTeamName(match, 'home');
+                    var awayTeam = getTeamName(match, 'away');
+                    var homeInitial = getTeamInitial(match, 'home');
+                    var awayInitial = getTeamInitial(match, 'away');
+                
                     var hotBadge = match.popular ?
                         '<span class="hot-badge"><i class="fas fa-fire"></i> HOT</span>' : '';
-
+                
                     var liveBadge = isLive ?
                         '<span class="live-badge"><i class="fas fa-circle"></i> Live</span>' : '';
-
-                    var sourceCount = match.sources ? match.sources.length : 0;
-
+                
+                    var sourceCount = (match.sources && Array.isArray(match.sources)) ? match.sources.length : 0;
+                
+                    var matchTime = match.date ? 
+                        new Date(match.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'}) : 
+                        'TBD';
+                
                     return `
-                        <div class="match-card" onclick="selectMatch('${match.id}')">
+                        <div class="match-card" onclick="window.selectMatch('${match.id || ''}')">
                             ${hotBadge}
                             <div class="flex items-center justify-between mb-3">
                                 <div class="text-xs text-slate-500">
                                     <i class="far fa-clock mr-1"></i>
-                                    ${new Date(match.date).toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'})}
+                                    ${matchTime}
                                 </div>
                                 ${liveBadge}
                             </div>
                             <div class="space-y-3">
                                 <div class="flex items-center gap-3">
-                                    <div class="team-icon home">${homeTeam.charAt(0)}</div>
+                                    <div class="team-icon home">${homeInitial}</div>
                                     <span class="text-white font-medium truncate">${homeTeam}</span>
                                 </div>
                                 <div class="text-center text-slate-500 text-xs">
                                     <i class="fas fa-vs"></i>
                                 </div>
                                 <div class="flex items-center gap-3">
-                                    <div class="team-icon away">${awayTeam.charAt(0)}</div>
+                                    <div class="team-icon away">${awayInitial}</div>
                                     <span class="text-white font-medium truncate">${awayTeam}</span>
                                 </div>
                             </div>
@@ -835,19 +876,22 @@
                     `;
                 }).join('');
             }
-
+        
             // ============================================================
             // FILTERS
             // ============================================================
-
+        
             function getFilteredMatches() {
+                if (!Array.isArray(matches)) return [];
+                
                 var now = Date.now();
-
+            
                 switch (currentFilter) {
                     case 'popular':
                         return matches.filter(function(m) { return m.popular; });
                     case 'live':
                         return matches.filter(function(m) {
+                            if (!m.date) return false;
                             var d = new Date(m.date).getTime();
                             return d <= now && d > now - 10800000;
                         });
@@ -863,7 +907,7 @@
                         return matches;
                 }
             }
-
+        
             document.querySelectorAll('.filter-btn').forEach(function(btn) {
                 btn.addEventListener('click', function() {
                     document.querySelectorAll('.filter-btn').forEach(function(b) {
@@ -874,25 +918,28 @@
                     renderMatches();
                 });
             });
-
+        
             // ============================================================
             // SELECT MATCH
             // ============================================================
-
+        
             window.selectMatch = function(matchId) {
-                currentMatch = matches.find(function(m) { return m.id === matchId; });
+                if (!matchId) return;
+                
+                currentMatch = matches.find(function(m) { 
+                    return m.id == matchId; 
+                });
+                
                 if (!currentMatch) return;
-
-                var homeTeam = (currentMatch.teams && currentMatch.teams.home && currentMatch.teams.home.name) ||
-                    (currentMatch.title ? currentMatch.title.split(' vs ')[0] : 'Team A');
-                var awayTeam = (currentMatch.teams && currentMatch.teams.away && currentMatch.teams.away.name) ||
-                    (currentMatch.title ? currentMatch.title.split(' vs ')[1] : 'Team B');
-
+            
+                var homeTeam = getTeamName(currentMatch, 'home');
+                var awayTeam = getTeamName(currentMatch, 'away');
+            
                 elements.selectedMatchTitle.textContent = homeTeam + ' vs ' + awayTeam;
-
+            
                 goToStep(2);
-
-                if (currentMatch.sources && currentMatch.sources.length > 0) {
+            
+                if (currentMatch.sources && Array.isArray(currentMatch.sources) && currentMatch.sources.length > 0) {
                     renderSources();
                 } else {
                     elements.sourcesContainer.innerHTML = `
@@ -904,77 +951,85 @@
                     `;
                 }
             };
-
+        
             // ============================================================
             // RENDER SOURCES
             // ============================================================
-
+        
             function renderSources() {
                 var container = elements.sourcesContainer;
-
+            
                 var sourceColors = {
                     'admin': 'from-yellow-500 to-orange-500',
                     'echo': 'from-blue-500 to-cyan-500',
                     'delta': 'from-green-500 to-emerald-500',
                     'golf': 'from-purple-500 to-pink-500'
                 };
-
+            
                 var sourceIcons = {
                     'admin': 'fas fa-crown',
                     'echo': 'fas fa-broadcast-tower',
                     'delta': 'fas fa-satellite',
                     'golf': 'fas fa-golf-ball'
                 };
-
+            
                 container.innerHTML = currentMatch.sources.map(function(source) {
                     var color = sourceColors[source.source] || 'from-slate-500 to-slate-600';
                     var icon = sourceIcons[source.source] || 'fas fa-plug';
-
+                
                     return `
-                        <div class="source-card" onclick="selectSource('${source.source}', '${source.id}')">
+                        <div class="source-card" onclick="window.selectSource('${source.source || ''}', '${source.id || ''}')">
                             <div class="flex items-center gap-4">
                                 <div class="source-icon bg-gradient-to-r ${color}">
                                     <i class="${icon}"></i>
                                 </div>
                                 <div>
-                                    <h4 class="text-white font-bold text-lg">${source.source.toUpperCase()}</h4>
-                                    <p class="text-slate-400 text-xs">ID: ${source.id}</p>
+                                    <h4 class="text-white font-bold text-lg">${(source.source || 'Unknown').toUpperCase()}</h4>
+                                    <p class="text-slate-400 text-xs">ID: ${source.id || 'N/A'}</p>
                                 </div>
                             </div>
-                            <button class="stream-btn mt-4" onclick="event.stopPropagation();selectSource('${source.source}', '${source.id}')">
+                            <button class="stream-btn mt-4" onclick="event.stopPropagation();window.selectSource('${source.source || ''}', '${source.id || ''}')">
                                 <i class="fas fa-arrow-right"></i> Select Source
                             </button>
                         </div>
                     `;
                 }).join('');
             }
-
+        
             // ============================================================
             // SELECT SOURCE
             // ============================================================
-
+        
             window.selectSource = function(sourceName, sourceId) {
+                if (!sourceName || !sourceId) {
+                    console.error('Invalid source data');
+                    return;
+                }
+                
                 currentSource = { name: sourceName, id: sourceId };
                 elements.selectedSourceTitle.textContent = 'Streams from ' + sourceName.toUpperCase();
-
+            
                 goToStep(3);
                 loadStreams();
             };
-
+        
             // ============================================================
             // LOAD STREAMS
             // ============================================================
-
+        
             function loadStreams() {
                 var container = elements.streamsContainer;
                 showLoading(container);
-
+            
                 fetch('https://streamed.pk/api/stream/' + currentSource.name + '/' + currentSource.id)
                     .then(function(response) {
+                        if (!response.ok) {
+                            throw new Error('HTTP error ' + response.status);
+                        }
                         return response.json();
                     })
                     .then(function(data) {
-                        currentStreams = data;
+                        currentStreams = Array.isArray(data) ? data : [];
                         renderStreams();
                     })
                     .catch(function(error) {
@@ -991,14 +1046,14 @@
                         `;
                     });
             }
-
+        
             // ============================================================
             // RENDER STREAMS
             // ============================================================
-
+        
             function renderStreams() {
                 var container = elements.streamsContainer;
-
+            
                 if (!currentStreams || currentStreams.length === 0) {
                     container.innerHTML = `
                         <div class="col-span-3 text-center py-12">
@@ -1009,17 +1064,17 @@
                     `;
                     return;
                 }
-
+            
                 container.innerHTML = currentStreams.map(function(stream, index) {
                     var quality = stream.hd ? 'HD' : (stream.quality || 'SD');
                     var qualityClass = stream.hd ? 'quality-hd' : (quality === 'SD' ? 'quality-sd' : 'quality-low');
-
+                
                     return `
                         <div class="source-card">
                             <div class="flex items-start justify-between">
                                 <div>
                                     <h4 class="text-white font-bold">Stream ${stream.streamNo || index + 1}</h4>
-                                    <p class="text-slate-400 text-xs">${currentSource.name.toUpperCase()}</p>
+                                    <p class="text-slate-400 text-xs">${(currentSource.name || 'Unknown').toUpperCase()}</p>
                                 </div>
                                 <span class="quality-badge ${qualityClass}">${quality}</span>
                             </div>
@@ -1027,30 +1082,31 @@
                                 ${stream.language ? `<div><i class="fas fa-language mr-2"></i>${stream.language}</div>` : ''}
                                 <div><i class="fas fa-eye mr-2"></i>${stream.viewers || 0} viewers</div>
                             </div>
-                            <button class="stream-btn mt-4" onclick="openStreamInTab('${stream.embedUrl}')">
+                            <button class="stream-btn mt-4" onclick="window.openStreamInTab('${stream.embedUrl || ''}')">
                                 <i class="fas fa-play"></i> Play Stream
                             </button>
                         </div>
                     `;
                 }).join('');
             }
-
+        
             // ============================================================
             // OPEN STREAM IN NEW TAB
             // ============================================================
-
+        
             window.openStreamInTab = function(url) {
-                window.open(url, '_blank');
+                if (url) {
+                    window.open(url, '_blank');
+                }
             };
-
+        
             // ============================================================
             // STEP NAVIGATION
             // ============================================================
-
+        
             function goToStep(step) {
                 currentStep = step;
-
-                // Update step indicators
+            
                 var steps = [elements.step1, elements.step2, elements.step3];
                 steps.forEach(function(el, index) {
                     var num = index + 1;
@@ -1058,50 +1114,58 @@
                     if (num === step) el.classList.add('active');
                     else if (num < step) el.classList.add('completed');
                 });
-
-                // Show/hide content
+            
                 elements.step1Content.classList.toggle('hidden', step !== 1);
                 elements.step2Content.classList.toggle('hidden', step !== 2);
                 elements.step3Content.classList.toggle('hidden', step !== 3);
             }
-
+        
+            // Make goToStep available globally for onclick handlers
+            window.goToStep = goToStep;
+        
             elements.backToMatches.addEventListener('click', function() {
                 goToStep(1);
             });
-
+        
             elements.backToSources.addEventListener('click', function() {
                 goToStep(2);
             });
-
+        
             // ============================================================
             // STATS
             // ============================================================
-
+        
             function updateStats() {
+                if (!Array.isArray(matches)) return;
+                
                 var totalSources = 0;
                 var liveCount = 0;
                 var now = Date.now();
-
+            
                 matches.forEach(function(m) {
-                    if (m.sources) totalSources += m.sources.length;
-                    var d = new Date(m.date).getTime();
-                    if (d <= now && d > now - 10800000) liveCount++;
+                    if (m.sources && Array.isArray(m.sources)) {
+                        totalSources += m.sources.length;
+                    }
+                    if (m.date) {
+                        var d = new Date(m.date).getTime();
+                        if (d <= now && d > now - 10800000) liveCount++;
+                    }
                 });
-
+            
                 elements.totalMatches.textContent = matches.length;
                 elements.totalSources.textContent = totalSources;
                 elements.liveCount.textContent = liveCount;
-
+            
                 var viewers = matches.reduce(function(sum, m) {
                     return sum + (m.popular ? 1500 : 500);
                 }, 0);
                 elements.activeViewers.textContent = viewers.toLocaleString();
             }
-
+        
             // ============================================================
             // HELPERS
             // ============================================================
-
+        
             function showLoading(container) {
                 if (container) {
                     container.innerHTML = `
@@ -1119,11 +1183,11 @@
                     `;
                 }
             }
-
+        
             // ============================================================
             // CURSOR GLOW
             // ============================================================
-
+        
             var cursorGlow = document.getElementById('cursor-glow');
             document.addEventListener('mousemove', function(e) {
                 cursorGlow.style.left = e.clientX + 'px';
@@ -1135,29 +1199,29 @@
             document.addEventListener('mouseleave', function() {
                 cursorGlow.style.opacity = '0';
             });
-
+        
             // ============================================================
             // HEADER SCROLL
             // ============================================================
-
+        
             var header = document.querySelector('header');
             window.addEventListener('scroll', function() {
                 header.style.backgroundColor = window.pageYOffset > 40 ? '#070a0ccc' : '';
             });
-
+        
             // ============================================================
             // INIT
             // ============================================================
-
+        
             fetchMatches();
-
+        
             // Auto-refresh every 5 minutes
             setInterval(fetchMatches, 300000);
-
+        
             // ============================================================
             // CURSOR GLOW ACTIVE
             // ============================================================
-
+        
             var interactiveElements = document.querySelectorAll('a, button, .menu-container, .match-card, .source-card, .filter-btn, .from-waste-card');
             interactiveElements.forEach(function(el) {
                 el.addEventListener('mouseenter', function() {
@@ -1167,7 +1231,7 @@
                     cursorGlow.classList.remove('active');
                 });
             });
-
+        
         })();
     </script>
 
