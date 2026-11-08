@@ -104,7 +104,7 @@
     },
     "ebru-tv": {
         "name": "Ebru Tv",
-        "url": "https://player.twitch.tv/?channel=ebrutvkenya&parent=127.0.0.1&mute=false&theme=dark&autoplay=true&controls=true&allowfullscreen=true",
+        "url": "https://player.twitch.tv/?channel=ebrutvkenya&parent=lyxmab.de5.net&mute=false&theme=dark&autoplay=true&controls=true&allowfullscreen=true",
         "url-1": "https://embed.twitch.tv:443/?allowfullscreen=true&autoplay=true&channel=ebrutvkenya&height=360&layout=video&migration=true&muted=true&parent=ebru.co.ke&theme=dark&time=0h0m0s&video=&width=640",
         "url-2": "https://ebru.co.ke:443/livestream/",
         "logo": "https://viewstream-1.onrender.com/uploads/ebru.png",
@@ -119,6 +119,14 @@
         "country": "Kenya",
         "access": "paid",
         "group-title": "News"
+    },
+    "ppptv": {
+        "name": "PPTV",
+        "url": "https://africaxp.b-cdn.net/PPPTV/index.m3u8",
+        "logo": "https://f.ptcdn.info/837/016/000/1395128076-1cs-o.png",
+        "access": "free",
+        "group-title": "International",
+        "country": "Kenya"
     },
     "FOX-a11-Green-Bay-wI": {
         "name": "FOX 11 Green Bay WI",
