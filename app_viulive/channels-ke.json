@@ -1,38 +1,45 @@
 {
     "citizen-tv": {
         "name": "Citizen TV",
-        "url": "https://www.youtube.com/embed/live_stream?channel=UChBQgieUidXV1CmDxSdRm3g&controls=1&modestbranding=1&rel=0&fs=0&disablekb=1&iv_load_policy=3",
+        "url": "channel_id=UChBQgieUidXV1CmDxSdRm3g",
+        "url-2": "https://kenyalivetv.co.ke/embed/citizen-tv-live?theme=dark",
+        "url-3": "https://m.youtube.com:443/@kenyacitizentv/live",
         "logo": "https://viewstream-1.onrender.com/uploads/citizen.png",
         "country": "Kenya",
         "group-title": "News"
     },
     "ntv-kenya": {
         "name": "NTV",
-        "url": "https://www.youtube.com/embed/ZRDj5GXNezw",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCqBJ47FjJcl61fmSbcadAVg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url-2": "https://kenyalivetv.co.ke/embed/ntv-kenya-live",
+        "url-3": "channel_id=UCqBJ47FjJcl61fmSbcadAVg",
         "logo": "https://viewstream-1.onrender.com/uploads/ntv.png",
         "country": "Kenya",
         "group-title": "News"
     },
     "ktn": {
         "name": "KTN Home",
-        "url": "https://www.youtube.com/embed/live_stream?channel=UCKVsdeoHExltrWMuK0hOWmg&controls=0&modestbranding=1&rel=0&fs=1&disablekb=1&iv_load_policy=3",
+        "url": "channel_id=UCKVsdeoHExltrWMuK0hOWmg",
+        "url-2": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCKVsdeoHExltrWMuK0hOWmg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url-3": "https://kenyalivetv.co.ke/embed/ktn-home-live",
         "logo": "https://viewstream-1.onrender.com/uploads/ktn.png",
         "country": "Kenya",
         "group-title": "News"
     },
     "ktn-news": {
         "name": "KTN News",
-        "url": "https://www.youtube.com/embed/live_stream?channel=UCKVsdeoHExltrWMuK0hOWmg&controls=0&modestbranding=1&rel=0&fs=1&disablekb=1&iv_load_policy=3",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCKVsdeoHExltrWMuK0hOWmg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "logo": "https://viewstream-1.onrender.com/uploads/ktn.png",
         "country": "Kenya",
         "group-title": "News"
     },
     "k24-tv": {
         "name": "K24 TV",
-        "url": "https://www.youtube.com/embed/Se4-f-WIGbM",
-        "url-2": "channel_id=UCt3SE-Mvs3WwP7UW-PiFdqQ",
-        "url-3": "https://m.youtube.com:443/@K24tv/live",
-        "url-4": "https://www.youtube.com/embed/live_stream?channel=UCt3SE-Mvs3WwP7UW-PiFdqQ&controls=0&modestbranding=1&rel=0&fs=1&disablekb=1&iv_load_policy=3",
+        "url": "channel_id=UCt3SE-Mvs3WwP7UW-PiFdqQ",
+        "url-1": "https://livecdn.premiumfree.tv/afxpstr/K24Backup/tracks-v1a1/mono.ts.m3u8",
+        "url-2": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCt3SE-Mvs3WwP7UW-PiFdqQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url-3": "https://kenyalivetv.co.ke/embed/k24-tv-live",
+        "url-4": "https://m.youtube.com:443/@K24tv/live",
         "logo": "https://viewstream-1.onrender.com/uploads/k24.png",
         "country": "Kenya",
         "group-title": "News"
@@ -70,7 +77,7 @@
     },
     "kass-tv": {
         "name": "Kass TV",
-        "url": "https://www.youtube.com/embed/live_stream?channel=UC45o8sYJCfkY79LBNDHUHPg&controls=0&modestbranding=1&rel=0&fs=1&disablekb=1&iv_load_policy=3",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UC45o8sYJCfkY79LBNDHUHPg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "url-2": "https://m.youtube.com:443/@kasstvwebstream/live",
         "url-3": "channel_id=UC45o8sYJCfkY79LBNDHUHPg",
         "logo": "https://viewstream-1.onrender.com/uploads/kass.png",
@@ -80,6 +87,7 @@
     "kbc": {
         "name": "KBC channel 1",
         "url": "https://www.kbcplus.co.ke/",
+        "url-1": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCypNjM5hP1qcUqQZe57jNfg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "url-2": "channel_id=UCegApUZsuaWaXYf5g9W8Mzw",
         "url-3": "https://kenyalivetv.co.ke/embed/kbc-channel-1-live",
         "logo": "https://www.kbc.co.ke/wp-content/uploads/2025/01/KBC-PODCASTS-LOGO-1.png",
@@ -96,7 +104,8 @@
     },
     "ebru-tv": {
         "name": "Ebru Tv",
-        "url": "https://embed.twitch.tv:443/?allowfullscreen=true&autoplay=true&channel=ebrutvkenya&height=360&layout=video&migration=true&muted=true&parent=ebru.co.ke&theme=dark&time=0h0m0s&video=&width=640",
+        "url": "https://player.twitch.tv/?channel=ebrutvkenya&parent=127.0.0.1&mute=false&theme=dark&autoplay=true&controls=true&allowfullscreen=true",
+        "url-1": "https://embed.twitch.tv:443/?allowfullscreen=true&autoplay=true&channel=ebrutvkenya&height=360&layout=video&migration=true&muted=true&parent=ebru.co.ke&theme=dark&time=0h0m0s&video=&width=640",
         "url-2": "https://ebru.co.ke:443/livestream/",
         "logo": "https://viewstream-1.onrender.com/uploads/ebru.png",
         "country": "Kenya",
