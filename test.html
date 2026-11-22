@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Video Player</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+            color: #e2e8f0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            gap: 28px;
+        }
+
+        h1 {
+            font-size: 1.6rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            background: linear-gradient(90deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+        }
+
+        .controls {
+            width: 100%;
+            max-width: 780px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-wrap {
+            flex: 1;
+            position: relative;
+        }
+
+        .input-wrap svg {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 18px;
+            height: 18px;
+            stroke: #64748b;
+            pointer-events: none;
+            transition: stroke 0.2s;
+        }
+
+        #urlInput {
+            width: 100%;
+            padding: 13px 16px 13px 42px;
+            font-size: 0.95rem;
+            color: #f1f5f9;
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid #334155;
+            border-radius: 10px;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+            backdrop-filter: blur(8px);
+        }
+
+        #urlInput::placeholder {
+            color: #64748b;
+        }
+
+        #urlInput:focus {
+            border-color: #3b82f6;
+            background: rgba(30, 41, 59, 0.95);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+        }
+
+        .input-wrap:focus-within svg {
+            stroke: #60a5fa;
+        }
+
+        button {
+            padding: 13px 26px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.15s, box-shadow 0.2s, filter 0.2s;
+            white-space: nowrap;
+        }
+
+        button:hover {
+            filter: brightness(1.1);
+            box-shadow: 0 6px 20px rgba(99, 102, 241, 0.4);
+            transform: translateY(-1px);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .player-shell {
+            width: 100%;
+            max-width: 780px;
+            aspect-ratio: 16 / 9;
+            border-radius: 14px;
+            overflow: hidden;
+            background: #000;
+            border: 1px solid #334155;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        #videoFrame {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        .placeholder {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            color: #475569;
+            font-size: 0.9rem;
+            pointer-events: none;
+        }
+
+        .placeholder svg {
+            width: 48px;
+            height: 48px;
+            stroke: #334155;
+        }
+
+        .hint {
+            font-size: 0.8rem;
+            color: #64748b;
+            text-align: center;
+            max-width: 780px;
+        }
+
+        @media (max-width: 560px) {
+            .controls {
+                flex-direction: column;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Dynamic Video Player</h1>
+
+    <div class="controls">
+        <div class="input-wrap">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+            </svg>
+            <input type="text" id="urlInput"
+                placeholder="Paste iframe URL (e.g. https://geo.dailymotion.com/player/xtv3w.html?)" autocomplete="off"
+                spellcheck="false">
+        </div>
+        <button onclick="loadIframe()">Load</button>
+    </div>
+
+    <div class="player-shell">
+        <iframe id="videoFrame" allow="autoplay; fullscreen; picture-in-picture; encrypted-media"
+            class="dailymotion-player" frameborder="0" title="Dailymotion video player" height="100%" width="100%"
+            style="opacity: 1;">
+        </iframe>
+        <div class="placeholder" id="placeholder">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m10 9 5 3-5 3V9z" />
+            </svg>
+            <span>Enter a URL above to load a video</span>
+        </div>
+    </div>
+
+    <p class="hint">Press <strong>Enter</strong> or click Load to update the player</p>
+
+    <script>
+        const frame = document.getElementById('videoFrame');
+        const input = document.getElementById('urlInput');
+        const placeholder = document.getElementById('placeholder');
+
+        function loadIframe() {
+            const url = input.value.trim();
+            if (!url) return;
+
+            // Basic validation
+            let parsed;
+            try {
+                parsed = new URL(url);
+            } catch {
+                alert('Please enter a valid URL (including https://)');
+                return;
+            }
+            if (parsed.protocol !== 'https:' && parsed.protocol !== 'http:') {
+                alert('Only http/https URLs are allowed');
+                return;
+            }
+
+            frame.src = url;
+            placeholder.style.display = 'none';
+        }
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') loadIframe();
+        });
+    </script>
+
+</body>
+
+</html>
