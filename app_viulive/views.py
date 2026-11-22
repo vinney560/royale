@@ -6,6 +6,7 @@ from app_lyxmab.year_gen import year_gen
 from sys_views.pretty_printer import print_error
 from sys_views.get_yt_v_id import get_live_video_id
 from .models import Channel
+import re
 
 
 DEFAULT_LOGO = "https://lyxmab.de5.net/static/uploads/og-image.png"
@@ -28,9 +29,11 @@ def url_fields(urls):
 
     return sorted((key for key, value in urls.items() if key.startswith("url") and value), key=sort_key)
 
+
 def viulive_home(request):
     year = year_gen()
     return render(request, "viulive_home.html", {'year': year})
+
 
 def watching(request, channel_id):
     channel_data = Channel.objects.filter(id=channel_id).first()
@@ -108,21 +111,21 @@ def search_channel(request):
         }
     })
 
+
 def get_channel_groups(request):
-    """Get all unique channel groups"""
-    groups = list(
-        Channel.objects.exclude(group_title="")
-        .values_list("group_title", flat=True)
-        .distinct()
-    )
-    
+    groups = {
+        re.sub(r"\s+", " ", g).strip().lower()
+        for g in Channel.objects.exclude(group_title__in=["", None]).values_list("group_title", flat=True)
+        if g and g.strip()
+    }
     return JsonResponse({
         "success": True,
         "message": "Groups fetched successfully",
         "data": {
-            "groups": sorted(list(groups))
-        }
+            "groups": sorted(groups)
+        },
     })
+
 
 def get_channels(request):
     """Get channels with optional group filter"""
