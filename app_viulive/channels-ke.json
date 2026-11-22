@@ -36,8 +36,8 @@
     },
     "k24-tv": {
         "name": "K24 TV",
-        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCt3SE-Mvs3WwP7UW-PiFdqQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
-        "url-1": "https://livecdn.premiumfree.tv/afxpstr/K24Backup/tracks-v1a1/mono.ts.m3u8",
+        "url": "https://livecdn.premiumfree.tv/afxpstr/K24Backup/tracks-v1a1/mono.ts.m3u8",
+        "url-1": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCt3SE-Mvs3WwP7UW-PiFdqQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "url-2": "channel_id=UCt3SE-Mvs3WwP7UW-PiFdqQ",
         "url-3": "https://kenyalivetv.co.ke/embed/k24-tv-live",
         "url-4": "https://m.youtube.com:443/@K24tv/live",
@@ -47,7 +47,7 @@
     },
     "citizen-tv-extra": {
         "name": "Citizen Extra",
-        "url": "https://www.youtube.com/embed/MDA0XHrnNl4",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UClLuu9p9zMmE4TDg8s2E2cQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "logo": "https://viewstream-1.onrender.com/uploads/citizen.png",
         "country": "Kenya",
         "group-title": "News"
@@ -81,8 +81,8 @@
     "kass-tv": {
         "name": "Kass TV",
         "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UC45o8sYJCfkY79LBNDHUHPg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
-        "url-2": "https://m.youtube.com:443/@kasstvwebstream/live",
-        "url-3": "channel_id=UC45o8sYJCfkY79LBNDHUHPg",
+        "url-2": "channel_id=UC45o8sYJCfkY79LBNDHUHPg",
+        "url-3": "https://m.youtube.com:443/@kasstvwebstream/live",
         "logo": "https://viewstream-1.onrender.com/uploads/kass.png",
         "country": "Kenya",
         "group-title": "News"
@@ -91,8 +91,8 @@
         "name": "KBC channel 1",
         "url": "https://www.kbcplus.co.ke/",
         "url-1": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCypNjM5hP1qcUqQZe57jNfg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
-        "url-2": "channel_id=UCegApUZsuaWaXYf5g9W8Mzw",
-        "url-3": "https://kenyalivetv.co.ke/embed/kbc-channel-1-live",
+        "url-2": "https://kenyalivetv.co.ke/embed/kbc-channel-1-live",
+        "url-3": "channel_id=UCegApUZsuaWaXYf5g9W8Mzw",
         "logo": "https://www.kbc.co.ke/wp-content/uploads/2025/01/KBC-PODCASTS-LOGO-1.png",
         "country": "Kenya",
         "group-title": "News"
