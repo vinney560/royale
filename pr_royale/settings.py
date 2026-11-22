@@ -96,8 +96,8 @@ else:
         
         result = urllib.parse.urlparse(DATABASE_URI)
         dbname = result.path[1:]
-        user = result.username
-        password = result.password
+        user = urllib.parse.unquote(result.username or "")
+        password = urllib.parse.unquote(result.password or "")
         host = result.hostname
         port = result.port or 5432
         
@@ -115,18 +115,13 @@ else:
             'default': {
                 **dj_database_url.config(
                     default=config('DATABASE_URL'),
-                    conn_max_age=600,
+                    conn_max_age=0,
                     conn_health_checks=True,
                     ssl_require=True,
                 ),
                 'OPTIONS': {
                     'sslmode': 'require',
                     'connect_timeout': 10,
-                    'pool': {
-                        'min_size': 2,
-                        'max_size': 20,
-                        'timeout': 30,
-                    }
                 }
             }
         }

@@ -5,61 +5,49 @@ from django.conf import settings
 from app_lyxmab.year_gen import year_gen
 from sys_views.pretty_printer import print_error
 from sys_views.get_yt_v_id import get_live_video_id
-import os, json
+from .models import Channel
 
-app_dir = os.path.dirname(os.path.abspath(__file__))
-channels_file = os.path.join(app_dir, 'channels-ke.json')
 
-def load_channels():
-    try:
-        with open(channels_file, 'r') as f:
-            return json.load(f)
-    except FileNotFoundError:
-        return None
-    except json.JSONDecodeError:
-        return None
+DEFAULT_LOGO = "https://lyxmab.de5.net/static/uploads/og-image.png"
 
-CHANNELS_DATA = load_channels()
-CHANNELS_LIST = None
 
-if CHANNELS_DATA:
-    CHANNELS_LIST = []
-    for ch_id, ch_data in CHANNELS_DATA.items():
-        channel = {
-            "id": ch_id,
-            "name": ch_data.get("name", "Viu"),
-            "group-title": ch_data.get("group-title", "Viu"),
-            "logo": ch_data.get("logo", "https://lyxmab.de5.net/static/uploads/og-image.png"),
-        }
-        
-        # Add all URL fields dynamically
-        for key, value in ch_data.items():
-            if key.startswith('url'):
-                channel[key] = value
-        
-        CHANNELS_LIST.append(channel)
+def channel_json(channel):
+    return {
+        "id": channel.id,
+        "name": channel.name,
+        "group-title": channel.group_title,
+        "logo": channel.logo or DEFAULT_LOGO,
+    }
+
+
+def url_fields(urls):
+    def sort_key(field_name):
+        suffix = field_name.removeprefix("url")
+        suffix = suffix.removeprefix("-")
+        return (0 if not suffix else int(suffix) if suffix.isdigit() else 999, field_name)
+
+    return sorted((key for key, value in urls.items() if key.startswith("url") and value), key=sort_key)
 
 def viulive_home(request):
     year = year_gen()
     return render(request, "viulive_home.html", {'year': year})
 
 def watching(request, channel_id):
-    if not CHANNELS_DATA or channel_id not in CHANNELS_DATA:
+    channel_data = Channel.objects.filter(id=channel_id).first()
+    if channel_data is None:
         return JsonResponse({
             "success": False,
             "message": "Channel not found",
             "data": None
         }, status=404)
-    
-    channel_data = CHANNELS_DATA[channel_id]
     year = year_gen()
     
     context = {
         'year': year,
         'channel_id': channel_id,
-        'channel_name': channel_data.get('name', 'Viu'),
-        'channel_logo': channel_data.get('logo', 'https://lyxmab.de5.net/static/uploads/og-image.png'),
-        'channel_group': channel_data.get('group-title', 'Viu'),
+        'channel_name': channel_data.name,
+        'channel_logo': channel_data.logo or DEFAULT_LOGO,
+        'channel_group': channel_data.group_title,
     }
     
     return render(request, "viulive_player.html", context)
@@ -74,25 +62,15 @@ def search_channel(request):
             "data": None
         }, status=400)
     
-    if CHANNELS_LIST is None:
-        return JsonResponse({
-            "success": False,
-            "message": "Channels data unavailable",
-            "data": None
-        }, status=503)
-    
-    # Search in name and id (case-insensitive)
-    query_lower = query.lower()
-    filtered_channels = [
-        channel for channel in CHANNELS_LIST
-        if query_lower in channel['name'].lower() or query_lower in channel['id'].lower()
-    ]
+    filtered_channels = list(Channel.objects.filter(
+        name__icontains=query
+    ) | Channel.objects.filter(id__icontains=query))
     
     # Remove URLs from results
     channels_without_urls = []
     for channel in filtered_channels:
-        channel_copy = channel.copy()
-        channel_copy.pop('url', None)
+        channel_copy = channel_json(channel)
+        channel_copy["url_count"] = len(url_fields(channel.urls))
         channels_without_urls.append(channel_copy)
     
     # Pagination
@@ -132,18 +110,11 @@ def search_channel(request):
 
 def get_channel_groups(request):
     """Get all unique channel groups"""
-    if CHANNELS_LIST is None:
-        return JsonResponse({
-            "success": False,
-            "message": "Channels data unavailable",
-            "data": None
-        }, status=503)
-    
-    groups = set()
-    for channel in CHANNELS_LIST:
-        group = channel.get('group-title', 'General')
-        if group:
-            groups.add(group)
+    groups = list(
+        Channel.objects.exclude(group_title="")
+        .values_list("group_title", flat=True)
+        .distinct()
+    )
     
     return JsonResponse({
         "success": True,
@@ -155,53 +126,28 @@ def get_channel_groups(request):
 
 def get_channels(request):
     """Get channels with optional group filter"""
-    if CHANNELS_LIST is None:
-        return JsonResponse({
-            "success": False,
-            "message": "Channels data unavailable",
-            "data": None
-        }, status=503)
-    
     group_filter = request.GET.get('group', '').strip()
     query = request.GET.get('search', '').strip()
     page = request.GET.get('page', 1)
     per_page = request.GET.get('per_page', 50)
     
-    filtered_channels = CHANNELS_LIST.copy()
+    filtered_channels = Channel.objects.all()
     
     # Apply group filter
     if group_filter:
-        filtered_channels = [
-            ch for ch in filtered_channels
-            if ch.get('group-title', 'General').lower() == group_filter.lower()
-        ]
+        filtered_channels = filtered_channels.filter(group_title__iexact=group_filter)
     
     # Apply search filter
     if query:
-        query_lower = query.lower()
-        filtered_channels = [
-            ch for ch in filtered_channels
-            if query_lower in ch['name'].lower() or query_lower in ch['id'].lower()
-        ]
+        filtered_channels = filtered_channels.filter(
+            name__icontains=query
+        ) | filtered_channels.filter(id__icontains=query)
     
     # Remove URLs from results and count URL fields
     channels_without_urls = []
     for channel in filtered_channels:
-        channel_copy = channel.copy()
-        
-        # Count how many URL fields exist (url, url-2, url-3, etc.)
-        url_count = 0
-        for key in channel_copy.keys():
-            if key.startswith('url') and channel_copy.get(key):
-                url_count += 1
-        
-        # Remove URL fields
-        url_keys = [key for key in channel_copy.keys() if key.startswith('url')]
-        for key in url_keys:
-            channel_copy.pop(key, None)
-        
-        # Add metadata
-        channel_copy['url_count'] = url_count
+        channel_copy = channel_json(channel)
+        channel_copy["url_count"] = len(url_fields(channel.urls))
         channels_without_urls.append(channel_copy)
     
     # Pagination
@@ -263,34 +209,28 @@ def get_channel_url(request, channel_id):
             "data": None
         }, status=403)
     
-    if not CHANNELS_DATA or channel_id not in CHANNELS_DATA:
+    channel_data = Channel.objects.filter(id=channel_id).first()
+    if channel_data is None:
         return JsonResponse({
             "success": False,
             "message": "Channel not found",
             "data": None
         }, status=404)
-    
-    channel_data = CHANNELS_DATA[channel_id]
-    
-    url_fields = []
-    for key in channel_data.keys():
-        if key.startswith('url'):
-            url_fields.append(key)
-    url_fields.sort()
+    available_urls = url_fields(channel_data.urls)
     
     stream_num = request.GET.get('stream', 1)
     
     try:
         stream_num = int(stream_num)
-        if stream_num < 1 or stream_num > len(url_fields):
+        if stream_num < 1 or stream_num > len(available_urls):
             return JsonResponse({
                 "success": False,
-                "message": f"Invalid stream. Use 1 to {len(url_fields)}",
+                "message": f"Invalid stream. Use 1 to {len(available_urls)}",
                 "data": None
             }, status=400)
         
-        field = url_fields[stream_num - 1]
-        url_value = channel_data.get(field, '')
+        field = available_urls[stream_num - 1]
+        url_value = channel_data.urls.get(field, '')
         
         if url_value and "channel_id=" in url_value:
             channel_id_from_url = url_value.split("channel_id=")[1].split("&")[0].strip()
@@ -305,17 +245,17 @@ def get_channel_url(request, channel_id):
             "data": {
                 "channel": {
                     "id": channel_id,
-                    "name": channel_data.get("name", "Viu"),
+                    "name": channel_data.name,
                     "url": stream_url,
-                    "group-title": channel_data.get("group-title", "Viu"),
-                    "logo": channel_data.get("logo", "https://lyxmab.de5.net/static/uploads/og-image.png")
+                    "group-title": channel_data.group_title,
+                    "logo": channel_data.logo or DEFAULT_LOGO
                 }
             }
         })
     except ValueError:
         return JsonResponse({
             "success": False,
-            "message": f"Invalid stream parameter. Use a number between 1 and {len(url_fields)}",
+            "message": f"Invalid stream parameter. Use a number between 1 and {len(available_urls)}",
             "data": None
         }, status=400)
 

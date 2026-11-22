@@ -109,7 +109,11 @@ def _printThis(style: str, message: str, color: str = "WHITE") -> None:
     """
     # Get color code from mapping, default to WHITE
     color_code = COLORS.get(color.upper(), Fore.WHITE)
-    print(f"{style}{color_code}{message}{RESET}")
+    try:
+        print(f"{style}{color_code}{message}{RESET}")
+    except UnicodeEncodeError:
+        safe_message = message.encode("ascii", "replace").decode("ascii")
+        print(f"{style}{color_code}{safe_message}{RESET}")
 
 
 # Convenience functions
