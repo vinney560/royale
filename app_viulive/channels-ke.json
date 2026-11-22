@@ -1,9 +1,10 @@
 {
     "citizen-tv": {
         "name": "Citizen TV",
-        "url": "channel_id=UChBQgieUidXV1CmDxSdRm3g",
-        "url-2": "https://kenyalivetv.co.ke/embed/citizen-tv-live?theme=dark",
-        "url-3": "https://m.youtube.com:443/@kenyacitizentv/live",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UChBQgieUidXV1CmDxSdRm3g&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url-2": "channel_id=UChBQgieUidXV1CmDxSdRm3g",
+        "url-3": "https://kenyalivetv.co.ke/embed/citizen-tv-live?theme=dark",
+        "url-4": "https://m.youtube.com:443/@kenyacitizentv/live",
         "logo": "https://viewstream-1.onrender.com/uploads/citizen.png",
         "country": "Kenya",
         "group-title": "News"
@@ -19,8 +20,8 @@
     },
     "ktn": {
         "name": "KTN Home",
-        "url": "channel_id=UCKVsdeoHExltrWMuK0hOWmg",
-        "url-2": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCKVsdeoHExltrWMuK0hOWmg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCKVsdeoHExltrWMuK0hOWmg&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url-2": "channel_id=UCKVsdeoHExltrWMuK0hOWmg",
         "url-3": "https://kenyalivetv.co.ke/embed/ktn-home-live",
         "logo": "https://viewstream-1.onrender.com/uploads/ktn.png",
         "country": "Kenya",
@@ -35,9 +36,9 @@
     },
     "k24-tv": {
         "name": "K24 TV",
-        "url": "channel_id=UCt3SE-Mvs3WwP7UW-PiFdqQ",
+        "url": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCt3SE-Mvs3WwP7UW-PiFdqQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "url-1": "https://livecdn.premiumfree.tv/afxpstr/K24Backup/tracks-v1a1/mono.ts.m3u8",
-        "url-2": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCt3SE-Mvs3WwP7UW-PiFdqQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
+        "url-2": "channel_id=UCt3SE-Mvs3WwP7UW-PiFdqQ",
         "url-3": "https://kenyalivetv.co.ke/embed/k24-tv-live",
         "url-4": "https://m.youtube.com:443/@K24tv/live",
         "logo": "https://viewstream-1.onrender.com/uploads/k24.png",
@@ -54,6 +55,7 @@
     "inooro-tv": {
         "name": "Inooro Tv",
         "url": "https://live-onesignal.royalmedia.co.ke/live/T-MxRsFebq6zx7k2QFMbLw.m3u8",
+        "url-1": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCZlNMLTVNxzwB0axilK-rDw&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "url-2": "https://kenyalivetv.co.ke/tv/inooro-tv-live",
         "url-3": "channel_id=UCZlNMLTVNxzwB0axilK-rDw",
         "logo": "https://viewstream-1.onrender.com/uploads/inooro.png",
@@ -63,6 +65,7 @@
     "ramogi-tv": {
         "name": "Ramogi Tv",
         "url": "https://live-onesignal.royalmedia.co.ke/live/-gEXRHc6nSl5aFegh5MrOg.m3u8",
+        "url-1": "https://www.youtube-nocookie.com/embed/live_stream?channel=UCE0YXdRyT9WC96KZfn7C9mQ&autoplay=1&mute=0&rel=0&controls=0&modestbranding=1&fs=1&disablekb=1&iv_load_policy=3",
         "url-2": "channel_id=UCE0YXdRyT9WC96KZfn7C9mQ",
         "logo": "https://viewstream-1.onrender.com/uploads/ramogi.png",
         "country": "Kenya",
